@@ -1085,8 +1085,8 @@ html,body{overflow-x:hidden;max-width:100%}
     </form>
     <div class="kw-foot-cols">
       <div class="kw-foot-col"><p class="kw-foot-col-h">Shop</p><a href="#kwOffer">ThermaWrap</a></div>
-      {% endraw %}<div class="kw-foot-col"><p class="kw-foot-col-h">Rechtliches</p>{% for policy in shop.policies %}<a href="{{ policy.url }}">{% case policy.type %}{% when 'refund_policy' %}Rückgaberecht{% when 'shipping_policy' %}Versand{% when 'terms_of_service' %}AGB{% when 'privacy_policy' %}Datenschutz{% when 'legal_notice' %}Impressum{% else %}{{ policy.title }}{% endcase %}</a>{% endfor %}</div>{% raw %}
-      <div class="kw-foot-col"><p class="kw-foot-col-h">Folge uns</p><a href="#" aria-label="Social Media"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div>
+      {% endraw %}<div class="kw-foot-col"><p class="kw-foot-col-h">Rechtliches</p>{% for policy in shop.policies %}{% unless policy.type == 'cookie_policy' or policy.title contains 'Cookie' %}<a href="{{ policy.url }}">{% case policy.type %}{% when 'refund_policy' %}Rückgaberecht{% when 'shipping_policy' %}Versand{% when 'terms_of_service' %}AGB{% when 'privacy_policy' %}Datenschutz{% when 'legal_notice' %}Impressum{% else %}{{ policy.title }}{% endcase %}</a>{% endunless %}{% endfor %}</div>{% raw %}
+      <div class="kw-foot-col"><p class="kw-foot-col-h">Folge uns</p><a href="https://www.instagram.com/heynuvio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div>
     </div>
     <div class="kw-foot-bottom"><span class="kw-foot-copy">&copy; 2026 heyNuvio &middot; ThermaWrap ersetzt keine ärztliche Beratung oder Behandlung.</span></div>
   </div></section>
