@@ -1079,10 +1079,18 @@ html,body{overflow-x:hidden;max-width:100%}
   <section class="kw-foot"><div class="kw-foot-inner">
     <p class="kw-foot-tag">Ruhige Nächte. <span>Ohne</span> taube Hände.</p>
     <p class="kw-foot-sub">Melde dich an für Tipps gegen nächtliche Handtaubheit und Neuigkeiten von heyNuvio.</p>
-    <form class="kw-foot-form" onsubmit="return false;">
-      <input type="email" placeholder="Deine E-Mail-Adresse" aria-label="Deine E-Mail-Adresse">
+    {% endraw %}
+    {% form 'customer', class: 'kw-foot-form' %}
+      {% if form.posted_successfully? %}
+        <p class="kw-foot-sub" style="color:var(--green);margin:0 0 12px;">Danke! Du bist jetzt angemeldet.</p>
+      {% elsif form.errors %}
+        <p class="kw-foot-sub" style="color:var(--red);margin:0 0 12px;">Bitte gib eine gültige E-Mail-Adresse ein.</p>
+      {% endif %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="email" name="contact[email]" value="{{ form.email }}" placeholder="Deine E-Mail-Adresse" aria-label="Deine E-Mail-Adresse" required>
       <button type="submit">Anmelden</button>
-    </form>
+    {% endform %}
+    {% raw %}
     <div class="kw-foot-cols">
       <div class="kw-foot-col"><p class="kw-foot-col-h">Shop</p><a href="#kwOffer">ThermaWrap</a></div>
       {% endraw %}<div class="kw-foot-col"><p class="kw-foot-col-h">Rechtliches</p>{% for policy in shop.policies %}{% unless policy.type == 'cookie_policy' or policy.title contains 'Cookie' %}<a href="{{ policy.url }}">{% case policy.type %}{% when 'refund_policy' %}Rückgaberecht{% when 'shipping_policy' %}Versand{% when 'terms_of_service' %}AGB{% when 'privacy_policy' %}Datenschutz{% when 'legal_notice' %}Impressum{% else %}{{ policy.title }}{% endcase %}</a>{% endunless %}{% endfor %}</div>{% raw %}
