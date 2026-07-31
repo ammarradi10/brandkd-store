@@ -1,10 +1,19 @@
 {% comment %}
 ================================================================================
-  WHY THERMAWRAP — "8 Gründe" Landingpage
-  Eigenständige Section, Marketing-Winkel: Nighttime Pain Relief
+  10 GRÜNDE, WARUM HEYNUVIO BESSER IST — eigenständige Landingpage-Section
+
+  Getrennt von der Produktseite (sections/kwefi-template.liquid). Nichts an
+  der Produktseite wird durch diese Datei verändert.
+
+  Deckt alle drei Schmerzpunkte der Zielgruppe ab (nächtliche Handschmerzen,
+  bereits Geld für wirkungslose Produkte ausgegeben, Handgelenkbelastung durch
+  lange Schichten) und erklärt zusätzlich konkret, was ThermaWrap technisch
+  macht und warum das besser ist als typische Rotlicht-Wraps.
+
   Bildquelle je Grund: Theme-Editor Bild-Upload (Block-Einstellung) mit
   automatischem Icon-Fallback, falls kein Bild gesetzt ist.
-  Visuelle Identität 1:1 an sections/kwefi-template.liquid angeglichen.
+  Visuelle Identität 1:1 an sections/kwefi-template.liquid angeglichen
+  (gleiche Farb-Variablen, Schriftarten, CTA-Stil).
 ================================================================================
 {% endcomment %}
 
@@ -43,9 +52,15 @@
 /* ====== HERO ====== */
 .wt-hero{padding:80px 24px 48px;text-align:center}
 .wt-eyebrow{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:6px 13px;border-radius:100px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(220,38,38,0.25);margin-bottom:18px}
-.wt-h1{font-family:var(--display);font-weight:400;line-height:1.05;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);font-size:44px;max-width:780px;margin:0 auto 18px}
+.wt-h1{font-family:var(--display);font-weight:400;line-height:1.05;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);font-size:44px;max-width:820px;margin:0 auto 18px}
 .wt-h1 em{color:var(--accent);font-style:normal}
-.wt-sub{font-size:15px;color:var(--tx);line-height:1.6;max-width:540px;margin:0 auto}
+.wt-sub{font-size:15px;color:var(--tx);line-height:1.6;max-width:560px;margin:0 auto}
+
+/* ====== SPEC PILLS (was das Produkt genau macht) ====== */
+.wt-spec-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:24px auto 0;max-width:640px}
+.wt-spec-pill{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--card-line);border-radius:10px;padding:9px 14px;font-family:var(--head);font-weight:700;font-size:12.5px;color:var(--ink)}
+.wt-spec-pill svg{width:15px;height:15px;color:var(--accent);flex-shrink:0}
+.wt-hero-cta{margin-top:30px}
 
 /* ====== TRUST MARQUEE (identisch zur PDP) ====== */
 .wt-trust{padding:22px 0;overflow:hidden;border-top:1px solid var(--accent);border-bottom:1px solid var(--accent);background:var(--bg-soft)}
@@ -83,6 +98,34 @@
 .wt-acc-body{padding:16px 0 0 48px}
 .wt-text{font-size:14.5px;color:var(--tx);line-height:1.65;margin:0}
 
+/* ====== COMPARISON TABLE ====== */
+.wt-cmp-sec{padding:72px 24px;background:var(--bg)}
+.wt-cmp-sec-inner{max-width:760px;margin:0 auto}
+.wt-cmp-head-block{text-align:center;margin-bottom:32px}
+.wt-cmp-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:32px;line-height:1.1;color:var(--ink);margin:0}
+.wt-cmp-h em{color:var(--accent);font-style:normal}
+.wt-cmp{background:var(--card);border:1px solid var(--card-line);border-radius:16px;overflow:hidden}
+.wt-cmp-head{display:grid;grid-template-columns:1.3fr 1fr 1fr;background:var(--bg)}
+.wt-cmp-head>div{padding:14px 10px;font-family:var(--head);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;text-align:center;color:var(--tx-dim)}
+.wt-cmp-head>div.us{color:var(--accent);border-bottom:2px solid var(--accent);background:var(--accent-soft)}
+.wt-cmp-row{display:grid;grid-template-columns:1.3fr 1fr 1fr;border-top:1px solid var(--card-line)}
+.wt-cmp-row>div{padding:12px 10px;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center}
+.wt-cmp-row .feat{font-family:var(--head);font-weight:700;color:var(--ink);justify-content:flex-start;text-align:left}
+.wt-cmp-row .bad{color:var(--tx-dim)}
+.wt-cmp-row .bad::before{content:"\2715 ";color:var(--accent);font-weight:800}
+.wt-cmp-row .good{color:var(--ink);font-weight:600;background:var(--green-soft)}
+.wt-cmp-row .good::before{content:"\2713 ";color:var(--green);font-weight:800}
+
+/* ====== 90-TAGE GARANTIE ====== */
+.wt-mb-sec{background:var(--green-soft);border-top:1px solid rgba(22,163,74,0.3);border-bottom:1px solid rgba(22,163,74,0.3);padding:48px 24px}
+.wt-mb{max-width:680px;margin:0 auto;display:flex;gap:18px;align-items:center}
+.wt-mb-ico{flex-shrink:0;width:60px;height:60px;border-radius:50%;background:var(--green);position:relative}
+.wt-mb-ico::before{content:"90";position:absolute;top:14px;left:0;right:0;text-align:center;font-family:var(--display);font-size:19px;color:#fff;line-height:1}
+.wt-mb-ico::after{content:"TAGE";position:absolute;bottom:13px;left:0;right:0;text-align:center;font-family:var(--head);font-size:7.5px;font-weight:900;color:#fff;letter-spacing:0.08em}
+.wt-mb-title{font-family:var(--head);font-weight:800;font-size:17px;color:var(--ink);line-height:1.3}
+.wt-mb-title strong{color:var(--green)}
+.wt-mb-text{font-size:13.5px;color:var(--tx);line-height:1.55;margin-top:5px}
+
 /* ====== CLOSING CTA ====== */
 .wt-cta-sec{background:var(--bg);border-top:1px solid var(--card-line);padding:72px 24px;text-align:center}
 .wt-cta-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:34px;line-height:1.1;color:var(--ink);max-width:600px;margin:0 auto 28px}
@@ -103,6 +146,10 @@
   .wt-heading{font-size:17px}
   .wt-acc-body{padding-left:0;margin-top:2px}
   .wt-cta-h{font-size:26px}
+  .wt-cmp-sec{padding:52px 16px}
+  .wt-cmp-h{font-size:25px}
+  .wt-cmp-head>div,.wt-cmp-row>div{padding:9px 6px;font-size:11px}
+  .wt-mb{flex-direction:column;text-align:center}
 }
 </style>
 
@@ -115,6 +162,19 @@
     <h1 class="wt-h1">{{ section.settings.heading }}</h1>
     {% if section.settings.subheading != blank %}
       <p class="wt-sub">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    <div class="wt-spec-row">
+      <span class="wt-spec-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>{{ section.settings.spec_pill_1 }}</span>
+      <span class="wt-spec-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12V6a2 2 0 1 1 4 0v5M12 11V5a2 2 0 1 1 4 0v6M16 12V7a2 2 0 1 1 4 0v7c0 4-3 7-7 7h-1c-3 0-4.5-1-6-3l-3-4.5c-.6-1 .2-2.2 1.3-1.9 1 .3 1.9 1 2.7 1.9"/></svg>{{ section.settings.spec_pill_2 }}</span>
+      <span class="wt-spec-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="4.5"/><path d="M12 3v2.5M4.5 8 6.3 9.6M19.5 8l-1.8 1.6M2 19h20"/></svg>{{ section.settings.spec_pill_3 }}</span>
+      <span class="wt-spec-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h6a4 4 0 0 1 4 4v1"/><path d="M7 17h6a4 4 0 0 0 4-4"/><line x1="3" y1="3" x2="21" y2="21"/></svg>{{ section.settings.spec_pill_4 }}</span>
+    </div>
+
+    {% if section.settings.cta_url != blank %}
+      <div class="wt-hero-cta">
+        <a href="{{ section.settings.cta_url }}" class="wt-cta">{{ section.settings.hero_cta_label }}</a>
+      </div>
     {% endif %}
   </section>
 
@@ -155,6 +215,10 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="9" r="3.2"/><circle cx="15.5" cy="9" r="3.2"/><path d="M2.5 19c.6-3 2.8-5 6-5s5.4 2 6 5M9.5 19c.6-3 2.8-5 6-5s5.4 2 6 5"/></svg>
                   {% when 'reason_8' %}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="4.5"/><path d="M12 3v2.5M4.5 8 6.3 9.6M19.5 8l-1.8 1.6M2 19h20"/></svg>
+                  {% when 'reason_9' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                  {% when 'reason_10' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>
                 {% endcase %}
               </div>
             {% endif %}
@@ -178,6 +242,33 @@
     </div>
   </section>
 
+  <section class="wt-cmp-sec">
+    <div class="wt-cmp-sec-inner">
+      <div class="wt-cmp-head-block">
+        <h2 class="wt-cmp-h">ThermaWrap vs. <em>gängige Rotlicht-Wraps</em></h2>
+      </div>
+      <div class="wt-cmp">
+        <div class="wt-cmp-head"><div>Merkmal</div><div>Andere Wraps</div><div class="us">ThermaWrap</div></div>
+        <div class="wt-cmp-row"><div class="feat">Lichttherapie</div><div class="bad">Meist nur 1 Wellenlänge</div><div class="good">660nm &amp; 850nm gleichzeitig</div></div>
+        <div class="wt-cmp-row"><div class="feat">Wärme</div><div class="bad">Eine feste Stufe</div><div class="good">3 Stufen bis 70&deg;C</div></div>
+        <div class="wt-cmp-row"><div class="feat">Vibration</div><div class="bad">Meist nicht vorhanden</div><div class="good">3 Stufen inklusive</div></div>
+        <div class="wt-cmp-row"><div class="feat">Steuerung</div><div class="bad">Fest eingenäht, bricht oft nach Wochen</div><div class="good">Separate, kabellose Fernbedienung</div></div>
+        <div class="wt-cmp-row"><div class="feat">Einsatzbereiche</div><div class="bad">Meist nur 1 Körperstelle</div><div class="good">Handgelenk, Ellenbogen, Knie</div></div>
+        <div class="wt-cmp-row"><div class="feat">Rückgabe</div><div class="bad">Meist keine oder kurze Frist</div><div class="good">90 Tage Geld-zurück-Garantie</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wt-mb-sec">
+    <div class="wt-mb">
+      <div class="wt-mb-ico"></div>
+      <div>
+        <div class="wt-mb-title">Zufrieden oder Geld zurück. <strong>90-Tage-Garantie.</strong></div>
+        <div class="wt-mb-text">Teste ThermaWrap 90 Tage lang in Ruhe. Merkst du keinen Unterschied, schickst du es zurück &ndash; volle Rückerstattung, ohne Anruf, ohne Formular.</div>
+      </div>
+    </div>
+  </section>
+
   <section class="wt-cta-sec">
     <h2 class="wt-cta-h">{{ section.settings.cta_heading }}</h2>
     <a href="{{ section.settings.cta_url }}" class="wt-cta">{{ section.settings.cta_label }}</a>
@@ -195,27 +286,55 @@
 
 {% schema %}
 {
-  "name": "Warum ThermaWrap",
+  "name": "10 Gründe – Warum HeyNuvio besser ist",
   "tag": "section",
-  "class": "why-thermawrap-section",
+  "class": "ten-gruende-heynuvio-section",
   "settings": [
     {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow-Text",
-      "default": "Warum ThermaWrap"
+      "default": "Der ehrliche Vergleich"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Headline",
-      "default": "8 Gründe, warum 3 Uhr nachts bald der Vergangenheit angehört."
+      "default": "10 Gründe, warum ThermaWrap von heyNuvio besser ist als alles, was du bisher probiert hast."
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "Unterüberschrift",
-      "default": "Taube Finger, brennende Handgelenke, hellwach im Dunkeln — das kennst du. Hier sind acht Gründe, warum ThermaWrap genau dafür gebaut wurde."
+      "default": "Taube Finger nachts, Geld für Produkte, die nichts gebracht haben, Hände, die nach der Schicht einfach nicht mehr mitmachen — das kennst du. Hier ist, was ThermaWrap konkret anders macht."
+    },
+    {
+      "type": "header",
+      "content": "Produktmerkmale (Pillen unter der Headline)"
+    },
+    {
+      "type": "text",
+      "id": "spec_pill_1",
+      "label": "Merkmal 1",
+      "default": "660nm & 850nm Rotlicht"
+    },
+    {
+      "type": "text",
+      "id": "spec_pill_2",
+      "label": "Merkmal 2",
+      "default": "3 Wärmestufen bis 70°C"
+    },
+    {
+      "type": "text",
+      "id": "spec_pill_3",
+      "label": "Merkmal 3",
+      "default": "3 Vibrationsstufen"
+    },
+    {
+      "type": "text",
+      "id": "spec_pill_4",
+      "label": "Merkmal 4",
+      "default": "Kabellose Fernbedienung"
     },
     {
       "type": "header",
@@ -223,19 +342,25 @@
     },
     {
       "type": "text",
+      "id": "hero_cta_label",
+      "label": "Button-Text (oben, im Hero)",
+      "default": "ThermaWrap jetzt ansehen"
+    },
+    {
+      "type": "text",
       "id": "cta_heading",
-      "label": "CTA-Überschrift",
-      "default": "Bereit für ruhigere Nächte?"
+      "label": "CTA-Überschrift (unten)",
+      "default": "Bereit, es besser zu machen als alles bisher Probierte?"
     },
     {
       "type": "url",
       "id": "cta_url",
-      "label": "CTA-Link"
+      "label": "CTA-Link (Produktseite)"
     },
     {
       "type": "text",
       "id": "cta_label",
-      "label": "Button-Text",
+      "label": "Button-Text (unten)",
       "default": "ThermaWrap entdecken"
     }
   ],
@@ -319,11 +444,31 @@
         { "type": "text", "id": "heading", "label": "Titel", "default": "Keine Pause fürs Handgelenk während der Schicht" },
         { "type": "textarea", "id": "text", "label": "Text", "default": "Bei einem Bürojob könntest du die Hand kurz hochlegen, eine Pause machen, das Handgelenk schonen. Im Schichtdienst geht das nicht – der nächste Patient klingelt, der nächste Handgriff wartet, egal wie sehr die Hand schon wehtut. Wenn du so dauerhaft durchziehst, ohne der Hand irgendwo Erholung zu geben, kompensierst du irgendwann automatisch mit der anderen Hand oder mit dem Arm – und dann tut es nicht mehr nur an einer Stelle weh, sondern an zwei. Was du dir aussuchen kannst, ist, was du in den 20 Minuten machst, die wirklich dir gehören – vor oder nach der Schicht, in der Umkleide oder zu Hause. ThermaWrap ist kabellos, in Sekunden angelegt, mit 3 Vibrationsstufen für genau die kurzen Fenster, die dir im Schichtalltag tatsächlich bleiben – bevor aus einer überlasteten Hand zwei werden." }
       ]
+    },
+    {
+      "type": "reason_9",
+      "name": "Grund 9",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild" },
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Andere Wraps machen nur eins – ThermaWrap macht drei Dinge gleichzeitig" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Die meisten Rotlicht-Produkte, die du bisher gesehen hast, machen genau eine Sache: Entweder sie leuchten, oder sie wärmen – selten beides zusammen, und Vibration gibt es fast nie dazu. Nur Licht ohne Wärme fühlt sich oft nach nichts an, nur Wärme ohne Licht ist im Grunde eine teure Wärmflasche. Du merkst das meistens erst, wenn du es schon bestellt und ausprobiert hast – und dann wieder von vorne suchst, was tatsächlich hilft. ThermaWrap kombiniert 660nm & 850nm Rotlicht mit 3 Wärmestufen bis 70°C und 3 Vibrationsstufen in einem einzigen Wrap. Die Wärme öffnet das Gewebe, das Licht wirkt gleichzeitig auf zwei unterschiedlichen Hauttiefen, die Vibration lockert zusätzlich die Muskulatur ringsherum – drei Wirkmechanismen, die zur gleichen Zeit an derselben Stelle ansetzen, statt dass du dir für jeden einzeln ein eigenes Gerät kaufen musst." }
+      ]
+    },
+    {
+      "type": "reason_10",
+      "name": "Grund 10",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild" },
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Ein Wrap für Handgelenk, Ellenbogen und Knie – nicht nur für eine Stelle" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Viele Rotlicht-Wraps sind für genau eine Körperstelle geschnitten – meist Knie oder Rücken – und passen dann am Handgelenk entweder gar nicht oder rutschen ständig ab. Wenn bei dir mehrere Stellen wehtun, landest du schnell bei zwei oder drei verschiedenen Produkten, jedes für sich schon bezahlt, jedes mit eigenem Ladekabel, eigener Anleitung, eigenem Platz in der Schublade. ThermaWrap ist mit einem Daumenloch-Design gebaut, das am Handgelenk sicher sitzt, sich aber genauso am Ellenbogen oder Knie befestigen lässt. Du brauchst kein zweites oder drittes Gerät für jede Stelle, die wehtut – du legst dasselbe ThermaWrap einfach dort an, wo es heute nötig ist, und sparst dir das Geld, das du sonst für ein zweites Spezialprodukt ausgegeben hättest." }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Warum ThermaWrap",
+      "name": "10 Gründe – Warum HeyNuvio besser ist",
       "settings": {
         "cta_url": "/products/thermawrap-starter"
       },
@@ -335,7 +480,9 @@
         { "type": "reason_5" },
         { "type": "reason_6" },
         { "type": "reason_7" },
-        { "type": "reason_8" }
+        { "type": "reason_8" },
+        { "type": "reason_9" },
+        { "type": "reason_10" }
       ]
     }
   ]
