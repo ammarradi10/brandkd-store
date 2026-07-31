@@ -89,12 +89,6 @@
 .wt-text p:last-child{margin-bottom:0}
 .wt-text strong{font-weight:800;color:var(--ink)}
 
-/* Grund 10 (Garantie) wird optisch leicht hervorgehoben */
-.wt-card.is-guarantee{border-color:rgba(22,163,74,0.35);background:var(--green-soft)}
-.wt-card.is-guarantee .wt-step-num{background:var(--green)}
-.wt-card.is-guarantee .wt-frame{background:var(--green-soft)}
-.wt-card.is-guarantee .wt-frame-icon svg{color:var(--green)}
-.wt-card.is-guarantee .wt-acc[open] .wt-plus{color:var(--green)}
 
 /* ====== CLOSING CTA ====== */
 .wt-cta-sec{background:var(--bg);border-top:1px solid var(--card-line);padding:72px 24px;text-align:center}
@@ -145,7 +139,7 @@
     <div class="wt-list">
       {% for block in section.blocks %}
         {% assign is_even = forloop.index | modulo: 2 %}
-        <div class="wt-card{% if is_even == 0 %} is-reverse{% endif %}{% if block.type == 'reason_10' %} is-guarantee{% endif %}" {{ block.shopify_attributes }}>
+        <div class="wt-card{% if is_even == 0 %} is-reverse{% endif %}" {{ block.shopify_attributes }}>
           <div class="wt-frame">
             {% if block.settings.image != blank %}
               <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.heading | escape }}" loading="lazy" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
