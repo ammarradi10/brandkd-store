@@ -94,14 +94,27 @@
 .wt-closing p{margin:0;font-size:15px;color:var(--tx);line-height:1.7}
 .wt-closing strong{font-weight:800;color:var(--ink)}
 
-/* ====== CLOSING CTA ====== */
-.wt-cta-sec{background:var(--bg);border-top:1px solid var(--card-line);padding:72px 24px;text-align:center}
-.wt-cta-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:34px;line-height:1.1;color:var(--ink);max-width:600px;margin:0 auto 28px}
-.wt-cta-h em{color:var(--accent);font-style:normal}
+/* ====== SHARED CTA BUTTON / TRUST LINE ====== */
 .wt-cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;text-decoration:none;padding:16px 32px;border-radius:100px;font-family:var(--head);font-weight:800;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 12px 32px -12px rgba(220,38,38,0.45);transition:transform .15s ease,background .15s ease}
 .wt-cta:hover{transform:translateY(-2px);background:var(--accent-deep)}
 .wt-cta::after{content:"\2192";font-size:18px}
 .wt-cta-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:20px;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:var(--green)}
+
+/* ====== CLOSING OFFER CARD ====== */
+.wt-offer-sec{background:var(--bg-soft);border-top:1px solid var(--card-line);padding:72px 24px 80px}
+.wt-offer-wrap{max-width:1000px;margin:0 auto;text-align:center}
+.wt-offer-badge{display:inline-block;background:var(--green);color:#fff;font-family:var(--head);font-weight:800;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;padding:9px 20px;border-radius:100px;position:relative;z-index:2;margin-bottom:-20px;box-shadow:0 8px 20px -8px rgba(22,163,74,0.55)}
+.wt-offer-card{background:var(--bg);border:1px solid var(--card-line);border-radius:24px;box-shadow:0 16px 44px rgba(17,17,17,0.08);padding:44px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:40px;align-items:center;text-align:left}
+.wt-offer-img{aspect-ratio:1;border-radius:16px;background:var(--card);border:1px solid var(--card-line);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.wt-offer-img img{width:100%;height:100%;object-fit:cover}
+.wt-offer-img-icon svg{width:64px;height:64px;color:var(--accent);stroke-width:1.4}
+.wt-offer-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:28px;line-height:1.1;color:var(--ink);margin:0 0 14px}
+.wt-offer-text{font-size:15px;color:var(--tx);line-height:1.65;margin-bottom:26px}
+.wt-offer-text p{margin:0 0 10px}
+.wt-offer-text p:last-child{margin-bottom:0}
+.wt-offer-text strong{font-weight:800;color:var(--ink)}
+.wt-offer-body .wt-cta{width:auto}
+.wt-offer-body .wt-cta-trust{justify-content:flex-start}
 
 @media(max-width:860px){
   .wt-hero{padding:56px 20px 36px}
@@ -115,7 +128,11 @@
   .wt-acc-body{padding-left:0;margin-top:2px}
   .wt-closing{padding:20px 20px 20px 22px;border-radius:0 12px 12px 0}
   .wt-closing p{font-size:13.5px}
-  .wt-cta-h{font-size:26px}
+  .wt-offer-card{grid-template-columns:1fr;padding:28px;text-align:center;gap:24px}
+  .wt-offer-img{max-width:220px;margin:0 auto}
+  .wt-offer-h{font-size:23px}
+  .wt-offer-body .wt-cta-trust{justify-content:center}
+  .wt-offer-badge{font-size:11px;padding:8px 16px}
 }
 </style>
 
@@ -199,10 +216,29 @@
     {% endif %}
   </section>
 
-  <section class="wt-cta-sec">
-    <h2 class="wt-cta-h">{{ section.settings.cta_heading }}</h2>
-    <a href="{{ section.settings.cta_url }}" class="wt-cta">{{ section.settings.cta_label }}</a>
-    <div class="wt-cta-trust">&#10003; Sichere Zahlung &middot; &#10003; 90-Tage-Garantie &middot; &#10003; Kostenloser Versand</div>
+  <section class="wt-offer-sec">
+    <div class="wt-offer-wrap">
+      {% if section.settings.offer_badge != blank %}
+        <span class="wt-offer-badge">{{ section.settings.offer_badge }}</span>
+      {% endif %}
+      <div class="wt-offer-card">
+        <div class="wt-offer-img">
+          {% if section.settings.offer_image != blank %}
+            <img src="{{ section.settings.offer_image | image_url: width: 700 }}" alt="{{ section.settings.offer_heading | escape }}" loading="lazy" width="{{ section.settings.offer_image.width }}" height="{{ section.settings.offer_image.height }}">
+          {% else %}
+            <div class="wt-offer-img-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+            </div>
+          {% endif %}
+        </div>
+        <div class="wt-offer-body">
+          <h2 class="wt-offer-h">{{ section.settings.offer_heading }}</h2>
+          <div class="wt-offer-text">{{ section.settings.offer_text }}</div>
+          <a href="{{ section.settings.offer_cta_url }}" class="wt-cta">{{ section.settings.offer_cta_label }}</a>
+          <div class="wt-cta-trust">&#10003; Kostenloser Versand in ganz Europa &middot; &#10003; 90-Tage-Geld-zurück-Garantie</div>
+        </div>
+      </div>
+    </div>
   </section>
 
 </div>
@@ -250,24 +286,41 @@
     },
     {
       "type": "header",
-      "content": "Abschluss-CTA"
+      "content": "Abschluss-Angebot"
     },
     {
       "type": "text",
-      "id": "cta_heading",
-      "label": "CTA-Überschrift",
-      "default": "Bereit, deinen Händen die Pause zu geben, die sie verdienen?"
+      "id": "offer_badge",
+      "label": "Badge über der Karte",
+      "default": "🎁 Aktuelles Angebot"
+    },
+    {
+      "type": "image_picker",
+      "id": "offer_image",
+      "label": "Produktbild (links)"
+    },
+    {
+      "type": "text",
+      "id": "offer_heading",
+      "label": "Überschrift",
+      "default": "Sichere dir ThermaWrap zu deinem Vorteilspreis"
+    },
+    {
+      "type": "richtext",
+      "id": "offer_text",
+      "label": "Angebotstext",
+      "default": "<p>Als Single für <strong>89,99€</strong> statt 129,00€ oder als Duo-Set für <strong>139,99€</strong> statt 258,00€ inklusive Bonus-Geschenken. Beide Optionen mit <strong>kostenlosem Versand in ganz Europa</strong> und <strong>90 Tage Geld-zurück-Garantie</strong> – merkst du keinen Unterschied, bekommst du dein Geld zurück.</p>"
     },
     {
       "type": "url",
-      "id": "cta_url",
-      "label": "CTA-Link"
+      "id": "offer_cta_url",
+      "label": "Button-Link (zum Kaufbereich)"
     },
     {
       "type": "text",
-      "id": "cta_label",
+      "id": "offer_cta_label",
       "label": "Button-Text",
-      "default": "ThermaWrap entdecken"
+      "default": "Jetzt ThermaWrap sichern"
     }
   ],
   "blocks": [
@@ -376,7 +429,7 @@
     {
       "name": "Warum ThermaWrap",
       "settings": {
-        "cta_url": "/products/thermawrap-starter"
+        "offer_cta_url": "/products/thermawrap-starter#kwOffer"
       },
       "blocks": [
         { "type": "reason_1" },
