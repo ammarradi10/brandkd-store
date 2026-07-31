@@ -84,7 +84,10 @@
 .wt-plus{flex-shrink:0;color:var(--tx-dim);font-size:24px;line-height:1;transition:transform .2s,color .15s}
 .wt-acc[open] .wt-plus{transform:rotate(45deg);color:var(--accent)}
 .wt-acc-body{padding:16px 0 0 48px}
-.wt-text{font-size:14.5px;color:var(--tx);line-height:1.65;margin:0}
+.wt-text{font-size:14.5px;color:var(--tx);line-height:1.65}
+.wt-text p{margin:0 0 10px}
+.wt-text p:last-child{margin-bottom:0}
+.wt-text strong{font-weight:800;color:var(--ink)}
 
 /* Grund 10 (Garantie) wird optisch leicht hervorgehoben */
 .wt-card.is-guarantee{border-color:rgba(22,163,74,0.35);background:var(--green-soft)}
@@ -183,7 +186,7 @@
                 </span>
               </summary>
               <div class="wt-acc-body">
-                <p class="wt-text">{{ block.settings.text }}</p>
+                <div class="wt-text">{{ block.settings.text }}</div>
               </div>
             </details>
           </div>
@@ -260,8 +263,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Die wahre Ursache: Dein Nerv bekommt nachts am wenigsten Sauerstoff" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Sobald du einschläfst, knickt das Handgelenk oft von selbst ab – die Hand liegt unter dem Kopfkissen oder angewinkelt unter dem Körper, stundenlang in derselben Position. Genau das drückt zusätzlich auf die feinen Blutgefäße rund um den Nerv im Handgelenk. Tagsüber bewegst du dich, wechselst automatisch die Haltung und entlastest dabei unbewusst. Nachts passiert das nicht – die Durchblutung ist über Stunden eingeschränkt, und genau dann meldet sich der Nerv mit Kribbeln, Brennen oder dem tauben „Holz-Gefühl“ in den Fingern. Das Kribbeln, das dich aus dem Schlaf reißt, ist also kein Zufall, sondern die eine Tageszeit, an der dein Handgelenk am wenigsten Sauerstoff bekommt. ThermaWrap setzt mit 660nm & 850nm Rotlicht und Wärme bis 70°C genau an dieser Stelle an – dort, wo die Nacht das Problem am stärksten macht." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Nachts bekommt dein Nerv am wenigsten Sauerstoff" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Im Schlaf knickt das Handgelenk oft von selbst ab und drückt auf den Nerv. <strong>Die Durchblutung sinkt genau dann am stärksten</strong> – deshalb kommt das Kribbeln meist nachts zuerst. ThermaWrap setzt mit 660nm &amp; 850nm Rotlicht und Wärme bis 70°C direkt dort an.</p>" }
       ]
     },
     {
@@ -270,8 +273,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Jede Schiene, jede Spritze, jedes Billig-Wrap hat an der falschen Stelle angesetzt" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Zuerst die Handgelenkschiene, die die Position fixieren soll. Dann vielleicht eine Kortisonspritze gegen die Schwellung. Dazwischen ein Rotlicht-Wrap für 30 oder 40 Euro von irgendeiner Amazon-Seite, das nach ein paar Wochen den Geist aufgibt. Jede dieser Lösungen behandelt nur ein Symptom – die Position, die Entzündung, kurzfristige Wärme – aber keine bringt gezielt wieder Durchblutung zum eingeengten Nerv zurück. Kein Wunder, dass sich nach Wochen oder Monaten wieder dasselbe Kribbeln einstellt, während das Geld für die letzten Versuche schon ausgegeben ist. ThermaWrap kombiniert Licht, Wärme und Vibration in einem Gerät, das genau dort wirkt, wo die einzelnen Produkte vorher aufgehört haben." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Schiene, Spritze, Billig-Wrap – nichts hat gehalten" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Jede dieser Lösungen behandelt nur ein Symptom. <strong>Keine bringt gezielt Durchblutung zum eingeengten Nerv zurück</strong> – deshalb kommt das Kribbeln nach Wochen wieder. ThermaWrap kombiniert Licht, Wärme und Vibration in einem Gerät.</p>" }
       ]
     },
     {
@@ -280,8 +283,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Das Bauteil, das wir bewusst vom Wrap getrennt haben" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Fast jedes günstige Rotlicht-Wrap hat ein Problem, über das in der Produktbeschreibung nie steht: Die Steuerung ist direkt ins Gewebe eingenäht. Jedes Mal, wenn du das Wrap anziehst, dich im Schlaf drehst oder es in die Schublade legst, wird genau diese Stelle verdreht und belastet – bis das Kabel am Stecker ausreißt oder die Elektronik durchbrennt. Genau da liegt der Punkt, an dem die meisten Billigprodukte nach wenigen Wochen kaputtgehen, während man sich fragt, ob man einfach Pech hatte. Bei ThermaWrap sitzt die Fernbedienung komplett getrennt und kabellos vom Wrap selbst. Es gibt an der Manschette keine empfindliche Elektronik, die durch Bewegung oder tägliches An- und Ausziehen beschädigt werden kann." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Der Grund, warum Billig-Wraps kaputtgehen" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Bei den meisten Wraps ist die Steuerung ins Gewebe eingenäht – jede Bewegung belastet den Stecker, bis er ausfällt. <strong>Bei ThermaWrap sitzt die Fernbedienung komplett getrennt, kabellos vom Wrap.</strong> Keine Elektronik in der Manschette, die durch Tragen kaputtgeht.</p>" }
       ]
     },
     {
@@ -291,7 +294,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Die Technologie, die den Nerv tatsächlich erreicht" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "ThermaWrap kombiniert zwei Lichtwellenlängen, die zusammenarbeiten: 660nm rotes Licht wirkt eher oberflächlich und beruhigt das Gewebe rund um den Nerv, während 850nm Nahinfrarotlicht tiefer eindringt und die Strukturen erreicht, die für die Durchblutung entscheidend sind. Dazu kommen 3 Wärmestufen bis 70°C und 3 Vibrationsstufen, die die Wirkung von Licht und Wärme unterstützen. Diese Art der Licht- und Wärmetherapie ist keine neue Erfindung: Für die medizinische Nutzung konzentrierten Lichts gab es bereits 1903 den Nobelpreis für Medizin, und in den 1990er-Jahren erforschte die NASA dieselben Wellenlängenbereiche zur Wundheilung von Astronauten. ThermaWrap bringt genau diese Technologie in eine Manschette, die du dir 20 Minuten am Tag ans Handgelenk legst – zu Hause, ohne Termin." }
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>660nm Rotlicht beruhigt das Gewebe, <strong>850nm Nahinfrarot dringt tiefer ein</strong> – dazu 3 Wärmestufen bis 70°C und 3 Vibrationsstufen. Für Lichttherapie gab es 1903 den Nobelpreis für Medizin, die NASA erforschte sie in den 90ern zur Wundheilung von Astronauten.</p>" }
       ]
     },
     {
@@ -300,8 +303,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Kabellos einsetzbar – im Bett genauso wie in der Pause zwischen zwei Schichten" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Weil die Fernbedienung getrennt vom Wrap ist und der Akku direkt in der Manschette sitzt, kannst du ThermaWrap nutzen, ohne nach einer Steckdose suchen zu müssen. Abends vor dem Einschlafen, ohne dass dich ein Kabel im Bett stört oder du beim Drehen daran hängen bleibst. Oder tagsüber, in der kurzen Pause zwischen zwei Terminen, zwei Patienten oder zwei Aufgaben, wenn gerade fünf freie Minuten da sind. Der eingebaute 3000mAh-Akku ist nach rund 3 Stunden vollständig geladen und reicht für etwa 1,5 Stunden Anwendung – genug für mehrere Einsätze zwischen den Ladevorgängen, egal ob nachts am Nachttisch oder tagsüber in der Tasche." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Kabellos – im Bett genauso wie in der Pause" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Die Fernbedienung ist getrennt vom Wrap, der Akku sitzt direkt in der Manschette. <strong>Kein Kabel, das im Bett stört oder in der Pause im Weg ist.</strong> 3 Stunden laden, 1,5 Stunden nutzen.</p>" }
       ]
     },
     {
@@ -310,8 +313,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Das Kribbeln, das dich nachts weckt, lässt meist zuerst nach" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Weil die Position im Schlaf die Durchblutung am stärksten einschränkt, ist die Nacht bei vielen Anwendern auch der Moment, in dem sich als Erstes etwas verändert. Weniger abruptes Aufschrecken durch das plötzliche taube Gefühl in der Hand. Weniger Hin- und Herdrehen, um die Finger erst wieder „wachzuschütteln“, bevor es weitergeht mit dem Schlafen. Individuelle Ergebnisse können variieren, und ThermaWrap ersetzt keine ärztliche Behandlung – aber genau dieser nächtliche Unterschied gehört zu den am häufigsten berichteten Beobachtungen unserer Kunden, meist noch bevor sich tagsüber überhaupt etwas verändert." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Das nächtliche Kribbeln lässt meist zuerst nach" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p><strong>Die Nacht ist bei vielen Anwendern der erste spürbare Unterschied.</strong> Weniger Aufschrecken, weniger Wachliegen. Individuelle Ergebnisse können variieren – ThermaWrap ersetzt keine ärztliche Behandlung.</p>" }
       ]
     },
     {
@@ -320,8 +323,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Nach der Schicht 20 Minuten, bevor das Handgelenk wieder heben, tragen, tippen muss" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Wer im Schichtdienst arbeitet, kennt das: Patienten umlagern, Infusionen richten, stundenlang dokumentieren – immer wieder dieselben Bewegungen, ohne dass das Handgelenk dazwischen wirklich eine Pause bekommt. Nach der zehnten Stunde fühlt es sich anders an als nach der ersten, aber weil der nächste Handgriff schon wartet, bleibt keine Zeit, das zu beachten. ThermaWrap ist so gedacht, dass es genau in die Lücken passt, die im Schichtalltag tatsächlich übrig bleiben – in der Umkleide, im Pausenraum oder direkt auf dem Sofa nach Feierabend. 20 Minuten mit Wärme, Licht und Vibration, bevor am nächsten Tag wieder alles von vorne beginnt." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "20 Minuten nach der Schicht, bevor es weitergeht" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Umlagern, Infusionen richten, stundenlang dokumentieren – das Handgelenk bekommt selten Pause. <strong>ThermaWrap passt in die Lücken, die im Schichtalltag bleiben:</strong> Umkleide, Pausenraum, Sofa nach Feierabend.</p>" }
       ]
     },
     {
@@ -330,8 +333,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Eines Tages denkst du einfach nicht mehr an dein Handgelenk" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Wenn die Hand wehtut, wird jede kleine Bewegung zu einer bewussten Entscheidung: Reicht die Kraft für das Glas? Halte ich die Tasse richtig? Schaffe ich diesen Handgriff noch einmal? Mit der Zeit richtet sich der ganze Tag danach aus, ohne dass es einem richtig auffällt. Viele ThermaWrap-Anwender berichten, dass genau dieses ständige Checken irgendwann aufhört – nicht auf einen Schlag, sondern schleichend, bis ein ganzer Arbeitstag vorbei ist, an dem das Handgelenk kein einziges Mal im Vordergrund stand. Die Hand ist dann wieder das, was sie sein soll: ein Werkzeug, über das man nicht mehr nachdenken muss." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Irgendwann denkst du nicht mehr an dein Handgelenk" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Jede Bewegung wird zur Entscheidung, wenn die Hand wehtut. <strong>Viele Anwender berichten, dass dieses ständige Checken irgendwann aufhört</strong> – schleichend, nicht auf einen Schlag.</p>" }
       ]
     },
     {
@@ -340,8 +343,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Was andere berichten, die schon einiges ausprobiert hatten" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "„Ich bin seit Jahren im Schichtdienst und dachte, die Schmerzen in der Hand gehören einfach dazu. Nach ein paar Wochen mit ThermaWrap nach Feierabend merke ich abends einen echten Unterschied.“ – Sabine, 47, examinierte Krankenschwester. „Ich hatte vorher zwei andere Wraps, beide sind nach wenigen Wochen kaputtgegangen. Diesmal wollte ich erst gar nicht mehr investieren – bin froh, dass ich es trotzdem getan habe.“ – Frank, 54. „Das Aufwachen um drei Uhr nachts mit tauben Fingern war für mich das Schlimmste am ganzen Tag. Das ist inzwischen deutlich seltener geworden.“ – Christine, 61." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Was andere berichten, die schon einiges versucht hatten" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>„<strong>Nach ein paar Wochen mit ThermaWrap nach Feierabend merke ich einen echten Unterschied.</strong>“ – Sabine, 47, Krankenschwester.</p><p>„Zwei andere Wraps sind vorher kaputtgegangen. Diesmal hat es gehalten.“ – Frank, 54.</p><p>„Das Aufwachen um drei Uhr ist deutlich seltener geworden.“ – Christine, 61.</p>" }
       ]
     },
     {
@@ -350,8 +353,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Wenn du in 90 Tagen keinen Unterschied merkst, bekommst du jeden Cent zurück" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Du musst uns nicht einfach glauben – du kannst es in aller Ruhe selbst testen. Nutze ThermaWrap 90 Tage lang, jede Nacht, jede Pause, jede Schicht. Merkst du keinen Unterschied, schickst du es zurück und bekommst dein Geld vollständig erstattet, ohne Kleingedrucktes und ohne zermürbendes Formular. Kein Gefühl von „das war wohl wieder nichts“, wie bei den Produkten, die vorher schon in der Schublade gelandet sind. Das Risiko liegt dieses Mal bei uns, nicht bei dir – 90 Tage lang, kostenloser Versand in ganz Europa inklusive." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "90 Tage testen. Kein Unterschied? Geld zurück." },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p><strong>Kein Kleingedrucktes, kein Formular.</strong> Merkst du in 90 Tagen keinen Unterschied, bekommst du dein Geld vollständig zurück. Kostenloser Versand in ganz Europa inklusive.</p>" }
       ]
     }
   ],
