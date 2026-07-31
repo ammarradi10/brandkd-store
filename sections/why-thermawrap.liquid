@@ -43,8 +43,17 @@
 .wt *,.wt *::before,.wt *::after{box-sizing:border-box}
 .wt img{max-width:100%;height:auto;display:block}
 
+/* Hide currency/search/account/cart in the header, but only on pages
+   that contain this section — leaves the header untouched everywhere else. */
+body:has(.wt) header-actions,
+body:has(.wt) .search-action,
+body:has(.wt) dropdown-localization-component,
+body:has(.wt) .dropdown-localization{
+  display:none !important;
+}
+
 /* ====== HERO ====== */
-.wt-hero{padding:36px 24px 28px}
+.wt-hero{padding:12px 24px 24px}
 .wt-hero-inner{max-width:760px;margin:0 auto;text-align:left}
 .wt-h1{font-family:var(--display);font-weight:400;line-height:1.12;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);font-size:40px;margin:0}
 .wt-h1 em{color:var(--accent);font-style:normal}
@@ -120,7 +129,7 @@
 .wt-offer-body .wt-cta-trust{justify-content:flex-start}
 
 @media(max-width:860px){
-  .wt-hero{padding:28px 20px 20px}
+  .wt-hero{padding:8px 20px 18px}
   .wt-h1{font-size:28px}
   .wt-hero-divider{margin:18px 0}
   .wt-card{grid-template-columns:1fr}
