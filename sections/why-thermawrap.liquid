@@ -89,6 +89,10 @@
 .wt-text p:last-child{margin-bottom:0}
 .wt-text strong{font-weight:800;color:var(--ink)}
 
+/* ====== CLOSING SUMMARY BOX ====== */
+.wt-closing{max-width:1080px;margin:8px auto 0;background:var(--green-soft);border-left:4px solid var(--green);border-radius:0 14px 14px 0;padding:28px 32px;box-shadow:0 4px 16px rgba(17,17,17,0.05)}
+.wt-closing p{margin:0;font-size:15px;color:var(--tx);line-height:1.7}
+.wt-closing strong{font-weight:800;color:var(--ink)}
 
 /* ====== CLOSING CTA ====== */
 .wt-cta-sec{background:var(--bg);border-top:1px solid var(--card-line);padding:72px 24px;text-align:center}
@@ -109,6 +113,8 @@
   .wt-copy{padding:28px 24px}
   .wt-heading{font-size:17px}
   .wt-acc-body{padding-left:0;margin-top:2px}
+  .wt-closing{padding:20px 20px 20px 22px;border-radius:0 12px 12px 0}
+  .wt-closing p{font-size:13.5px}
   .wt-cta-h{font-size:26px}
 }
 </style>
@@ -187,6 +193,10 @@
         </div>
       {% endfor %}
     </div>
+
+    {% if section.settings.closing_text != blank %}
+      <div class="wt-closing">{{ section.settings.closing_text }}</div>
+    {% endif %}
   </section>
 
   <section class="wt-cta-sec">
@@ -227,6 +237,16 @@
       "id": "subheading",
       "label": "Unterüberschrift",
       "default": "Nächtliches Kribbeln, das dich wachhält. Geld, das du schon in Produkte gesteckt hast, die nichts gebracht haben. Ein Job, der deinen Händen keine Pause gönnt. Hier sind zehn konkrete Gründe, warum ThermaWrap trotzdem funktioniert."
+    },
+    {
+      "type": "header",
+      "content": "Abschluss-Zusammenfassung"
+    },
+    {
+      "type": "richtext",
+      "id": "closing_text",
+      "label": "Zusammenfassungs-Box (unter Grund 10)",
+      "default": "<p>Wenn du bis hierhin gelesen hast, ist eines klar geworden: Schienen, Spritzen und Billig-Wraps kümmern sich um Symptome, aber keines bringt gezielt die Durchblutung zurück, die deinem Nerv fehlt. Genau deshalb kommt das Kribbeln immer wieder – ob nachts, nach der Schicht oder beim nächsten Griff nach der Kaffeetasse. <strong>ThermaWrap setzt genau da an, wo diese Lösungen aufhören – und mit 90 Tagen Geld-zurück-Garantie trägst du dabei kein Risiko.</strong></p>"
     },
     {
       "type": "header",
