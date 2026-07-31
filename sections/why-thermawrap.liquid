@@ -44,9 +44,8 @@
 .wt img{max-width:100%;height:auto;display:block}
 
 /* ====== HERO ====== */
-.wt-hero{padding:72px 24px 44px}
+.wt-hero{padding:36px 24px 28px}
 .wt-hero-inner{max-width:760px;margin:0 auto;text-align:left}
-.wt-eyebrow{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:6px 13px;border-radius:100px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(220,38,38,0.25);margin-bottom:18px}
 .wt-h1{font-family:var(--display);font-weight:400;line-height:1.12;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);font-size:40px;margin:0}
 .wt-h1 em{color:var(--accent);font-style:normal}
 .wt-hero-divider{border-top:1px solid var(--card-line);margin:22px 0 22px}
@@ -121,7 +120,7 @@
 .wt-offer-body .wt-cta-trust{justify-content:flex-start}
 
 @media(max-width:860px){
-  .wt-hero{padding:48px 20px 32px}
+  .wt-hero{padding:28px 20px 20px}
   .wt-h1{font-size:28px}
   .wt-hero-divider{margin:18px 0}
   .wt-card{grid-template-columns:1fr}
@@ -145,9 +144,6 @@
 
   <section class="wt-hero">
     <div class="wt-hero-inner">
-      {% if section.settings.eyebrow != blank %}
-        <span class="wt-eyebrow">{{ section.settings.eyebrow }}</span>
-      {% endif %}
       <h1 class="wt-h1">{{ section.settings.heading }}</h1>
       {% if section.settings.subheading != blank %}
         <div class="wt-hero-divider"></div>
@@ -264,12 +260,6 @@
   "tag": "section",
   "class": "why-thermawrap-section",
   "settings": [
-    {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow-Text",
-      "default": "Warum ThermaWrap"
-    },
     {
       "type": "text",
       "id": "heading",
