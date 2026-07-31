@@ -50,7 +50,7 @@
 .wt img{max-width:100%;height:auto;display:block}
 
 /* ====== HERO ====== */
-.wt-hero{padding:80px 24px 48px;text-align:center}
+.wt-hero{padding:44px 24px 48px;text-align:center}
 .wt-eyebrow{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:6px 13px;border-radius:100px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(220,38,38,0.25);margin-bottom:18px}
 .wt-h1{font-family:var(--display);font-weight:400;line-height:1.05;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);font-size:44px;max-width:820px;margin:0 auto 18px}
 .wt-h1 em{color:var(--accent);font-style:normal}
@@ -58,12 +58,6 @@
 .wt-sub p{margin:0 0 10px}
 .wt-sub p:last-child{margin-bottom:0}
 .wt-sub strong{color:var(--ink);font-weight:700}
-
-.wt-rating{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px}
-.wt-stars{display:inline-flex;gap:1px;color:#f59e0b}
-.wt-stars svg{width:16px;height:16px}
-.wt-rating-val{font-family:var(--head);font-weight:800;font-size:15px;color:var(--ink)}
-.wt-rating-label{font-size:12.5px;color:var(--tx-dim);font-weight:600}
 
 /* ====== SPEC PILLS (was das Produkt genau macht) ====== */
 .wt-spec-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:24px auto 0;max-width:640px}
@@ -188,10 +182,9 @@
 .wt-cta-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:20px;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:var(--green)}
 
 @media(max-width:860px){
-  .wt-hero{padding:56px 20px 36px}
+  .wt-hero{padding:32px 20px 36px}
   .wt-h1{font-size:32px}
   .wt-summary{padding:18px 20px}
-  .wt-rating{flex-wrap:wrap;justify-content:center;text-align:center}
   .wt-card{grid-template-columns:1fr}
   .wt-card .wt-frame{order:1 !important}
   .wt-card .wt-copy{order:2 !important}
@@ -222,17 +215,6 @@
     {% if section.settings.eyebrow != blank %}
       <span class="wt-eyebrow">{{ section.settings.eyebrow }}</span>
     {% endif %}
-    <div class="wt-rating">
-      <span class="wt-stars" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg>
-        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg>
-        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg>
-        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg>
-        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg>
-      </span>
-      <span class="wt-rating-val">4,8</span>
-      <span class="wt-rating-label">— dieselbe Bewertung wie auf unserer Produktseite</span>
-    </div>
     <h1 class="wt-h1">{{ section.settings.heading }}</h1>
     {% if section.settings.subheading != blank %}
       <div class="wt-sub">{{ section.settings.subheading }}</div>
@@ -447,13 +429,13 @@
       "type": "text",
       "id": "heading",
       "label": "Headline",
-      "default": "10 Gründe, warum ThermaWrap von heyNuvio besser ist als alles, was du bisher probiert hast."
+      "default": "10 Gründe, warum das Kribbeln in deiner Hand mehr ist als nur ein schlechtes Zeichen für eine Nacht"
     },
     {
       "type": "richtext",
       "id": "subheading",
       "label": "Unterüberschrift",
-      "default": "<p>Was auf den ersten Blick wie eine weitere Rotlicht-Manschette aussieht, ist <strong>mehr als ein Wellness-Gadget</strong>. Drei Wirkmechanismen setzen gleichzeitig an derselben Stelle an – bei tauben Händen in der Nacht, bei Handgelenken, die durch Schichtarbeit dauerhaft belastet sind, und bei allem, was du bisher ohne Erfolg probiert hast. <strong>Warum das einen Unterschied macht?</strong> Diese 10 Gründe zeigen es.</p>"
+      "default": "<p>Was auf den ersten Blick wie eine weitere Rotlicht-Manschette aussieht, ist in Wirklichkeit mehr als ein Wellness-Gadget, denn drei Wirkmechanismen setzen bei ThermaWrap gleichzeitig an derselben Stelle an – bei tauben Händen in der Nacht, bei Handgelenken, die durch Schichtarbeit dauerhaft belastet sind, und bei allem, was du bisher ohne Erfolg probiert hast, und genau diese 10 Gründe zeigen dir, warum das einen echten Unterschied macht.</p>"
     },
     {
       "type": "header",
