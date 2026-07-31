@@ -49,6 +49,8 @@
 .wt-h1{font-family:var(--display);font-weight:400;line-height:1.05;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);font-size:44px;max-width:780px;margin:0 auto 18px}
 .wt-h1 em{color:var(--accent);font-style:normal}
 .wt-sub{font-size:15px;color:var(--tx);line-height:1.6;max-width:540px;margin:0 auto}
+.wt-sub p{margin:0}
+.wt-sub strong{font-weight:800;color:var(--ink)}
 
 /* ====== TRUST MARQUEE (identisch zur PDP) ====== */
 .wt-trust{padding:22px 0;overflow:hidden;border-top:1px solid var(--accent);border-bottom:1px solid var(--accent);background:var(--bg-soft)}
@@ -144,7 +146,7 @@
     {% endif %}
     <h1 class="wt-h1">{{ section.settings.heading }}</h1>
     {% if section.settings.subheading != blank %}
-      <p class="wt-sub">{{ section.settings.subheading }}</p>
+      <div class="wt-sub">{{ section.settings.subheading }}</div>
     {% endif %}
   </section>
 
@@ -266,13 +268,13 @@
       "type": "text",
       "id": "heading",
       "label": "Headline",
-      "default": "10 Gründe, warum ThermaWrap deine tauben, schmerzenden Hände stoppt"
+      "default": "10 Gründe, warum ThermaWrap das nächtliche Kribbeln stoppt, bevor es zum Dauerzustand wird"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "subheading",
       "label": "Unterüberschrift",
-      "default": "Nächtliches Kribbeln, das dich wachhält. Geld, das du schon in Produkte gesteckt hast, die nichts gebracht haben. Ein Job, der deinen Händen keine Pause gönnt. Hier sind zehn konkrete Gründe, warum ThermaWrap trotzdem funktioniert."
+      "default": "<p>Auf den ersten Blick sieht ThermaWrap aus wie eine gewöhnliche Wärmebandage. <strong>Ist es nicht.</strong> Die Kombination aus 660nm &amp; 850nm Rotlicht, Wärme und Vibration ist auf 20 Minuten am Tag ausgelegt – <strong>gebaut, um zu halten</strong>, statt in der Schublade mit den Produkten zu landen, die nie eingehalten haben, was sie versprachen. Diese 10 Gründe zeigen, worauf es dabei ankommt.</p>"
     },
     {
       "type": "header",
