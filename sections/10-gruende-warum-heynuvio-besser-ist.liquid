@@ -70,8 +70,24 @@
 .wt-trust-item{font-family:var(--head);font-weight:800;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap;margin-right:56px}
 .wt-trust-item svg{width:20px;height:20px;color:var(--accent)}
 
+/* ====== WARUM-ES-WIRKT (Mechanismus-Erklärung) ====== */
+.wt-why-sec{padding:72px 24px;background:var(--bg)}
+.wt-why-inner{max-width:1000px;margin:0 auto}
+.wt-why-head{text-align:center;margin-bottom:36px}
+.wt-why-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:34px;line-height:1.1;color:var(--ink);margin:0 auto 14px;max-width:700px}
+.wt-why-h em{color:var(--accent);font-style:normal}
+.wt-why-sub{font-size:14.5px;color:var(--tx);line-height:1.6;max-width:620px;margin:0 auto}
+.wt-why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+.wt-why-card{background:var(--card);border:1px solid var(--card-line);border-radius:16px;padding:26px 24px}
+.wt-why-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--head);font-weight:800;font-size:14px;margin-bottom:14px;border:1px solid rgba(220,38,38,0.25)}
+.wt-why-card-h{font-family:var(--head);font-weight:800;font-size:16px;color:var(--ink);margin:0 0 8px;line-height:1.3}
+.wt-why-card-t{font-size:13.5px;color:var(--tx);line-height:1.6;margin:0}
+.wt-why-disclaimer{font-size:12px;color:var(--tx-dim);line-height:1.6;text-align:center;max-width:760px;margin:28px auto 0;font-style:italic}
+
 /* ====== REASONS LIST ====== */
 .wt-list-sec{background:var(--bg-soft);padding:64px 24px 80px}
+.wt-list-title{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:30px;line-height:1.1;color:var(--ink);text-align:center;max-width:760px;margin:0 auto 40px}
+.wt-list-title em{color:var(--accent);font-style:normal}
 .wt-list{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
 
 .wt-card{background:var(--card);border:1px solid var(--card-line);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;transition:transform .2s ease,box-shadow .2s ease;box-shadow:0 4px 16px rgba(17,17,17,0.05)}
@@ -116,6 +132,20 @@
 .wt-cmp-row .good{color:var(--ink);font-weight:600;background:var(--green-soft)}
 .wt-cmp-row .good::before{content:"\2713 ";color:var(--green);font-weight:800}
 
+/* ====== WISSENSCHAFTLICHER HINTERGRUND ====== */
+.wt-studies-sec{padding:72px 24px;background:var(--bg-soft);border-top:1px solid var(--card-line);border-bottom:1px solid var(--card-line)}
+.wt-studies-inner{max-width:900px;margin:0 auto}
+.wt-studies-head{text-align:center;margin-bottom:32px}
+.wt-studies-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:30px;line-height:1.1;color:var(--ink);margin:0 0 12px}
+.wt-studies-h em{color:var(--accent);font-style:normal}
+.wt-studies-sub{font-size:13.5px;color:var(--tx);line-height:1.6;max-width:600px;margin:0 auto}
+.wt-studies-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:28px}
+.wt-study-card{background:var(--bg);border:1px solid var(--card-line);border-radius:12px;padding:18px 20px}
+.wt-study-src{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--accent);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:8px}
+.wt-study-h{font-family:var(--head);font-weight:800;font-size:14px;color:var(--ink);margin:0 0 6px;line-height:1.35}
+.wt-study-t{font-size:12.5px;color:var(--tx);line-height:1.55;margin:0}
+.wt-studies-disc{font-size:12px;color:var(--tx-dim);text-align:center;margin:28px auto 0;max-width:760px;line-height:1.6;font-style:italic}
+
 /* ====== 90-TAGE GARANTIE ====== */
 .wt-mb-sec{background:var(--green-soft);border-top:1px solid rgba(22,163,74,0.3);border-bottom:1px solid rgba(22,163,74,0.3);padding:48px 24px}
 .wt-mb{max-width:680px;margin:0 auto;display:flex;gap:18px;align-items:center}
@@ -150,6 +180,13 @@
   .wt-cmp-h{font-size:25px}
   .wt-cmp-head>div,.wt-cmp-row>div{padding:9px 6px;font-size:11px}
   .wt-mb{flex-direction:column;text-align:center}
+  .wt-why-sec{padding:52px 16px}
+  .wt-why-h{font-size:25px}
+  .wt-why-grid{grid-template-columns:1fr}
+  .wt-list-title{font-size:23px;margin-bottom:28px}
+  .wt-studies-sec{padding:52px 16px}
+  .wt-studies-h{font-size:23px}
+  .wt-studies-grid{grid-template-columns:1fr}
 }
 </style>
 
@@ -188,7 +225,35 @@
     </div>
   </section>
 
+  <section class="wt-why-sec">
+    <div class="wt-why-inner">
+      <div class="wt-why-head">
+        <h2 class="wt-why-h">Warum das mehr ist als ein <em>weiteres Wellness-Gadget</em></h2>
+        <p class="wt-why-sub">Taubheit, Kribbeln und nächtliches Aufwachen haben eine nachvollziehbare körperliche Ursache. Hier sind die drei Mechanismen, an denen ThermaWrap gleichzeitig ansetzt.</p>
+      </div>
+      <div class="wt-why-grid">
+        <div class="wt-why-card">
+          <span class="wt-why-num">1</span>
+          <h3 class="wt-why-card-h">Eingeklemmter Nerv, gesenkte Durchblutung</h3>
+          <p class="wt-why-card-t">Taubheit und Kribbeln in Fingern und Handgelenk entstehen häufig, wenn ein Nerv – etwa der Nervus medianus im Karpaltunnel – durch geschwollenes Gewebe oder angespannte Sehnenscheiden zusammengedrückt wird. Das senkt die Durchblutung an dieser Stelle spürbar. Wärme wirkt dem entgegen: Sie weitet die Blutgefäße (Vasodilatation) und entspannt die umliegende Muskulatur, die den Nerv zusätzlich unter Druck setzt.</p>
+        </div>
+        <div class="wt-why-card">
+          <span class="wt-why-num">2</span>
+          <h3 class="wt-why-card-h">Rotlicht liefert den Zellen mehr Energie</h3>
+          <p class="wt-why-card-t">660nm und 850nm Licht dringen unterschiedlich tief in Haut und Gewebe ein und werden von den Mitochondrien der Zellen aufgenommen. Dieser als Photobiomodulation bekannte Prozess wurde in mehreren unabhängigen Studien im Zusammenhang mit Mikrozirkulation und Zellstoffwechsel untersucht (Quellen weiter unten) – diese Studien beziehen sich auf die Lichttechnologie im Allgemeinen, nicht auf ThermaWrap als fertiges Produkt.</p>
+        </div>
+        <div class="wt-why-card">
+          <span class="wt-why-num">3</span>
+          <h3 class="wt-why-card-h">Vibration nutzt einen körpereigenen Schmerzfilter</h3>
+          <p class="wt-why-card-t">Nach der in der Schmerzforschung anerkannten Gate-Control-Theorie können mechanische Reize wie Vibration über schnelle Nervenfasern die Weiterleitung von Schmerzsignalen im Rückenmark dämpfen – ähnlich wie Reiben einer gestoßenen Stelle instinktiv Linderung bringt. Deshalb fühlt sich die Kombination für viele unmittelbarer an als ein Produkt mit nur einer dieser drei Komponenten.</p>
+        </div>
+      </div>
+      <p class="wt-why-disclaimer">Diese Erklärungen beschreiben anerkannte physiologische Mechanismen von Wärme-, Licht- und Vibrationsanwendungen im Allgemeinen. ThermaWrap ist ein Wellness-Produkt und kein Medizinprodukt und ersetzt keine ärztliche Diagnose oder Behandlung. Bei anhaltender oder zunehmender Taubheit sowie bei bestehenden Vorerkrankungen (z. B. diagnostiziertem Karpaltunnelsyndrom, Diabetes, Nervenschäden) sprich vorher mit deinem Arzt oder deiner Ärztin.</p>
+    </div>
+  </section>
+
   <section class="wt-list-sec">
+    <h2 class="wt-list-title">10 konkrete Situationen — <em>und was ThermaWrap jeweils dagegen tut</em></h2>
     <div class="wt-list">
       {% for block in section.blocks %}
         {% assign is_even = forloop.index | modulo: 2 %}
@@ -259,6 +324,38 @@
     </div>
   </section>
 
+  <section class="wt-studies-sec">
+    <div class="wt-studies-inner">
+      <div class="wt-studies-head">
+        <h2 class="wt-studies-h">Was <em>unabhängige Studien</em> zur zugrunde liegenden Technologie zeigen</h2>
+        <p class="wt-studies-sub">Diese Studien untersuchen die in ThermaWrap eingesetzte Licht- und Wärmetechnologie im Allgemeinen – nicht das ThermaWrap-Produkt selbst.</p>
+      </div>
+      <div class="wt-studies-grid">
+        <div class="wt-study-card">
+          <div class="wt-study-src">Gavish et al., 2020</div>
+          <h3 class="wt-study-h">Mikrozirkulatorische Reaktion auf Photobiomodulation</h3>
+          <p class="wt-study-t">Lasers in Surgery and Medicine, NCT03357523. Nahinfrarotlicht steigerte die Durchblutung in der Studie um bis zu 54%.</p>
+        </div>
+        <div class="wt-study-card">
+          <div class="wt-study-src">Yun et al., 2024</div>
+          <h3 class="wt-study-h">Lasertherapie bei Handgelenkschmerzen</h3>
+          <p class="wt-study-t">Lasers in Medical Science, KCT0006604. Signifikante Schmerzreduktion nach 15 Sitzungen – ohne berichtete Nebenwirkungen.</p>
+        </div>
+        <div class="wt-study-card">
+          <div class="wt-study-src">Li et al., 2016</div>
+          <h3 class="wt-study-h">Wirksamkeit bei Karpaltunnelsyndrom</h3>
+          <p class="wt-study-t">Medicine (Baltimore). Metaanalyse von 7 randomisierten Studien mit 531 Handgelenken – signifikante Verbesserung von Griffkraft und Schmerz-Score.</p>
+        </div>
+        <div class="wt-study-card">
+          <div class="wt-study-src">Attiyah et al., 2025</div>
+          <h3 class="wt-study-h">Photobiomodulation bei myofaszialen Schmerzen</h3>
+          <p class="wt-study-t">BMC Oral Health. Randomisierte kontrollierte Studie, Schmerzreduktion von 62–73% durch Rot- und Nahinfrarotlicht.</p>
+        </div>
+      </div>
+      <p class="wt-studies-disc">Transparenz ist uns wichtig: Die hier gezeigten Studien beziehen sich auf die zugrunde liegende Licht- und Wärmetechnologie im Allgemeinen, nicht auf ThermaWrap als spezifisches Produkt. Individuelle Ergebnisse können variieren. ThermaWrap ersetzt keine ärztliche Beratung oder Behandlung.</p>
+    </div>
+  </section>
+
   <section class="wt-mb-sec">
     <div class="wt-mb">
       <div class="wt-mb-ico"></div>
@@ -306,7 +403,7 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Unterüberschrift",
-      "default": "Taube Finger nachts, Geld für Produkte, die nichts gebracht haben, Hände, die nach der Schicht einfach nicht mehr mitmachen — das kennst du. Hier ist, was ThermaWrap konkret anders macht."
+      "default": "Taube Finger nachts, Geld für Produkte, die nichts gebracht haben, Hände, die nach der Schicht einfach nicht mehr mitmachen — das kennst du. Was die wenigsten wissen: Dahinter steckt meist eine ganz konkrete körperliche Ursache. Hier siehst du genau, was in deiner Hand passiert und was ThermaWrap technisch dagegen tut."
     },
     {
       "type": "header",
@@ -372,7 +469,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Taube Finger und Brennen wecken dich um 3 Uhr nachts" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Es passiert nicht jede Nacht zur gleichen Zeit, aber es passiert. Du bist tief im Schlaf, und dann reißt dich ein Ziehen oder Brennen in der Hand raus – bevor du überhaupt richtig wach bist, ist die Taubheit schon da. Die meisten greifen dann zu nichts, weil nichts griffbereit ist: die Schmerztablette liegt im Bad, die Wärmflasche ist längst kalt. Wenn du das einfach so weiterlaufen lässt, wird aus der einen Unterbrechung schnell ein Muster – du wachst nicht nur auf, du bleibst wach, drehst dich, schaust auf die Uhr, und irgendwann schläft auch dein Partner schlechter, weil du unruhig wirst. ThermaWrap liegt neben deinem Kopfkissen, nicht im Bad, nicht im Schrank. Du legst es an, und zwei Rotlicht-Wellenlängen (660nm & 850nm) setzen zusammen mit Wärme bis 70°C sofort ein – heute Nacht, nicht erst, wenn du wieder daran denkst, es zu bestellen." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Es passiert nicht jede Nacht zur gleichen Zeit, aber es passiert. Du bist tief im Schlaf, und dann reißt dich ein Ziehen, Kribbeln oder Brennen in der Hand raus – noch bevor du richtig wach bist, ist die Taubheit schon da. Das ist keine Einbildung: Wenn das Handgelenk im Schlaf abgeknickt wird, steigt der Druck im Karpaltunnel, durch den der Nervus medianus verläuft – die Durchblutung an dieser Stelle sinkt, und genau das erzeugt das bekannte Einschlafen der Finger. Mediziner sprechen hier von nächtlichen Parästhesien, einem der häufigsten Frühzeichen bei Reizungen dieses Nervs. Wer das über Monate ignoriert, riskiert mehr als nur schlechten Schlaf: Anhaltender Druck auf einen Nerv kann sich mit der Zeit verstärken statt von allein zu verschwinden – bei anhaltender oder zunehmender Taubheit lohnt sich zusätzlich ärztlicher Rat. ThermaWrap liegt neben deinem Kopfkissen, nicht im Bad, nicht im Schrank. Du legst es an, und zwei Rotlicht-Wellenlängen (660nm & 850nm) setzen zusammen mit Wärme bis 70°C sofort ein: Die Wärme weitet die Gefäße und verbessert die Durchblutung rund um die gereizte Stelle, während das Licht auf zellulärer Ebene ansetzt – heute Nacht, nicht erst, wenn du wieder daran denkst, es zu bestellen." }
       ]
     },
     {
@@ -382,7 +479,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Keine Schlafposition mehr ohne Schmerzen im Handgelenk" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Du legst dich hin, und eigentlich müsstest du jetzt einfach einschlafen können. Stattdessen suchst du eine Position, in der sich deine Hand nicht taub anfühlt – erst auf der einen Seite, dann auf der anderen, das Kissen unter dem Arm, dann wieder weg. Aus zehn Minuten werden zwanzig, aus zwanzig manchmal eine Stunde. Wenn das zur Gewohnheit wird, verbindest du dein Bett irgendwann nicht mehr mit Ruhe, sondern mit genau diesem Kampf. ThermaWrap hat eine Fernbedienung, die komplett vom Wrap getrennt ist – du kannst dich drehen und wenden, ohne dass ein Kabel im Weg ist. Die Kombination aus 660nm & 850nm Rotlicht und 3 Vibrationsstufen lenkt direkt von der Unruhe ab, die dich sonst wachhält – noch bevor sich das zur festen Angewohnheit entwickelt." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Du legst dich hin, und eigentlich müsstest du jetzt einfach einschlafen können. Stattdessen suchst du eine Position, in der sich deine Hand nicht taub anfühlt – erst auf der einen Seite, dann auf der anderen, das Kissen unter dem Arm, dann wieder weg. Was viele nicht wissen: Der Körper reagiert auf einen gereizten Nerv oft automatisch mit einer Schonhaltung der umliegenden Muskulatur – sie spannt sich unbewusst an, um die Stelle zu schützen, was den Druck auf den Nerv eher erhöht als senkt. Aus zehn Minuten Positionssuche werden zwanzig, aus zwanzig manchmal eine Stunde. Wenn das zur Gewohnheit wird, verbindest du dein Bett irgendwann nicht mehr mit Ruhe, sondern mit genau diesem Kampf. ThermaWrap hat eine Fernbedienung, die komplett vom Wrap getrennt ist – du kannst dich drehen und wenden, ohne dass ein Kabel im Weg ist. Die Vibration nutzt dabei einen Mechanismus, den Schmerzforscher als Gate-Control-Theorie bezeichnen: Mechanische Reize werden über schnelle Nervenfasern weitergeleitet und können die Weiterleitung von Schmerz- und Spannungssignalen dämpfen – ähnlich wie Reiben einer gestoßenen Stelle instinktiv Linderung bringt. Zusammen mit 660nm & 850nm Rotlicht wirkt das der Unruhe entgegen, die dich sonst wachhält – noch bevor sich das zur festen Angewohnheit entwickelt." }
       ]
     },
     {
@@ -392,7 +489,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Schlafmangel durch nächtliche Handgelenkschmerzen" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Es ist nicht die eine schlechte Nacht, die dich fertigmacht. Es sind die vielen dazwischen – die Nächte, in denen du zwei- oder dreimal wach wirst, nie richtig tief schläfst, und morgens das Gefühl hast, gar nicht geschlafen zu haben. Nach ein paar Wochen ist das nicht mehr die Ausnahme, sondern dein Normalzustand: Du bist gereizter, kannst dich schlechter konzentrieren, und selbst dein freier Tag reicht nicht mehr, um das aufzuholen. ThermaWrap ist nicht für den einen Notfall gedacht, sondern für 20 Minuten mit 660nm & 850nm Rotlicht, die du dir jeden Abend nimmst, bevor die Nacht überhaupt beginnt. Je früher du damit anfängst, desto weniger Nächte sammeln sich an, gegen die du erst wieder ankämpfen musst." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Es ist nicht die eine schlechte Nacht, die dich fertigmacht. Es sind die vielen dazwischen – die Nächte, in denen du zwei- oder dreimal wach wirst, nie richtig in den Tiefschlaf kommst, und morgens das Gefühl hast, gar nicht geschlafen zu haben. Das ist mehr als nur Müdigkeit: Gerade in den tiefen Schlafphasen laufen wichtige Erholungsprozesse im Körper ab, und wiederholtes nächtliches Aufwachen unterbricht genau diese Phasen. Die Schlafforschung kennt zudem einen Kreislauf, den viele unterschätzen: Schlechter Schlaf erhöht die eigene Schmerzempfindlichkeit, und mehr Schmerz erschwert wiederum das Einschlafen – ein Muster, das sich von selbst verstärkt, wenn nichts dagegen unternommen wird. Nach ein paar Wochen ist das nicht mehr die Ausnahme, sondern dein Normalzustand: Du bist gereizter, kannst dich schlechter konzentrieren, und selbst dein freier Tag reicht nicht mehr, um das aufzuholen. ThermaWrap ist nicht für den einen Notfall gedacht, sondern für 20 Minuten mit 660nm & 850nm Rotlicht, die du dir jeden Abend nimmst, bevor die Nacht überhaupt beginnt – um an genau diesem Kreislauf anzusetzen, statt ihn Nacht für Nacht von neuem zuzulassen." }
       ]
     },
     {
@@ -402,7 +499,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Schon wieder Geld für ein wirkungsloses Produkt ausgegeben" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Du hast wahrscheinlich schon mehr ausprobiert, als du zugeben willst. Die Bandage, die nur Druck gemacht hat. Die Salbe, die zwei Tage geholfen hat und dann nicht mehr. Das Gerät für 15 Euro, das du nach einer Woche in die Schublade gelegt hast. Jedes Mal die gleiche Hoffnung, jedes Mal die gleiche Enttäuschung – und wenn du so weitermachst, gibst du irgendwann nicht das Produkt auf, sondern die Suche selbst. Du gewöhnst dich an den Schmerz, weil du glaubst, es wirkt sowieso nichts. Bei ThermaWrap bekommst du nicht noch ein Versprechen – du bekommst 90 Tage Geld-zurück-Garantie, um es wirklich zu testen. Hilft es dir nicht, schickst du es zurück und bekommst dein Geld, ohne Diskussion. Diesmal riskierst du nicht wieder nur Hoffnung, sondern hast eine echte Frist, in der du es weißt." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Du hast wahrscheinlich schon mehr ausprobiert, als du zugeben willst. Die Bandage, die nur Druck gemacht hat. Die Salbe, die zwei Tage geholfen hat und dann nicht mehr. Das Gerät für 15 Euro, das du nach einer Woche in die Schublade gelegt hast. Ein Grund dafür: Viele dieser Produkte setzen nur an einem einzigen Punkt an – nur Druck, nur Wärme oder nur ein Wirkstoff –, während Beschwerden durch Nervenkompression meist mehrere Ursachen gleichzeitig haben (Durchblutung, Muskelspannung, Nervenreizung). Ein einzelner Hebel reicht dann oft nicht, egal wie oft du ihn wechselst. Jedes Mal die gleiche Hoffnung, jedes Mal die gleiche Enttäuschung – und wenn du so weitermachst, gibst du irgendwann nicht das Produkt auf, sondern die Suche selbst. Du gewöhnst dich an den Schmerz, weil du glaubst, es wirkt sowieso nichts. Bei ThermaWrap bekommst du nicht noch ein Versprechen – du bekommst 90 Tage Geld-zurück-Garantie, um es wirklich zu testen. Hilft es dir nicht, schickst du es zurück und bekommst dein Geld, ohne Diskussion. Diesmal riskierst du nicht wieder nur Hoffnung, sondern hast eine echte Frist, in der du es weißt." }
       ]
     },
     {
@@ -432,7 +529,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "12-Stunden-Schichten belasten dein Handgelenk jeden Tag" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Um 7 Uhr morgens sind deine Hände noch okay. Um 17 Uhr, nach zehn Stunden Betten machen, Infusionen legen, Patienten umlagern und Dokumentation tippen, fühlt sich dein Handgelenk an, als würdest du es die ganze Zeit zusammendrücken. Das baut sich nicht an einem Tag auf – es summiert sich über Wochen und Monate, Schicht für Schicht, bis der Schmerz auch an deinen freien Tagen bleibt und du anfängst, Handgriffe zu meiden, die du früher ohne nachzudenken erledigt hast. Manche Kolleginnen wechseln deshalb irgendwann in leichtere Bereiche oder reduzieren ihre Stunden – nicht, weil sie den Job nicht mehr können, sondern weil die Hand nicht mehr mitmacht. ThermaWrap ist für genau diesen Rhythmus gemacht: 20 Minuten mit Wärme bis 70°C nach der Schicht, bevor du duschst oder isst, damit sich dein Handgelenk von dem erholt, was du ihm gerade zugemutet hast – bevor daraus der Grund wird, etwas an deinem Job zu ändern, das du eigentlich gar nicht ändern willst." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Um 7 Uhr morgens sind deine Hände noch okay. Um 17 Uhr, nach zehn Stunden Betten machen, Infusionen legen, Patienten umlagern und Dokumentation tippen, fühlt sich dein Handgelenk an, als würdest du es die ganze Zeit zusammendrücken. Das ist kein Zufall: Wiederholte, oft kraftvolle Greif- und Drehbewegungen über viele Stunden zählen zu den bekannten Ursachen für Sehnenscheiden- und Nervenreizungen im Handgelenk – arbeitsmedizinische Untersuchungen zeigen, dass Pflegekräfte aufgrund solcher wiederkehrenden Belastungen überdurchschnittlich häufig von Handgelenksbeschwerden betroffen sind. Das baut sich nicht an einem Tag auf – es summiert sich über Wochen und Monate, Schicht für Schicht, als sogenannte repetitive Belastung, bis der Schmerz auch an deinen freien Tagen bleibt und du anfängst, Handgriffe zu meiden, die du früher ohne nachzudenken erledigt hast. Manche Kolleginnen wechseln deshalb irgendwann in leichtere Bereiche oder reduzieren ihre Stunden – nicht, weil sie den Job nicht mehr können, sondern weil die Hand nicht mehr mitmacht. ThermaWrap ist für genau diesen Rhythmus gemacht: 20 Minuten mit Wärme bis 70°C nach der Schicht fördern die Durchblutung der beanspruchten Muskulatur und Sehnen, bevor du duschst oder isst – damit sich dein Handgelenk von dem erholt, was du ihm gerade zugemutet hast, bevor daraus der Grund wird, etwas an deinem Job zu ändern, das du eigentlich gar nicht ändern willst." }
       ]
     },
     {
@@ -442,7 +539,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Keine Pause fürs Handgelenk während der Schicht" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Bei einem Bürojob könntest du die Hand kurz hochlegen, eine Pause machen, das Handgelenk schonen. Im Schichtdienst geht das nicht – der nächste Patient klingelt, der nächste Handgriff wartet, egal wie sehr die Hand schon wehtut. Wenn du so dauerhaft durchziehst, ohne der Hand irgendwo Erholung zu geben, kompensierst du irgendwann automatisch mit der anderen Hand oder mit dem Arm – und dann tut es nicht mehr nur an einer Stelle weh, sondern an zwei. Was du dir aussuchen kannst, ist, was du in den 20 Minuten machst, die wirklich dir gehören – vor oder nach der Schicht, in der Umkleide oder zu Hause. ThermaWrap ist kabellos, in Sekunden angelegt, mit 3 Vibrationsstufen für genau die kurzen Fenster, die dir im Schichtalltag tatsächlich bleiben – bevor aus einer überlasteten Hand zwei werden." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Bei einem Bürojob könntest du die Hand kurz hochlegen, eine Pause machen, das Handgelenk schonen. Im Schichtdienst geht das nicht – der nächste Patient klingelt, der nächste Handgriff wartet, egal wie sehr die Hand schon wehtut. Wenn du so dauerhaft durchziehst, ohne der Hand irgendwo Erholung zu geben, kompensierst du irgendwann automatisch mit der anderen Hand, dem Ellenbogen oder der Schulter – ein Ausweichmuster, das häufig neue Reizungen an anderer Stelle auslöst, etwa im Ellenbogen (umgangssprachlich „Tennisarm“). Aus einer überlasteten Stelle werden so leicht zwei oder drei. Was du dir aussuchen kannst, ist, was du in den 20 Minuten machst, die wirklich dir gehören – vor oder nach der Schicht, in der Umkleide oder zu Hause. ThermaWrap ist kabellos, in Sekunden angelegt, mit 3 Vibrationsstufen für genau die kurzen Fenster, die dir im Schichtalltag tatsächlich bleiben – bevor aus einer überlasteten Hand zwei oder drei werden." }
       ]
     },
     {
@@ -452,7 +549,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Andere Wraps machen nur eins – ThermaWrap macht drei Dinge gleichzeitig" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Die meisten Rotlicht-Produkte, die du bisher gesehen hast, machen genau eine Sache: Entweder sie leuchten, oder sie wärmen – selten beides zusammen, und Vibration gibt es fast nie dazu. Nur Licht ohne Wärme fühlt sich oft nach nichts an, nur Wärme ohne Licht ist im Grunde eine teure Wärmflasche. Du merkst das meistens erst, wenn du es schon bestellt und ausprobiert hast – und dann wieder von vorne suchst, was tatsächlich hilft. ThermaWrap kombiniert 660nm & 850nm Rotlicht mit 3 Wärmestufen bis 70°C und 3 Vibrationsstufen in einem einzigen Wrap. Die Wärme öffnet das Gewebe, das Licht wirkt gleichzeitig auf zwei unterschiedlichen Hauttiefen, die Vibration lockert zusätzlich die Muskulatur ringsherum – drei Wirkmechanismen, die zur gleichen Zeit an derselben Stelle ansetzen, statt dass du dir für jeden einzeln ein eigenes Gerät kaufen musst." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Die meisten Rotlicht-Produkte, die du bisher gesehen hast, machen genau eine Sache: Entweder sie leuchten, oder sie wärmen – selten beides zusammen, und Vibration gibt es fast nie dazu. Nur Licht ohne Wärme fühlt sich oft nach nichts an, nur Wärme ohne Licht ist im Grunde eine teure Wärmflasche. Der Grund, warum die Kombination einen Unterschied macht, liegt in drei unterschiedlichen Wirkwegen: 660nm & 850nm Rotlicht dringen unterschiedlich tief ins Gewebe ein und werden von den Mitochondrien der Zellen aufgenommen – ein Prozess namens Photobiomodulation, der in unabhängigen Studien im Zusammenhang mit Zellstoffwechsel und Mikrozirkulation untersucht wurde. Wärme bis 70°C sorgt zusätzlich für eine Weitung der Blutgefäße und verbessert dadurch die lokale Durchblutung. Vibration wirkt über einen dritten, rein mechanischen Weg auf die Schmerzwahrnehmung. Diese drei Mechanismen laufen bei ThermaWrap gleichzeitig an derselben Stelle ab, statt dass du dir für jeden einzeln ein eigenes Gerät kaufen musst." }
       ]
     },
     {
@@ -462,7 +559,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
         { "type": "text", "id": "heading", "label": "Titel", "default": "Ein Wrap für Handgelenk, Ellenbogen und Knie – nicht nur für eine Stelle" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Viele Rotlicht-Wraps sind für genau eine Körperstelle geschnitten – meist Knie oder Rücken – und passen dann am Handgelenk entweder gar nicht oder rutschen ständig ab. Wenn bei dir mehrere Stellen wehtun, landest du schnell bei zwei oder drei verschiedenen Produkten, jedes für sich schon bezahlt, jedes mit eigenem Ladekabel, eigener Anleitung, eigenem Platz in der Schublade. ThermaWrap ist mit einem Daumenloch-Design gebaut, das am Handgelenk sicher sitzt, sich aber genauso am Ellenbogen oder Knie befestigen lässt. Du brauchst kein zweites oder drittes Gerät für jede Stelle, die wehtut – du legst dasselbe ThermaWrap einfach dort an, wo es heute nötig ist, und sparst dir das Geld, das du sonst für ein zweites Spezialprodukt ausgegeben hättest." }
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Viele Rotlicht-Wraps sind für genau eine Körperstelle geschnitten – meist Knie oder Rücken – und passen dann am Handgelenk entweder gar nicht oder rutschen ständig ab. Das ist besonders unpraktisch, weil Überlastung selten an einer einzigen Stelle bleibt: Wie in Grund 8 beschrieben, kompensiert der Körper eine überlastete Stelle oft mit einer benachbarten – wer heute am Handgelenk schont, spürt morgen vielleicht am Ellenbogen etwas. Wenn bei dir mehrere Stellen betroffen sind, landest du schnell bei zwei oder drei verschiedenen Produkten, jedes für sich schon bezahlt, jedes mit eigenem Ladekabel, eigener Anleitung, eigenem Platz in der Schublade. ThermaWrap ist mit einem Daumenloch-Design gebaut, das am Handgelenk sicher sitzt, sich aber genauso am Ellenbogen oder Knie befestigen lässt. Du brauchst kein zweites oder drittes Gerät für jede Stelle, die wehtut – du legst dasselbe ThermaWrap einfach dort an, wo es heute nötig ist, und sparst dir das Geld, das du sonst für ein zweites Spezialprodukt ausgegeben hättest." }
       ]
     }
   ],
