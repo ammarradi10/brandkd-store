@@ -74,15 +74,15 @@ body:has(.wt) .header-logo{
 .wt-list-sec{background:var(--bg-soft);padding:64px 24px 80px}
 .wt-list{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
 
-.wt-card{background:var(--card);border:1px solid var(--card-line);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;transition:transform .2s ease,box-shadow .2s ease;box-shadow:0 4px 16px rgba(17,17,17,0.05)}
+.wt-card{background:var(--card);border:1px solid var(--card-line);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;align-items:start;transition:transform .2s ease,box-shadow .2s ease;box-shadow:0 4px 16px rgba(17,17,17,0.05)}
 .wt-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(17,17,17,0.10)}
 .wt-card .wt-frame{order:1}
 .wt-card .wt-copy{order:2}
 .wt-card.is-reverse .wt-frame{order:2}
 .wt-card.is-reverse .wt-copy{order:1}
 
-.wt-frame{position:relative;min-height:280px;background:var(--accent-soft)}
-.wt-frame img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.wt-frame{position:relative;aspect-ratio:1/1;background:var(--accent-soft)}
+.wt-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .wt-frame-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .wt-frame-icon svg{width:56px;height:56px;color:var(--accent);stroke-width:1.6}
 
@@ -136,7 +136,7 @@ body:has(.wt) .header-logo{
   .wt-card{grid-template-columns:1fr}
   .wt-card .wt-frame{order:1 !important}
   .wt-card .wt-copy{order:2 !important}
-  .wt-frame{min-height:220px}
+  /* aspect-ratio:1/1 from the base rule already keeps images square on mobile */
   .wt-copy{padding:28px 24px}
   .wt-heading{font-size:17px}
   .wt-acc-body{padding-left:0;margin-top:2px}
