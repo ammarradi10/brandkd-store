@@ -68,6 +68,33 @@ html,body{overflow-x:hidden;max-width:100%}
   margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
 }
 .kw *,.kw *::before,.kw *::after{box-sizing:border-box}
+
+/* Fixed-position overlays (sticky CTA, modals, confetti, toast) render as
+   siblings of .kw, not descendants — CSS custom properties don't inherit
+   across siblings, so the palette is redeclared here for them. */
+#kwConfetti,
+.kw-toast,
+.kw-sticky,
+.kw-giftmodal-backdrop,
+.kw-lightbox-backdrop{
+  --accent:#DC2626;
+  --accent-deep:#7C1D1D;
+  --accent-soft:rgba(220,38,38,0.10);
+  --green:#16a34a;
+  --green-soft:rgba(22,163,74,0.10);
+  --red:#dc2626;
+  --bg:#FFFFFF;
+  --bg-soft:#F5F5F5;
+  --ink:#111111;
+  --tx:#1A1A1A;
+  --tx-dim:#6B7280;
+  --card:#FAFAFA;
+  --card-line:#E5E5E5;
+  --display:'Anton',Impact,sans-serif;
+  --head:'Manrope',sans-serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
 .kw img{max-width:100%;height:auto;display:block}
 
 /* ====== PRIMITIVES ====== */
@@ -1155,7 +1182,7 @@ html,body{overflow-x:hidden;max-width:100%}
 
 <div class="kw-sticky" id="kwSticky">
   <div class="kw-sticky-info"><b id="kwStickyPrice">[xx,xx€]</b><span id="kwStickyName">[Plan name]</span></div>
-  <a href="#" class="kw-cta" id="kwStickyCta"><span class="kw-cta-label">[Add to Cart]</span></a>
+  <a href="#" class="kw-cta" id="kwStickyCta"><span class="kw-cta-label">In den Warenkorb</span></a>
 </div>
 
 <script>(function(){
