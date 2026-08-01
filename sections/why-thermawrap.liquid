@@ -89,9 +89,9 @@ body:has(.wt) .header-logo{
 .wt-copy{padding:40px 44px;display:flex;align-items:center;align-self:center}
 .wt-card:has(.wt-acc[open]) .wt-copy{align-self:start}
 .wt-acc{width:100%}
-.wt-acc summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.wt-acc summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
 .wt-acc summary::-webkit-details-marker{display:none}
-.wt-step-num{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;font-family:var(--head);font-weight:800;font-size:14px}
+.wt-step-num{flex-shrink:0;display:inline-flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);background:var(--green-soft);border:1px solid rgba(22,163,74,0.3);border-radius:100px;padding:6px 16px}
 .wt-summary-body{display:flex;align-items:center;justify-content:center;gap:12px;width:100%}
 .wt-heading{font-family:var(--head);font-weight:800;font-size:19px;line-height:1.3;color:var(--ink);margin:0;text-align:center}
 .wt-plus{flex-shrink:0;color:var(--tx-dim);font-size:24px;line-height:1;transition:transform .2s,color .15s}
@@ -126,6 +126,10 @@ body:has(.wt) .header-logo{
 .wt-offer-text p{margin:0 0 10px}
 .wt-offer-text p:last-child{margin-bottom:0}
 .wt-offer-text strong{font-weight:800;color:var(--ink)}
+.wt-promo{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--green-soft);border:1px solid rgba(22,163,74,0.35);border-radius:10px;padding:10px 14px;margin-bottom:22px}
+.wt-promo-icon svg{width:17px;height:17px;color:var(--green);flex-shrink:0}
+.wt-promo-text{font-size:12.5px;font-weight:700;line-height:1.35;color:var(--ink)}
+.wt-promo-text strong{color:var(--green);font-weight:900}
 .wt-offer-body .wt-cta{width:auto}
 .wt-offer-body .wt-cta-trust{justify-content:flex-start}
 
@@ -147,6 +151,7 @@ body:has(.wt) .header-logo{
   .wt-offer-img{max-width:220px;margin:0 auto}
   .wt-offer-h{font-size:23px}
   .wt-offer-body .wt-cta-trust{justify-content:center}
+  .wt-promo{justify-content:center}
   .wt-offer-badge{font-size:11px;padding:8px 16px}
 }
 </style>
@@ -214,7 +219,7 @@ body:has(.wt) .header-logo{
           <div class="wt-copy">
             <details class="wt-acc"{% if block.type == 'reason_1' or block.type == 'reason_10' %} open{% endif %}>
               <summary>
-                <span class="wt-step-num">{{ forloop.index }}</span>
+                <span class="wt-step-num">Grund {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
                 <span class="wt-summary-body">
                   <span class="wt-heading">{{ block.settings.heading }}</span>
                   <span class="wt-plus">+</span>
@@ -252,6 +257,17 @@ body:has(.wt) .header-logo{
         <div class="wt-offer-body">
           <h2 class="wt-offer-h">{{ section.settings.offer_heading }}</h2>
           <div class="wt-offer-text">{{ section.settings.offer_text }}</div>
+          {% unless customer and customer.orders_count > 0 %}
+            <div class="wt-promo">
+              <span class="wt-promo-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/>
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                </svg>
+              </span>
+              <span class="wt-promo-text">Neukunden erhalten <strong>20%</strong> mit Code <strong>WILLKOMMEN20</strong></span>
+            </div>
+          {% endunless %}
           <a href="{{ section.settings.offer_cta_url }}" class="wt-cta">{{ section.settings.offer_cta_label }}</a>
           <div class="wt-cta-trust">&#10003; Kostenloser Versand in ganz Europa &middot; &#10003; 90-Tage-Geld-zurück-Garantie</div>
         </div>
