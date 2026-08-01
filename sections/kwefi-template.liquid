@@ -117,6 +117,13 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-benefit-tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 16px}
 .kw-benefit-tag{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:8px 14px;border-radius:6px;color:var(--green);background:var(--green-soft);border:1px solid rgba(22,163,74,0.3)}
 
+/* Neukunden-Rabatt Badge (top of info column) */
+.kw-promo{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--green-soft);border:1px solid rgba(22,163,74,0.35);border-radius:10px;padding:10px 14px;margin-bottom:16px}
+.kw-promo-icon svg{width:17px;height:17px;color:var(--green);flex-shrink:0}
+.kw-promo-text{font-family:var(--head);font-size:12.5px;font-weight:700;line-height:1.35;color:var(--ink);flex:1;min-width:150px}
+.kw-promo-text strong{color:var(--green);font-weight:900}
+.kw-promo-timer{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--green);background:rgba(22,163,74,0.14);border-radius:6px;padding:3px 8px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
 .kw-sub-lead{font-size:15px;color:var(--ink);line-height:1.5;margin:0 0 16px;font-weight:500}
 .kw-sub-lead strong{font-weight:800}
 
@@ -527,6 +534,9 @@ html,body{overflow-x:hidden;max-width:100%}
   .kw-giftmodal-title{font-size:24px}
   .kw-pre-note{font-size:10px;letter-spacing:0.05em;gap:5px;flex-wrap:wrap;padding:0 8px}
   .kw-pre-note svg{width:12px;height:12px}
+  .kw-promo{padding:9px 12px;margin-bottom:14px}
+  .kw-promo-text{font-size:11.5px;min-width:120px}
+  .kw-promo-timer{font-size:10px}
   .kw-stock{font-size:11.5px;margin-top:12px}
   .kw-card-pre{font-size:8.5px;letter-spacing:0.08em}
   .kw-meal-inner{grid-template-columns:1fr;min-height:0}
@@ -637,6 +647,24 @@ html,body{overflow-x:hidden;max-width:100%}
 
     <!-- PRODUCT INFO -->
     <div class="kw-info">
+      {% endraw %}
+      {% if section.settings.promo_badge_enabled %}
+        {% unless customer and customer.orders_count > 0 %}
+          <div class="kw-promo" data-promo-ends="{{ section.settings.promo_ends_at }}">
+            <span class="kw-promo-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+              </svg>
+            </span>
+            <span class="kw-promo-text">Neukunden erhalten <strong>20%</strong> mit Code <strong>{{ section.settings.promo_code | default: 'WILLKOMMEN20' }}</strong></span>
+            {% if section.settings.promo_ends_at != blank %}
+              <span class="kw-promo-timer" data-promo-timer aria-live="polite"></span>
+            {% endif %}
+          </div>
+        {% endunless %}
+      {% endif %}
+      {% raw %}
       <div style="display:inline-flex;align-items:center;margin-bottom:10px;">
         <span class="kw-proof-link" id="kwRating" aria-label="Wissenschaftlich erforscht, 4,8 von 5 Sternen – zu den Nachweisen springen"><span class="ico">&#9877;&#65039;</span><span class="kw-proof-label">Wissenschaftlich erforscht</span><span class="kw-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg></span><span class="kw-rating-val">4,8</span></span>
       </div>
@@ -1304,6 +1332,25 @@ document.querySelectorAll('.kw-thumb').forEach(function(t){
   el.textContent = d.getDate() + '. ' + months[d.getMonth()];
 })();
 
+/* Neukunden-Rabatt Countdown — zählt nur echte, im Section-Setting hinterlegte Daten herunter */
+(function(){
+  var el = document.querySelector('[data-promo-timer]'); if(!el) return;
+  var wrap = el.closest('[data-promo-ends]');
+  var endsAt = wrap && wrap.getAttribute('data-promo-ends');
+  if(!endsAt) return;
+  var end = new Date(endsAt).getTime();
+  if(isNaN(end)){ el.remove(); return; }
+  function pad(n){ return String(n).padStart(2,'0'); }
+  var timer = setInterval(tick, 1000);
+  function tick(){
+    var diff = end - Date.now();
+    if(diff <= 0){ if(wrap) wrap.remove(); clearInterval(timer); return; }
+    var h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+    el.textContent = 'Noch ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  tick();
+})();
+
 /* Country flag from visitor IP */
 (function(){
   var el = document.getElementById('kwFlag'); if(!el) return;
@@ -1488,7 +1535,12 @@ function kwPlayVid(wrap){
   "name": "Kwefi Template",
   "tag": "section",
   "class": "kwefi-template-section",
-  "settings": [],
+  "settings": [
+    { "type": "header", "content": "Neukunden-Rabatt" },
+    { "type": "checkbox", "id": "promo_badge_enabled", "label": "Rabatt-Badge anzeigen", "default": false },
+    { "type": "text", "id": "promo_code", "label": "Rabattcode", "default": "WILLKOMMEN20" },
+    { "type": "text", "id": "promo_ends_at", "label": "Ablaufdatum (ISO 8601)", "info": "Muss exakt dem Enddatum des Rabattcodes in Shopify entsprechen. Leer lassen = kein Countdown, nur Badge." }
+  ],
   "presets": [{ "name": "Kwefi Template" }]
 }
 {% endschema %}
