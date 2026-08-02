@@ -122,6 +122,9 @@ body:has(.wt) .header-logo{
 .wt-offer-img img{width:100%;height:100%;object-fit:cover}
 .wt-offer-img-icon svg{width:64px;height:64px;color:var(--accent);stroke-width:1.4}
 .wt-offer-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:28px;line-height:1.1;color:var(--ink);margin:0 0 14px}
+.wt-offer-prices{font-size:15px;color:var(--tx);line-height:1.65;margin:0 0 10px}
+.wt-offer-prices strong{font-weight:800;color:var(--ink)}
+.wt-offer-strike{color:var(--tx-dim);text-decoration:line-through}
 .wt-offer-text{font-size:15px;color:var(--tx);line-height:1.65;margin-bottom:26px}
 .wt-offer-text p{margin:0 0 10px}
 .wt-offer-text p:last-child{margin-bottom:0}
@@ -256,6 +259,12 @@ body:has(.wt) .header-logo{
         </div>
         <div class="wt-offer-body">
           <h2 class="wt-offer-h">{{ section.settings.offer_heading }}</h2>
+          {% if section.settings.product_single != blank and section.settings.product_duo != blank %}
+            <p class="wt-offer-prices">
+              Als Single für <strong>{{ section.settings.product_single.price | money }}</strong>{% if section.settings.product_single.compare_at_price > section.settings.product_single.price %} <span class="wt-offer-strike">statt {{ section.settings.product_single.compare_at_price | money }}</span>{% endif %}
+              oder als Duo-Set für <strong>{{ section.settings.product_duo.price | money }}</strong>{% if section.settings.product_duo.compare_at_price > section.settings.product_duo.price %} <span class="wt-offer-strike">statt {{ section.settings.product_duo.compare_at_price | money }}</span>{% endif %} inklusive Bonus-Geschenken.
+            </p>
+          {% endif %}
           <div class="wt-offer-text">{{ section.settings.offer_text }}</div>
           {% unless customer and customer.orders_count > 0 %}
             <div class="wt-promo">
@@ -349,10 +358,22 @@ body:has(.wt) .header-logo{
       "default": "Sichere dir ThermaWrap zu deinem Vorteilspreis"
     },
     {
+      "type": "product",
+      "id": "product_single",
+      "label": "Produkt: Single-Variante",
+      "info": "Preis wird live von diesem Produkt gezogen — muss nach Einfügen der Datei einmalig im Theme-Editor ausgewählt werden."
+    },
+    {
+      "type": "product",
+      "id": "product_duo",
+      "label": "Produkt: Duo-Variante",
+      "info": "Preis wird live von diesem Produkt gezogen — muss nach Einfügen der Datei einmalig im Theme-Editor ausgewählt werden."
+    },
+    {
       "type": "richtext",
       "id": "offer_text",
-      "label": "Angebotstext",
-      "default": "<p>Als Single für <strong>89,99€</strong> statt 129,00€ oder als Duo-Set für <strong>139,99€</strong> statt 258,00€ inklusive Bonus-Geschenken. Beide Optionen mit <strong>kostenlosem Versand in ganz Europa</strong> und <strong>90 Tage Geld-zurück-Garantie</strong> – merkst du keinen Unterschied, bekommst du dein Geld zurück.</p>"
+      "label": "Angebotstext (Rahmentext, ohne Preise — die werden oben automatisch live eingefügt)",
+      "default": "<p>Beide Optionen mit <strong>kostenlosem Versand in ganz Europa</strong> und <strong>90 Tage Geld-zurück-Garantie</strong> – merkst du keinen Unterschied, bekommst du dein Geld zurück.</p>"
     },
     {
       "type": "url",
