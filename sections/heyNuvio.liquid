@@ -31,8 +31,20 @@ var c = v.getAttribute('content') || '';
 if (c.indexOf('width=device-width') === -1) { v.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover'); }
 })();</script>
 
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500&display=swap"
+  onload="this.onload=null;this.rel='stylesheet'"
+>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500&display=swap"
+  >
+</noscript>
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500&display=swap');
 html,body{overflow-x:hidden;max-width:100%}
 
 .kw{
@@ -98,7 +110,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw img{max-width:100%;height:auto;display:block}
 
 /* ====== PRIMITIVES ====== */
-.kw-eyebrow{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:6px 13px;border-radius:100px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(234,88,12,0.25)}
 .kw-title{font-family:var(--display);font-weight:400;line-height:1.04;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);margin:12px 0}
 .kw-title em{color:var(--accent);font-style:normal}
 .kw-cta{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;background:var(--accent);color:#fff;text-decoration:none;padding:16px 24px;border-radius:100px;font-family:var(--head);font-weight:800;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 12px 32px -12px rgba(234,88,12,0.45);transition:transform .15s ease,background .15s ease;border:none;cursor:pointer}
@@ -135,8 +146,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-rating:hover{opacity:0.78}
 .kw-stars{display:inline-flex;gap:1px;color:#f59e0b}
 .kw-stars svg{width:15px;height:15px}
-.kw-rating-tx{font-size:12px;color:var(--tx);font-weight:600}
-.kw-rating-tx strong{color:var(--ink)}
 
 .kw-name{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:40px;line-height:1.0;letter-spacing:0.01em;margin:4px 0 12px;color:var(--ink)}
 .kw-name em{color:var(--accent);font-style:normal}
@@ -160,9 +169,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-sub-list li::after{content:"";position:absolute;left:6px;top:5px;width:8px;height:5px;border-left:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(-45deg)}
 .kw-sub-list li strong{color:var(--ink);font-weight:700}
 
-.kw-info-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
-.kw-info-pill{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--card-line);border-radius:10px;padding:9px 13px;font-family:var(--head);font-weight:700;font-size:12.5px;color:var(--ink)}
-.kw-info-pill .ico{font-size:15px;line-height:1}
 .kw-proof-link{display:inline-flex;align-items:center;gap:8px;cursor:pointer;background:none;border:none;padding:0;font-family:var(--head);font-weight:700;font-size:14px;letter-spacing:0.01em;line-height:1;color:var(--ink)}
 .kw-proof-link .ico{font-size:15px;line-height:1;margin-inline-end:-1px}
 .kw-proof-link .kw-proof-label{text-decoration:underline;text-underline-offset:2.5px;text-decoration-thickness:1.5px}
@@ -180,7 +186,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-card.is-selected{border-color:var(--green);background:var(--green-soft);box-shadow:0 0 0 1px var(--green),0 0 24px rgba(22,163,74,0.1)}
 .kw-card-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:var(--head);font-weight:800;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border-radius:6px;white-space:nowrap;display:none}
 .kw-card.is-recommended .kw-card-badge{display:block}
-.kw-card-save{position:absolute;top:10px;right:10px;background:var(--accent);color:#fff;font-family:var(--head);font-weight:900;font-size:10px;letter-spacing:0.04em;padding:3px 7px;border-radius:5px;text-transform:uppercase;line-height:1.2}
 .kw-card-name{font-family:var(--display);font-weight:400;font-size:30px;color:var(--ink);line-height:1;letter-spacing:0.01em;margin-bottom:4px;text-transform:uppercase}
 .kw-card-name .sub{font-family:var(--head);font-weight:800;font-size:11px;display:block;color:var(--tx-dim);letter-spacing:0.08em;margin-top:6px;text-transform:uppercase}
 .kw-card.is-selected .kw-card-name .sub{color:var(--ink)}
@@ -192,8 +197,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-card-divider{border-top:1px solid var(--card-line);margin:0 -14px 10px}
 .kw-card-price{font-family:var(--head);font-weight:800;font-size:24px;color:var(--ink);display:flex;align-items:baseline;justify-content:center;gap:7px}
 .kw-card-price .strike{font-size:14px;color:var(--red);text-decoration:line-through;font-weight:600}
-.kw-card-perunit{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--accent);margin-top:4px;letter-spacing:0.02em}
-.kw-card-bill{font-family:var(--sans);font-size:10.5px;color:var(--tx-dim);margin-top:3px}
 /* Pre-order price label on cards */
 .kw-card-pre{font-family:var(--head);font-weight:700;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:5px}
 .kw-card-pre::before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%}
@@ -263,9 +266,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-vid-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s ease}
 .kw-vid-play svg{width:32px;height:32px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6))}
 .kw-vid-frame.playing .kw-vid-play{opacity:0;pointer-events:none}
-.kw-vid-cap{text-align:center}
-.kw-vid-name{font-family:var(--head);font-weight:800;font-size:11px;color:var(--ink)}
-.kw-vid-meta{font-size:9.5px;color:var(--tx-dim);line-height:1.3;margin-top:1px}
 
 /* Product details accordion (single panel, single product) */
 .kw-acc{margin:14px 0 2px;border:1px solid var(--card-line);border-radius:12px;background:var(--bg);overflow:hidden}
@@ -286,17 +286,9 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-spec-table tr:first-child{border-top:none}
 .kw-spec-table th{text-align:left;padding:9px 6px 9px 0;font-family:var(--head);font-weight:700;font-size:12.5px;color:var(--ink);width:48%;vertical-align:top}
 .kw-spec-table td{padding:9px 0 9px 6px;font-size:12.5px;color:var(--tx);vertical-align:top}
-.kw-coa-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.kw-coa-grid img{width:100%;height:auto;display:block;border-radius:8px;background:var(--card);border:1px solid var(--card-line)}
-.kw-coa-caption{font-family:var(--mono);font-size:10px;color:var(--tx-dim);letter-spacing:0.06em;text-transform:uppercase;text-align:center;margin-top:8px;line-height:1.5}
-.kw-coa-caption strong{color:var(--ink);font-weight:700}
-.kw-coa-note{font-size:11px;color:var(--tx-dim);line-height:1.5;font-style:italic;margin:0 0 14px}
 .kw-coa-study{background:var(--card);border:1px solid var(--card-line);border-radius:12px;padding:16px 18px;margin-bottom:16px;box-shadow:0 3px 12px rgba(17,17,17,0.05);display:block;text-decoration:none;color:inherit;transition:border-color .15s ease,box-shadow .15s ease}
 .kw-coa-study:hover{border-color:#cfd5dc;box-shadow:0 6px 18px rgba(17,17,17,0.08)}
 .kw-coa-study:last-child{margin-bottom:0}
-.kw-coa-study-link{display:inline-flex;align-items:center;gap:5px;font-family:var(--head);font-weight:700;font-size:11.5px;color:var(--accent);margin-top:10px}
-.kw-coa-study-h{font-family:var(--head);font-weight:800;font-size:14px;color:var(--ink);line-height:1.35;margin-bottom:6px}
-.kw-coa-study-src{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:10px}
 .kw-coa-study-sum{font-size:12.5px;color:var(--tx);line-height:1.55;margin:0}
 .kw-step-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
 .kw-step-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--head);font-weight:800;font-size:13px;flex-shrink:0}
@@ -320,16 +312,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-feat-body{padding:22px 26px;display:flex;flex-direction:column;justify-content:center}
 .kw-feat-h{font-family:var(--head);font-weight:800;font-size:18px;color:var(--ink);margin:0 0 8px;line-height:1.25}
 .kw-feat-t{font-size:14px;color:var(--accent-deep);line-height:1.5;margin:0;font-weight:500}
-
-/* ====== DETAIL IMAGE SLIDER (single track) ====== */
-.kw-islider-wrap{margin-top:6px}
-.kw-islider{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 2px}
-.kw-islider::-webkit-scrollbar{display:none}
-.kw-islide{flex:0 0 calc((100% - 30px)/4);display:flex;flex-direction:column}
-.kw-islide-img{width:100%;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--card);border:1px solid var(--card-line)}
-.kw-islide-img img{width:100%;height:100%;object-fit:cover;display:block}
-.kw-islide-cap{display:block;margin-top:9px;font-family:var(--head);font-weight:800;font-size:11px;color:var(--ink);text-align:center;line-height:1.25}
-@media(min-width:861px){.kw-islide{flex-basis:calc((100% - 50px)/6)}}
 
 /* ====== TESTED & CERTIFIED (study cards + lightbox) ====== */
 .kw-reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -394,9 +376,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-ing-acc[open] .kw-ing-plus{transform:rotate(45deg);color:var(--accent)}
 .kw-ing-body{padding:4px 18px 20px;border-top:1px solid var(--card-line)}
 .kw-ing-desc{font-size:14px;color:var(--tx);line-height:1.6;margin:16px 0 14px}
-.kw-ing-bens{list-style:none;padding:0;margin:0 0 18px;display:grid;grid-template-columns:1fr;gap:7px}
-.kw-ing-bens li{position:relative;padding-left:22px;font-size:13px;color:var(--tx);line-height:1.5}
-.kw-ing-bens li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--green);font-weight:900;font-size:13px}
 .kw-ing-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
 .kw-ing-stat{background:var(--card);border:1px solid var(--card-line);border-radius:10px;padding:12px 13px}
 .kw-ing-stat-num{font-family:var(--display);font-weight:400;font-size:22px;color:var(--accent);line-height:1.1;letter-spacing:0.01em}
@@ -1190,8 +1169,8 @@ html,body{overflow-x:hidden;max-width:100%}
 
 /* ====== EDIT YOUR PRODUCT DATA HERE ====== */
 var PLANS = {
-  '1': { url:'/cart/55912939716993:1', productId:'15454753849729', variantId:'55912939716993', name:'ThermaWrap Single', price:'89,99€', strike:'129,00€', perUnit:'100,00 € / Stück', bill:'Ab zweitem Stück 25%', total:'89,99€', totalStrike:'129,00€', stickyPrice:'89,99€', label:'Vorbestellung Angebot 1' },
-  '2': { url:'/cart/55912947908993:1', productId:'15454755651969', variantId:'55912947908993', name:'ThermaWrap Duo', price:'139,99€', strike:'258,00€', perUnit:'100,00 € / Stück', bill:'Kaufe 2, erhalte die 3. gratis',     total:'139,99€', totalStrike:'258,00€', stickyPrice:'139,99€', label:'Vorbestellung Angebot 2' }
+  '1': { url:'/cart/55912939716993:1', productId:'15454753849729', variantId:'55912939716993', name:'ThermaWrap Single', price:'89,99€', strike:'129,00€', total:'89,99€', totalStrike:'129,00€', stickyPrice:'89,99€', label:'Vorbestellung Angebot 1' },
+  '2': { url:'/cart/55912947908993:1', productId:'15454755651969', variantId:'55912947908993', name:'ThermaWrap Duo', price:'139,99€', strike:'258,00€', total:'139,99€', totalStrike:'258,00€', stickyPrice:'139,99€', label:'Vorbestellung Angebot 2' }
 };
 
 /* Gift content shown in the explainer modal */
@@ -1213,9 +1192,6 @@ var GIFT_DATA = {
       { name:'Milch-Extrakt', desc:'Enthält milde Milchsäure – sanfte Peeling-Wirkung für weiche Haut.' }
     ]}], foot:'Wird automatisch mit deiner Bestellung mitgeliefert.' }
 };
-
-/* Plan-dependent info-pill text */
-function infoQtyText(plan){ return plan === '2' ? '[Qty for Offer 2 — bundle]' : '[Qty for Offer 1 — single]'; }
 
 /* Bonus gift unlock rules. Offer 1 unlocks first 2 gifts; Offer 2 unlocks all four. */
 var GIFT_VALUES = [20, 10, 10, 12];
@@ -1288,15 +1264,7 @@ function render(){
     var pp = PLANS[d];
     document.querySelector('[data-price-'+d+']').textContent = pp.price;
     document.querySelector('[data-strike-'+d+']').textContent = pp.strike;
-    var perUnitEl = document.querySelector('[data-perunit-'+d+']');
-    if(perUnitEl) perUnitEl.textContent = pp.perUnit;
-    var billEl = document.querySelector('[data-bill-'+d+']');
-    if(billEl) billEl.textContent = pp.bill;
   });
-
-  // Info pill (qty)
-  var qtyTxt = document.querySelector('#kwInfoQty .kw-info-qty-text');
-  if(qtyTxt) qtyTxt.textContent = infoQtyText(selectedPlan);
 
   // Gifts
   var claimedValue = 0;
@@ -1401,24 +1369,6 @@ if(track){ track.innerHTML += track.innerHTML; }
 /* FAQ (one open at a time) */
 var faqs = document.querySelectorAll('.kw-faq-item');
 faqs.forEach(function(it){ it.addEventListener('toggle', function(){ if(it.open) faqs.forEach(function(o){ if(o!==it) o.open=false; }); }); });
-
-/* Detail slider — auto-scroll */
-var sliders = [].slice.call(document.querySelectorAll('.kw-islider'));
-sliders.forEach(function(s){
-  s.innerHTML += s.innerHTML; s._p = false; s._h = 0;
-  ['pointerdown','touchstart','wheel','mousedown'].forEach(function(ev){
-    s.addEventListener(ev, function(){ s._p = true; clearTimeout(s._t); s._t = setTimeout(function(){ s._p = false; }, 1800); }, { passive:true });
-  });
-});
-window.addEventListener('resize', function(){ sliders.forEach(function(s){ s._h = 0; }); });
-(function loop(){
-  sliders.forEach(function(s){
-    if(s.offsetParent === null) return;
-    if(!s._h) s._h = s.scrollWidth/2;
-    if(!s._p){ s.scrollLeft += 0.5; if(s._h && s.scrollLeft >= s._h) s.scrollLeft -= s._h; }
-  });
-  requestAnimationFrame(loop);
-})();
 
 /* Rating row → scroll to studies */
 var ratingEl = document.getElementById('kwRating');
