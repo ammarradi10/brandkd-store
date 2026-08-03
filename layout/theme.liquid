@@ -12,6 +12,15 @@
     <link rel="preconnect" href="https://connect.facebook.net">
     <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
 
+    {% if template.suffix == 'heynuvio' %}
+      <link
+        rel="preload"
+        as="image"
+        href="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_55_54_PM.png?v=1784923099&width=800"
+        fetchpriority="high"
+      >
+    {% endif %}
+
     <meta name="facebook-domain-verification" content="twoxfx49cpafv2p07dsf2k2mna7hwn" />
     {%- if settings.favicon != blank -%}
       <link
