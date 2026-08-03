@@ -1,0 +1,1573 @@
+{% comment %}
+================================================================================
+  KWEFI TEMPLATE  ·  Light theme  ·  Single-product PDP
+
+  HOW TO USE
+  1. Replace every [BRACKETED] placeholder with your product copy.
+  2. Swap image URLs (src="...") with your CDN assets.
+  3. Tune brand colors via the CSS variables in the :root block at the top.
+  4. Add / remove feature cards, FAQ items, studies cards as needed.
+  5. Drop into Shopify as a section (search for "Kwefi Template").
+
+  STRUCTURE
+  · Hero (gallery + info + 2 offer cards + bonus gifts + CTA + 90-day guarantee + UGC)
+  · Trust marquee
+  · Featured cards grid (4 product highlights)
+  · Detail image slider (specs / parts / ingredients)
+  · Comparison table
+  · Studies / "Inside The Box" expandable cards
+  · Guarantee section
+  · FAQ
+  · Footer
+  · Gift explainer modal · Sticky CTA
+
+================================================================================
+{% endcomment %}
+{% raw %}
+<script>(function(){
+var v = document.querySelector('meta[name="viewport"]');
+if (!v) { v = document.createElement('meta'); v.setAttribute('name','viewport'); document.head.appendChild(v); }
+var c = v.getAttribute('content') || '';
+if (c.indexOf('width=device-width') === -1) { v.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover'); }
+})();</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,500&display=swap');
+html,body{overflow-x:hidden;max-width:100%}
+
+.kw{
+  /* ====== EDIT BRAND COLORS HERE ====== */
+  --accent:#DC2626;
+  --accent-deep:#7C1D1D;
+  --accent-soft:rgba(220,38,38,0.10);
+  --green:#16a34a;
+  --green-soft:rgba(22,163,74,0.10);
+  --red:#dc2626;
+
+  /* ====== NEUTRAL PALETTE (light theme) ====== */
+  --bg:#F8FAF8;
+  --bg-soft:#EFF4F0;
+  --ink:#111111;
+  --tx:#1A1A1A;
+  --tx-dim:#6B7280;
+  --card:#F2F6F3;
+  --card-line:#E5E5E5;
+
+  /* ====== TYPOGRAPHY ====== */
+  --display:'Anton',Impact,sans-serif;
+  --head:'Manrope',sans-serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.55;
+  width:100vw;max-width:100vw;
+  margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
+}
+.kw *,.kw *::before,.kw *::after{box-sizing:border-box}
+
+/* Fixed-position overlays (sticky CTA, modals, confetti, toast) render as
+   siblings of .kw, not descendants — CSS custom properties don't inherit
+   across siblings, so the palette is redeclared here for them. */
+#kwConfetti,
+.kw-toast,
+.kw-sticky,
+.kw-giftmodal-backdrop,
+.kw-lightbox-backdrop{
+  --accent:#DC2626;
+  --accent-deep:#7C1D1D;
+  --accent-soft:rgba(220,38,38,0.10);
+  --green:#16a34a;
+  --green-soft:rgba(22,163,74,0.10);
+  --red:#dc2626;
+  --bg:#F8FAF8;
+  --bg-soft:#EFF4F0;
+  --ink:#111111;
+  --tx:#1A1A1A;
+  --tx-dim:#6B7280;
+  --card:#F2F6F3;
+  --card-line:#E5E5E5;
+  --display:'Anton',Impact,sans-serif;
+  --head:'Manrope',sans-serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+.kw img{max-width:100%;height:auto;display:block}
+
+/* ====== PRIMITIVES ====== */
+.kw-eyebrow{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:6px 13px;border-radius:100px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(234,88,12,0.25)}
+.kw-title{font-family:var(--display);font-weight:400;line-height:1.04;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);margin:12px 0}
+.kw-title em{color:var(--accent);font-style:normal}
+.kw-cta{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;background:var(--accent);color:#fff;text-decoration:none;padding:16px 24px;border-radius:100px;font-family:var(--head);font-weight:800;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 12px 32px -12px rgba(234,88,12,0.45);transition:transform .15s ease,background .15s ease;border:none;cursor:pointer}
+.kw-cta:hover{transform:translateY(-2px);background:var(--accent-deep)}
+.kw-cta-label{display:flex;align-items:center;gap:8px}
+.kw-cta-label::after{content:"\2192";font-size:18px}
+.kw-cta-total{display:flex;flex-direction:column;align-items:flex-end;line-height:1.1;text-transform:none;letter-spacing:0}
+.kw-cta-total-label{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.85}
+.kw-cta-total-row{display:flex;align-items:baseline;gap:7px;margin-top:2px}
+.kw-cta-total-strike{font-size:12px;text-decoration:line-through;opacity:0.7;font-weight:600}
+.kw-cta-total-price{font-size:20px;font-weight:900;color:#fff}
+
+/* Sections */
+.kw-sec{padding:72px 24px}
+.kw-sec.alt{background:var(--bg-soft)}
+.kw-sec-inner{max-width:1080px;margin:0 auto}
+.kw-head{text-align:center;margin-bottom:40px}
+.kw-head .kw-title{font-size:36px}
+.kw-head-sub{font-size:15px;color:var(--tx);max-width:540px;margin:0 auto;line-height:1.6}
+
+/* ====== HERO ====== */
+.kw-buy{padding:40px 24px 64px}
+.kw-buy-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.kw-gallery{position:sticky;top:20px}
+.kw-stage{position:relative;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--card-line)}
+.kw-stage img{width:100%;height:100%;object-fit:contain;padding:16px}
+.kw-stage-tag{position:absolute;top:4px;left:4px;font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:5px 11px;border-radius:100px;background:rgba(255,255,255,0.92);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,0.06);backdrop-filter:blur(6px)}
+.kw-thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.kw-thumb{aspect-ratio:1;border-radius:10px;overflow:hidden;border:1.5px solid var(--card-line);background:var(--card);cursor:pointer;padding:4px;transition:border-color .15s ease}
+.kw-thumb.is-active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.kw-thumb img{width:100%;height:100%;object-fit:contain}
+
+.kw-rating{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;cursor:pointer;transition:opacity .15s}
+.kw-rating:hover{opacity:0.78}
+.kw-stars{display:inline-flex;gap:1px;color:#f59e0b}
+.kw-stars svg{width:15px;height:15px}
+.kw-rating-tx{font-size:12px;color:var(--tx);font-weight:600}
+.kw-rating-tx strong{color:var(--ink)}
+
+.kw-name{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:40px;line-height:1.0;letter-spacing:0.01em;margin:4px 0 12px;color:var(--ink)}
+.kw-name em{color:var(--accent);font-style:normal}
+
+.kw-benefit-tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 16px}
+.kw-benefit-tag{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:8px 14px;border-radius:6px;color:var(--green);background:var(--green-soft);border:1px solid rgba(22,163,74,0.3)}
+
+/* Neukunden-Rabatt Badge (top of info column) */
+.kw-promo{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--green-soft);border:1px solid rgba(22,163,74,0.35);border-radius:10px;padding:10px 14px;margin-bottom:16px}
+.kw-promo-icon svg{width:17px;height:17px;color:var(--green);flex-shrink:0}
+.kw-promo-text{font-family:var(--head);font-size:12.5px;font-weight:700;line-height:1.35;color:var(--ink);flex:1;min-width:150px}
+.kw-promo-text strong{color:var(--green);font-weight:900}
+.kw-promo-timer{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.04em;color:var(--green);background:rgba(22,163,74,0.14);border-radius:6px;padding:3px 8px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+.kw-sub-lead{font-size:15px;color:var(--ink);line-height:1.5;margin:0 0 16px;font-weight:500}
+.kw-sub-lead strong{font-weight:800}
+
+.kw-sub-list{list-style:none;padding:0;margin:0 0 18px;display:flex;flex-direction:column;gap:10px}
+.kw-sub-list li{position:relative;padding-left:30px;font-size:14.5px;color:var(--tx);line-height:1.4}
+.kw-sub-list li::before{content:"";position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--green-soft);border:1.5px solid rgba(22,163,74,0.4)}
+.kw-sub-list li::after{content:"";position:absolute;left:6px;top:5px;width:8px;height:5px;border-left:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(-45deg)}
+.kw-sub-list li strong{color:var(--ink);font-weight:700}
+
+.kw-info-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.kw-info-pill{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--card-line);border-radius:10px;padding:9px 13px;font-family:var(--head);font-weight:700;font-size:12.5px;color:var(--ink)}
+.kw-info-pill .ico{font-size:15px;line-height:1}
+.kw-proof-link{display:inline-flex;align-items:center;gap:8px;cursor:pointer;background:none;border:none;padding:0;font-family:var(--head);font-weight:700;font-size:14px;letter-spacing:0.01em;line-height:1;color:var(--ink)}
+.kw-proof-link .ico{font-size:15px;line-height:1;margin-inline-end:-1px}
+.kw-proof-link .kw-proof-label{text-decoration:underline;text-underline-offset:2.5px;text-decoration-thickness:1.5px}
+.kw-proof-link:hover .kw-proof-label{text-decoration-color:var(--accent)}
+.kw-proof-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kw-proof-link .kw-stars{display:inline-flex;align-items:center;gap:1px;color:#f59e0b;margin-inline-start:1px}
+.kw-proof-link .kw-stars svg{width:15px;height:15px;display:block}
+.kw-proof-link .kw-rating-val{font-size:15px;font-weight:800;color:var(--ink);margin-inline-start:-2px}
+
+/* ====== OFFER CARDS ====== */
+.kw-offer{display:flex;flex-direction:column;gap:14px;margin-bottom:16px}
+.kw-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kw-card{position:relative;background:var(--bg);border:2px solid var(--card-line);border-radius:14px;padding:20px 14px 14px;cursor:pointer;text-align:center;display:flex;flex-direction:column;transition:all .18s ease}
+.kw-card:hover{border-color:#cfd5dc}
+.kw-card.is-selected{border-color:var(--green);background:var(--green-soft);box-shadow:0 0 0 1px var(--green),0 0 24px rgba(22,163,74,0.1)}
+.kw-card-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:var(--head);font-weight:800;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border-radius:6px;white-space:nowrap;display:none}
+.kw-card.is-recommended .kw-card-badge{display:block}
+.kw-card-save{position:absolute;top:10px;right:10px;background:var(--accent);color:#fff;font-family:var(--head);font-weight:900;font-size:10px;letter-spacing:0.04em;padding:3px 7px;border-radius:5px;text-transform:uppercase;line-height:1.2}
+.kw-card-name{font-family:var(--display);font-weight:400;font-size:30px;color:var(--ink);line-height:1;letter-spacing:0.01em;margin-bottom:4px;text-transform:uppercase}
+.kw-card-name .sub{font-family:var(--head);font-weight:800;font-size:11px;display:block;color:var(--tx-dim);letter-spacing:0.08em;margin-top:6px;text-transform:uppercase}
+.kw-card.is-selected .kw-card-name .sub{color:var(--ink)}
+.kw-card-img{width:100%;aspect-ratio:1/1;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:10px 0;overflow:hidden;background:var(--card)}
+.kw-card-img img{width:100%;height:100%;object-fit:contain}
+.kw-card-check{display:flex;align-items:center;justify-content:center;gap:5px;font-family:var(--head);font-weight:800;font-size:10px;color:var(--green);margin-bottom:9px;letter-spacing:0.04em;opacity:0;height:14px;text-transform:uppercase}
+.kw-card.is-recommended .kw-card-check{opacity:1}
+.kw-card-check svg{width:13px;height:13px;color:var(--green)}
+.kw-card-divider{border-top:1px solid var(--card-line);margin:0 -14px 10px}
+.kw-card-price{font-family:var(--head);font-weight:800;font-size:24px;color:var(--ink);display:flex;align-items:baseline;justify-content:center;gap:7px}
+.kw-card-price .strike{font-size:14px;color:var(--red);text-decoration:line-through;font-weight:600}
+.kw-card-perunit{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--accent);margin-top:4px;letter-spacing:0.02em}
+.kw-card-bill{font-family:var(--sans);font-size:10.5px;color:var(--tx-dim);margin-top:3px}
+/* Pre-order price label on cards */
+.kw-card-pre{font-family:var(--head);font-weight:700;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:5px}
+.kw-card-pre::before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%}
+
+/* ====== PRE-ORDER FRAMING ====== */
+
+/* Ship-date note under the pre-order CTA */
+.kw-pre-note{display:flex;align-items:center;justify-content:center;gap:7px;text-align:center;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--tx-dim);margin-top:10px}
+.kw-pre-note svg{width:14px;height:14px;color:var(--accent);flex-shrink:0}
+.kw-pre-note strong{color:var(--ink);font-weight:800}
+
+/* Pulsing low-stock warning */
+.kw-stock{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--head);font-weight:700;font-size:12.5px;color:var(--green);margin-top:14px;letter-spacing:0.03em}
+.kw-stock-dot{display:inline-block;width:9px;height:9px;background:var(--green);border-radius:50%;animation:kwStockPulse 1.4s ease-in-out infinite;box-shadow:0 0 0 0 rgba(22,163,74,0.6)}
+@keyframes kwStockPulse{0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(22,163,74,0.6)}50%{opacity:0.55;transform:scale(1.25);box-shadow:0 0 0 6px rgba(22,163,74,0)}}
+
+/* Bonus gifts */
+.kw-gifts-head{display:flex;align-items:center;gap:14px;margin-top:6px;margin-bottom:14px}
+.kw-gifts-head .line{flex:1;height:1px;background:var(--card-line)}
+.kw-gifts-head .ttl{font-family:var(--head);font-weight:800;font-size:11.5px;color:var(--ink);white-space:nowrap;letter-spacing:0.06em;text-transform:uppercase}
+.kw-gifts-head .ttl em{color:var(--accent);font-style:normal}
+.kw-gifts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kw-gift{text-align:center;transition:all .3s ease;cursor:pointer}
+.kw-gift-card{position:relative;background:var(--card);border:1.5px dashed var(--card-line);border-radius:10px;padding:10px 6px;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:8px}
+.kw-gift-tag{position:absolute;top:0;left:0;right:0;background:var(--green);color:#fff;font-family:var(--head);font-size:10px;font-weight:800;padding:4px 6px;border-radius:8.5px 8.5px 0 0;z-index:2;letter-spacing:0.04em;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px}
+.kw-gift-tag .strike{text-decoration:line-through;opacity:0.7}
+.kw-gift-img{width:88%;height:88%;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:filter .3s ease;overflow:hidden}
+.kw-gift-img img{width:100%;height:100%;object-fit:contain}
+.kw-gift-label{font-family:var(--head);font-size:11px;font-weight:700;color:var(--ink);line-height:1.25}
+.kw-gift.is-locked .kw-gift-img{filter:blur(7px) grayscale(0.5);opacity:0.6}
+.kw-gift.is-locked .kw-gift-label{color:var(--tx-dim)}
+.kw-gift.is-locked .kw-gift-card{border-color:var(--card-line);background:#f3f3f3}
+.kw-gift-lock{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:rgba(255,255,255,0.6);backdrop-filter:blur(1px);z-index:3;padding:6px;text-align:center}
+.kw-gift.is-locked .kw-gift-lock{display:flex}
+.kw-gift-lock-circle{width:30px;height:30px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,0.18)}
+.kw-gift-lock-circle svg{width:14px;height:14px;color:#fff}
+.kw-gift-unlock-msg{font-family:var(--head);font-size:9px;font-weight:700;color:#fff;background:var(--accent);padding:3px 6px;border-radius:5px;line-height:1.2;box-shadow:0 1px 3px rgba(0,0,0,0.2);max-width:96%}
+.kw-gift-info{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.92);color:var(--ink);font-family:var(--head);font-weight:900;font-size:11px;display:flex;align-items:center;justify-content:center;z-index:4;border:1px solid var(--card-line);transition:all .15s;font-style:italic;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.kw-gift:hover .kw-gift-info{background:var(--accent);border-color:var(--accent);color:#fff;transform:scale(1.1)}
+
+.kw-claim{margin-top:14px;text-align:center;font-family:var(--head);font-size:13px;color:var(--ink);font-weight:700}
+.kw-claim .val{color:var(--green);font-weight:900}
+.kw-upgrade-link{color:var(--green);font-weight:800;cursor:pointer;border-bottom:2px solid var(--green);padding-bottom:1px;transition:.2s;text-transform:uppercase;letter-spacing:0.04em;font-family:var(--head);font-size:11.5px}
+
+/* Trust strip + 90-day guarantee box */
+.kw-mb-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin:16px 0 12px;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:var(--green)}
+.kw-mb{display:flex;gap:14px;align-items:center;background:var(--green-soft);border:1px solid rgba(22,163,74,0.35);border-radius:14px;padding:18px}
+.kw-mb-ico{flex-shrink:0;width:56px;height:56px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;position:relative}
+.kw-mb-ico::before{content:"90";position:absolute;font-family:var(--display);font-size:18px;color:#fff;line-height:1;letter-spacing:0.02em}
+.kw-mb-ico::after{content:"DAY";position:absolute;font-family:var(--head);font-size:7.5px;font-weight:900;color:#fff;letter-spacing:0.1em;bottom:11px}
+.kw-mb-title{font-family:var(--head);font-weight:800;font-size:16px;color:var(--ink);line-height:1.25}
+.kw-mb-title strong{color:var(--green);font-weight:900}
+.kw-mb-text{font-size:13px;color:var(--tx);line-height:1.5;margin-top:4px}
+.kw-mb-text strong{color:var(--ink);font-weight:700}
+
+.kw-mini-trust{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:16px}
+.kw-mini-trust span{font-family:var(--head);font-weight:700;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--tx);display:inline-flex;align-items:center;gap:6px}
+.kw-mini-trust svg{width:13px;height:13px;color:var(--accent)}
+
+/* Compact UGC */
+.kw-ugc-compact{margin-top:16px}
+.kw-ugc-compact-h{font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx-dim);text-align:center;margin-bottom:10px}
+.kw-ugc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kw-vid{display:flex;flex-direction:column;gap:6px}
+.kw-vid-frame{position:relative;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:#000;cursor:pointer;border:1px solid var(--card-line)}
+.kw-vid-frame video{width:100%;height:100%;object-fit:cover;display:block}
+.kw-vid-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s ease}
+.kw-vid-play svg{width:32px;height:32px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6))}
+.kw-vid-frame.playing .kw-vid-play{opacity:0;pointer-events:none}
+.kw-vid-cap{text-align:center}
+.kw-vid-name{font-family:var(--head);font-weight:800;font-size:11px;color:var(--ink)}
+.kw-vid-meta{font-size:9.5px;color:var(--tx-dim);line-height:1.3;margin-top:1px}
+
+/* Product details accordion (single panel, single product) */
+.kw-acc{margin:14px 0 2px;border:1px solid var(--card-line);border-radius:12px;background:var(--bg);overflow:hidden}
+.kw-acc summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--head);font-weight:800;font-size:13.5px;color:var(--ink);letter-spacing:0.02em}
+.kw-acc summary::-webkit-details-marker{display:none}
+.kw-acc summary .lbl{display:flex;align-items:center;gap:9px}
+.kw-acc summary .lbl .ico{width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(234,88,12,0.25)}
+.kw-acc summary .lbl .ico svg{width:16px;height:16px}
+.kw-acc summary .plus{color:var(--tx-dim);font-size:20px;line-height:1;transition:transform .2s,color .15s}
+.kw-acc[open] summary .plus{transform:rotate(45deg);color:var(--accent)}
+.kw-acc-body{padding:14px 16px 16px;border-top:1px solid var(--card-line)}
+.kw-acc-body img{width:100%;height:auto;display:block;border-radius:10px;background:var(--card);border:1px solid var(--card-line)}
+.kw-spec-group{margin-bottom:18px}
+.kw-spec-group:last-child{margin-bottom:0}
+.kw-spec-group-h{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.kw-spec-table{width:100%;border-collapse:collapse}
+.kw-spec-table tr{border-top:1px solid var(--card-line)}
+.kw-spec-table tr:first-child{border-top:none}
+.kw-spec-table th{text-align:left;padding:9px 6px 9px 0;font-family:var(--head);font-weight:700;font-size:12.5px;color:var(--ink);width:48%;vertical-align:top}
+.kw-spec-table td{padding:9px 0 9px 6px;font-size:12.5px;color:var(--tx);vertical-align:top}
+.kw-coa-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kw-coa-grid img{width:100%;height:auto;display:block;border-radius:8px;background:var(--card);border:1px solid var(--card-line)}
+.kw-coa-caption{font-family:var(--mono);font-size:10px;color:var(--tx-dim);letter-spacing:0.06em;text-transform:uppercase;text-align:center;margin-top:8px;line-height:1.5}
+.kw-coa-caption strong{color:var(--ink);font-weight:700}
+.kw-coa-note{font-size:11px;color:var(--tx-dim);line-height:1.5;font-style:italic;margin:0 0 14px}
+.kw-coa-study{background:var(--card);border:1px solid var(--card-line);border-radius:12px;padding:16px 18px;margin-bottom:16px;box-shadow:0 3px 12px rgba(17,17,17,0.05);display:block;text-decoration:none;color:inherit;transition:border-color .15s ease,box-shadow .15s ease}
+.kw-coa-study:hover{border-color:#cfd5dc;box-shadow:0 6px 18px rgba(17,17,17,0.08)}
+.kw-coa-study:last-child{margin-bottom:0}
+.kw-coa-study-link{display:inline-flex;align-items:center;gap:5px;font-family:var(--head);font-weight:700;font-size:11.5px;color:var(--accent);margin-top:10px}
+.kw-coa-study-h{font-family:var(--head);font-weight:800;font-size:14px;color:var(--ink);line-height:1.35;margin-bottom:6px}
+.kw-coa-study-src{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:10px}
+.kw-coa-study-sum{font-size:12.5px;color:var(--tx);line-height:1.55;margin:0}
+.kw-step-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.kw-step-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--head);font-weight:800;font-size:13px;flex-shrink:0}
+.kw-step-title{font-family:var(--head);font-weight:800;font-size:14px;color:var(--ink);flex:1;min-width:120px}
+.kw-step-tag{font-family:var(--mono);font-weight:700;font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border:1px solid rgba(234,88,12,0.25);border-radius:6px;padding:3px 8px;white-space:nowrap}
+
+/* ====== TRUST MARQUEE ====== */
+.kw-trust{padding:22px 0;overflow:hidden;border-top:1px solid var(--green);border-bottom:1px solid var(--green);background:var(--bg-soft)}
+.kw-trust-track{display:flex;width:max-content;align-items:center;animation:kwMarquee 22s linear infinite;will-change:transform}
+.kw-trust:hover .kw-trust-track{animation-play-state:paused}
+@keyframes kwMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.kw-trust-item{font-family:var(--head);font-weight:800;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap;margin-right:56px}
+.kw-trust-item svg{width:20px;height:20px;color:var(--accent)}
+
+/* ====== FEATURED CARDS (1/4 image + 3/4 text, 2 per row) ====== */
+.kw-feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.kw-feat{background:var(--card);border:1px solid var(--card-line);border-radius:16px;display:grid;grid-template-columns:1fr 3fr;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease;min-height:170px}
+.kw-feat:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(17,17,17,0.10)}
+.kw-feat-img{background:var(--card-line);overflow:hidden;position:relative}
+.kw-feat-img img{width:100%;height:100%;object-fit:cover;display:block}
+.kw-feat-body{padding:22px 26px;display:flex;flex-direction:column;justify-content:center}
+.kw-feat-h{font-family:var(--head);font-weight:800;font-size:18px;color:var(--ink);margin:0 0 8px;line-height:1.25}
+.kw-feat-t{font-size:14px;color:var(--accent-deep);line-height:1.5;margin:0;font-weight:500}
+
+/* ====== DETAIL IMAGE SLIDER (single track) ====== */
+.kw-islider-wrap{margin-top:6px}
+.kw-islider{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 2px}
+.kw-islider::-webkit-scrollbar{display:none}
+.kw-islide{flex:0 0 calc((100% - 30px)/4);display:flex;flex-direction:column}
+.kw-islide-img{width:100%;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--card);border:1px solid var(--card-line)}
+.kw-islide-img img{width:100%;height:100%;object-fit:cover;display:block}
+.kw-islide-cap{display:block;margin-top:9px;font-family:var(--head);font-weight:800;font-size:11px;color:var(--ink);text-align:center;line-height:1.25}
+@media(min-width:861px){.kw-islide{flex-basis:calc((100% - 50px)/6)}}
+
+/* ====== TESTED & CERTIFIED (study cards + lightbox) ====== */
+.kw-reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.kw-review-card{display:flex;flex-direction:column;gap:12px;background:var(--card);border:1px solid var(--card-line);border-radius:16px;padding:22px 20px;box-shadow:0 4px 16px rgba(17,17,17,0.05);transition:transform .2s ease,box-shadow .2s ease}
+.kw-review-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(17,17,17,0.10)}
+.kw-review-card .kw-stars{color:#f59e0b}
+.kw-review-card .kw-stars svg{width:15px;height:15px}
+.kw-review-quote{font-family:var(--sans);font-style:italic;font-size:14.5px;line-height:1.55;color:var(--ink);margin:0;flex:1}
+.kw-review-name{font-family:var(--head);font-weight:800;font-size:13px;color:var(--ink);letter-spacing:0.01em}
+.kw-review-name span{font-family:var(--sans);font-weight:500;color:var(--tx-dim)}
+.kw-tested-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.kw-tested-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--card-line);border-radius:20px;padding:16px 16px 22px;box-shadow:0 6px 20px rgba(17,17,17,0.06);transition:transform .2s ease,box-shadow .2s ease}
+.kw-tested-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(17,17,17,0.10)}
+.kw-tested-img{display:block;width:100%;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--card-line);padding:0;cursor:zoom-in;position:relative;margin-bottom:16px;text-decoration:none;color:inherit;flex-shrink:0}
+.kw-tested-img img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;transition:transform .3s ease;background:#fff}
+.kw-tested-img:hover img{transform:scale(1.035)}
+.kw-tested-img::after{content:"\2921";position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.92);color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 1px 4px rgba(0,0,0,0.12)}
+.kw-tested-h{font-family:var(--head);font-weight:800;font-size:16px;color:var(--ink);margin:0 0 8px;line-height:1.4}
+.kw-tested-t{font-size:13.5px;color:var(--tx);line-height:1.65;margin:0}
+.kw-lightbox-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:10002;display:none;align-items:center;justify-content:center;padding:32px;opacity:0;transition:opacity .2s}
+.kw-lightbox-backdrop.is-open{display:flex;opacity:1}
+.kw-lightbox-img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.kw-lightbox-close{position:absolute;top:20px;right:24px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.kw-lightbox-close:hover{background:rgba(255,255,255,0.22)}
+
+/* ====== COMPARISON TABLE ====== */
+.kw-cmp{background:var(--bg);border:1px solid var(--card-line);border-radius:16px;overflow:hidden}
+.kw-cmp-head{display:grid;grid-template-columns:1.2fr 1fr 1fr;background:var(--card)}
+.kw-cmp-head>div{padding:14px 12px;font-family:var(--head);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;text-align:center;color:var(--tx-dim)}
+.kw-cmp-head>div.us{color:var(--accent);border-bottom:2px solid var(--accent);background:var(--accent-soft)}
+.kw-cmp-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;border-top:1px solid var(--card-line)}
+.kw-cmp-row>div{padding:12px;font-size:12.5px;display:flex;align-items:center}
+.kw-cmp-row .feat{font-family:var(--head);font-weight:700;color:var(--ink)}
+.kw-cmp-row .bad{color:var(--tx-dim)}
+.kw-cmp-row .bad::before{content:"\2715 ";color:var(--red);font-weight:800}
+.kw-cmp-row .good{color:var(--ink);font-weight:600;background:var(--accent-soft)}
+.kw-cmp-row .good::before{content:"\2713 ";color:var(--green);font-weight:800}
+
+/* ====== STUDIES / DETAIL CARDS ====== */
+.kw-studies{padding:80px 24px;border-top:1px solid var(--card-line);background:var(--bg)}
+.kw-studies-inner{max-width:920px;margin:0 auto}
+.kw-studies-eyebrow{font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);text-align:center;margin-bottom:14px}
+.kw-studies-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:44px;line-height:1.04;letter-spacing:0.005em;color:var(--ink);text-align:center;margin:0 0 16px}
+.kw-studies-h em{color:var(--accent);font-style:normal}
+.kw-studies-sub{text-align:center;color:var(--tx);font-size:15px;line-height:1.6;max-width:560px;margin:0 auto 32px}
+.kw-studies-sub strong{color:var(--ink)}
+.kw-studies-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:680px;margin:0 auto 38px}
+.kw-studies-stat{background:var(--bg);border:1px solid var(--card-line);border-radius:14px;padding:22px 14px;text-align:center}
+.kw-studies-stat-num{font-family:var(--display);font-weight:400;font-size:42px;line-height:1;color:var(--accent);letter-spacing:0.01em}
+.kw-studies-stat:nth-child(2) .kw-studies-stat-num{color:var(--green)}
+.kw-studies-stat:nth-child(3) .kw-studies-stat-num{color:#f59e0b}
+.kw-studies-stat-label{font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx-dim);margin-top:8px}
+.kw-studies-list{display:flex;flex-direction:column;gap:10px}
+.kw-ing-acc{background:var(--bg);border:1px solid var(--card-line);border-radius:12px;overflow:hidden;transition:border-color .18s}
+.kw-ing-acc:hover{border-color:#cfd5dc}
+.kw-ing-acc summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.kw-ing-acc summary::-webkit-details-marker{display:none}
+.kw-ing-dose{font-family:var(--mono);font-weight:700;font-size:11.5px;color:var(--accent);letter-spacing:0.04em;flex-shrink:0;background:var(--accent-soft);border:1px solid rgba(234,88,12,0.25);border-radius:6px;padding:3px 8px}
+.kw-ing-name{font-family:var(--head);font-weight:800;font-size:15px;color:var(--ink);flex:1;min-width:120px}
+.kw-ing-sci{font-family:var(--sans);font-style:italic;font-size:11.5px;color:var(--tx-dim);font-weight:400}
+.kw-ing-plus{color:var(--tx-dim);font-size:22px;line-height:1;transition:transform .2s,color .15s;flex-shrink:0;margin-left:auto}
+.kw-ing-acc[open] .kw-ing-plus{transform:rotate(45deg);color:var(--accent)}
+.kw-ing-body{padding:4px 18px 20px;border-top:1px solid var(--card-line)}
+.kw-ing-desc{font-size:14px;color:var(--tx);line-height:1.6;margin:16px 0 14px}
+.kw-ing-bens{list-style:none;padding:0;margin:0 0 18px;display:grid;grid-template-columns:1fr;gap:7px}
+.kw-ing-bens li{position:relative;padding-left:22px;font-size:13px;color:var(--tx);line-height:1.5}
+.kw-ing-bens li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--green);font-weight:900;font-size:13px}
+.kw-ing-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.kw-ing-stat{background:var(--card);border:1px solid var(--card-line);border-radius:10px;padding:12px 13px}
+.kw-ing-stat-num{font-family:var(--display);font-weight:400;font-size:22px;color:var(--accent);line-height:1.1;letter-spacing:0.01em}
+.kw-ing-stat-lbl{font-size:11.5px;color:var(--tx);line-height:1.4;margin-top:5px}
+.kw-ing-research{background:var(--card);border:1px dashed var(--card-line);border-radius:10px;padding:14px 14px}
+.kw-ing-research-h{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:inline-flex;align-items:center;gap:6px}
+.kw-ing-research-h::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor}
+.kw-ing-study{font-size:12px;color:var(--tx);line-height:1.5;margin-bottom:7px}
+.kw-ing-study:last-child{margin-bottom:0}
+.kw-ing-study strong{color:var(--ink);font-weight:700;display:block;font-size:11.5px;margin-bottom:2px}
+.kw-studies-disc{font-size:13px;color:var(--tx);text-align:center;margin:32px auto 0;max-width:680px;line-height:1.65;font-style:italic;padding:0 12px}
+
+/* ====== GUARANTEE ====== */
+.kw-guar{background:var(--bg-soft);border-top:1px solid var(--card-line);border-bottom:1px solid var(--card-line);padding:56px 28px}
+.kw-guar-inner{max-width:1080px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.kw-guar-copy{max-width:520px}
+.kw-guar .kw-title{font-size:36px}
+.kw-guar p{color:var(--tx);font-size:15px;line-height:1.6;margin:0 0 24px;max-width:460px}
+.kw-guar p strong{color:var(--ink)}
+.kw-guar .kw-cta{width:auto;display:inline-flex}
+.kw-seal{flex-shrink:0;width:150px;height:150px}
+.kw-seal svg{width:100%;height:100%}
+.kw-seal .ring{transform-origin:70px 70px;animation:kwSeal 28s linear infinite}
+@keyframes kwSeal{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* ====== FAQ ====== */
+.kw-faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--card-line)}
+.kw-faq-item{border-bottom:1px solid var(--card-line)}
+.kw-faq-item summary{list-style:none;cursor:pointer;padding:18px 6px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-family:var(--head);font-weight:800;font-size:15px;color:var(--ink)}
+.kw-faq-item summary::-webkit-details-marker{display:none}
+.kw-faq-plus{color:var(--tx-dim);font-size:22px;line-height:1;transition:transform .2s,color .15s}
+.kw-faq-item[open] .kw-faq-plus{transform:rotate(45deg);color:var(--accent)}
+.kw-faq-a{padding:0 6px 18px;font-size:14px;line-height:1.6;color:var(--tx)}
+.kw-faq-a strong{color:var(--ink)}
+
+/* ====== STICKY + FOOTER ====== */
+.kw-sticky{position:fixed;bottom:0;left:0;right:0;z-index:9998;display:none;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);border-top:1px solid var(--card-line);box-shadow:0 -4px 16px rgba(0,0,0,0.06)}
+.kw-sticky-info{line-height:1.2}
+.kw-sticky-info b{font-family:var(--head);font-weight:800;color:var(--ink);font-size:14px}
+.kw-sticky-info span{display:block;font-size:10.5px;color:var(--green);font-weight:700}
+.kw-sticky .kw-cta{width:auto;padding:14px 22px;font-size:13px}
+.kw-foot{background:#1A1A1A;color:#F5F5F5;padding:56px 24px;text-align:center;border-top:1px solid rgba(255,255,255,0.10)}
+.kw-foot-inner{max-width:620px;margin:0 auto}
+.kw-foot-tag{font-family:var(--display);font-weight:400;font-size:24px;color:#FFFFFF;margin:0 0 8px;letter-spacing:0.02em;text-transform:uppercase}
+.kw-foot-tag span{color:var(--accent)}
+.kw-foot-sub{font-size:13px;color:#B9B9B9;margin:0 0 22px}
+.kw-foot-form{display:flex;gap:8px;max-width:400px;margin:0 auto}
+.kw-foot-form input{flex:1;background:#242424;border:1px solid rgba(255,255,255,0.14);border-radius:100px;padding:14px 18px;color:#FFFFFF;font-family:var(--sans);font-size:14px;outline:none}
+.kw-foot-form input::placeholder{color:#8A8A8A}
+.kw-foot-form input:focus{border-color:var(--accent)}
+.kw-foot-form button{background:var(--accent);color:#fff;border:none;border-radius:100px;padding:0 22px;cursor:pointer;font-family:var(--head);font-weight:800;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;transition:background .15s ease}
+.kw-foot-form button:hover{background:var(--accent-deep)}
+.kw-foot-cols{display:flex;flex-wrap:wrap;justify-content:center;gap:28px 56px;margin:40px auto 0;text-align:left;max-width:600px}
+.kw-foot-col-h{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#8A8A8A;margin:0 0 12px}
+.kw-foot-col a{display:block;color:#C9C9C9;text-decoration:none;font-size:13px;font-weight:500;margin-bottom:9px;transition:color .15s ease}
+.kw-foot-col a:hover{color:var(--accent)}
+.kw-foot-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 20px;margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.10)}
+.kw-foot-copy{font-family:var(--mono);font-size:10.5px;color:#8A8A8A;letter-spacing:0.04em}
+
+/* ====== GIFT EXPLAINER MODAL (white backdrop) ====== */
+.kw-giftmodal-backdrop{position:fixed;inset:0;background:rgba(255,255,255,0.78);backdrop-filter:blur(8px);z-index:10001;display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .25s}
+.kw-giftmodal-backdrop.is-open{display:flex;opacity:1}
+.kw-giftmodal{background:var(--bg);border:1px solid var(--card-line);border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;position:relative;transform:scale(0.9);transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 30px 80px rgba(0,0,0,0.18)}
+.kw-giftmodal-backdrop.is-open .kw-giftmodal{transform:scale(1)}
+.kw-giftmodal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:var(--card);border:1px solid var(--card-line);color:var(--ink);font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;z-index:2;font-family:var(--head)}
+.kw-giftmodal-close:hover{background:#eef0f3;transform:rotate(90deg)}
+.kw-giftmodal-hero{padding:30px 24px 0;text-align:center}
+.kw-giftmodal-tag{display:inline-block;font-family:var(--head);font-weight:800;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);background:var(--green-soft);border:1px solid rgba(22,163,74,0.35);padding:4px 10px;border-radius:5px;margin-bottom:14px}
+.kw-giftmodal-tag .strike{text-decoration:line-through;opacity:0.7;margin-right:5px}
+.kw-giftmodal-img{width:140px;height:140px;margin:0 auto 14px;border-radius:16px;background:var(--card);border:1px solid var(--card-line);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.kw-giftmodal-img img{width:100%;height:100%;object-fit:contain}
+.kw-giftmodal-title{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:30px;line-height:1.05;color:var(--ink);letter-spacing:0.01em;margin:0 0 8px}
+.kw-giftmodal-title em{color:var(--accent);font-style:normal}
+.kw-giftmodal-sub{font-size:14px;color:var(--tx);line-height:1.55;margin:0 24px 22px;text-align:center}
+.kw-giftmodal-sub strong{color:var(--ink);font-weight:700}
+.kw-giftmodal-body{padding:0 24px 26px}
+.kw-giftmodal-section{margin-bottom:20px}
+.kw-giftmodal-section:last-child{margin-bottom:0}
+.kw-giftmodal-h{font-family:var(--head);font-weight:800;font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:11px;display:inline-flex;align-items:center;gap:7px}
+.kw-giftmodal-h::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.kw-giftmodal-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;padding:12px 14px;background:var(--card);border:1px solid var(--card-line);border-radius:10px;margin-bottom:8px}
+.kw-giftmodal-row:last-child{margin-bottom:0}
+.kw-giftmodal-row .name{font-family:var(--head);font-weight:800;font-size:14px;color:var(--ink);line-height:1.2}
+.kw-giftmodal-row .name small{display:block;font-family:var(--sans);font-weight:500;font-size:12px;color:var(--tx);margin-top:4px;line-height:1.45}
+.kw-giftmodal-row .dose{font-family:var(--mono);font-weight:700;font-size:12px;color:var(--accent);letter-spacing:0.02em;white-space:nowrap;background:var(--accent-soft);border:1px solid rgba(234,88,12,0.25);border-radius:6px;padding:3px 8px}
+.kw-giftmodal-row.no-dose{grid-template-columns:1fr}
+.kw-giftmodal-feats{list-style:none;padding:0;margin:0}
+.kw-giftmodal-feats li{position:relative;padding-left:28px;font-size:13.5px;color:var(--tx);line-height:1.5;margin-bottom:10px}
+.kw-giftmodal-feats li::before{content:"\2713";position:absolute;left:0;top:0;width:18px;height:18px;background:var(--green);color:#fff;font-weight:900;font-size:11px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.kw-giftmodal-feats li strong{color:var(--ink);font-weight:700}
+.kw-giftmodal-foot{display:flex;align-items:center;gap:8px;font-family:var(--head);font-weight:800;font-size:11.5px;letter-spacing:0.04em;color:var(--green);padding:12px 14px;background:var(--green-soft);border:1px solid rgba(22,163,74,0.35);border-radius:10px;margin-top:18px;text-transform:uppercase;line-height:1.3}
+.kw-giftmodal-foot svg{width:16px;height:16px;flex-shrink:0}
+
+/* Toast + confetti */
+.kw-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.7);background:var(--bg);border:2px solid var(--green);border-radius:18px;padding:22px 30px;box-shadow:0 20px 60px rgba(0,0,0,0.2);z-index:10000;text-align:center;opacity:0;pointer-events:none;transition:opacity .35s,transform .45s cubic-bezier(.34,1.56,.64,1);max-width:90vw}
+.kw-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.kw-toast-icon{font-size:36px;line-height:1;margin-bottom:8px}
+.kw-toast-title{font-family:var(--display);font-weight:400;font-size:24px;color:var(--ink);letter-spacing:0.02em;text-transform:uppercase}
+#kwConfetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
+
+/* ====== COMPLETE-MEAL STATS SECTION (dark split) ====== */
+.kw-meal{background:#000;color:#fff;overflow:hidden}
+.kw-meal-inner{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;min-height:580px;width:100%}
+.kw-meal-copy{padding:80px 56px;display:flex;flex-direction:column;justify-content:center}
+.kw-meal-title{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:64px;line-height:1.08;letter-spacing:-0.01em;color:#fff;margin:0 0 56px;max-width:540px}
+.kw-meal-title em{font-style:italic;font-weight:400}
+.kw-meal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:36px 28px;max-width:580px;margin:0 0 44px}
+.kw-meal-stat{display:flex;flex-direction:column;gap:10px}
+.kw-meal-num{font-family:'Playfair Display',Georgia,serif;font-size:48px;line-height:1;font-weight:500;color:#fff;letter-spacing:-0.02em}
+.kw-meal-lbl{font-family:var(--sans);font-size:14px;line-height:1.35;color:#cfd0d2;font-weight:400}
+.kw-meal-cta{display:inline-flex;align-self:flex-start;background:#fff;color:#111;text-decoration:none;padding:14px 28px;border-radius:100px;font-family:var(--head);font-weight:700;font-size:14px;letter-spacing:0;transition:transform .15s ease,background .15s ease}
+.kw-meal-cta:hover{transform:translateY(-2px);background:#f0f0f0}
+.kw-meal-img{position:relative;background:#000;overflow:hidden;min-height:580px}
+.kw-meal-img img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width:860px){
+  .kw-buy-inner{grid-template-columns:1fr;gap:24px}
+  .kw-gallery{position:static}
+  .kw-name{font-size:34px}
+}
+@media (max-width:640px){
+  .kw-buy{padding:24px 16px 48px}
+  .kw-cards{gap:10px}
+  .kw-card{padding:18px 10px 12px}
+  .kw-card-name{font-size:24px}
+  .kw-card-price{font-size:20px}
+  .kw-gifts{gap:8px}
+  .kw-gift-label{font-size:10px}
+  .kw-sec{padding:52px 16px}
+  .kw-head .kw-title,.kw-guar .kw-title{font-size:27px}
+  .kw-name{font-size:30px;line-height:1.05}
+  .kw-sub-list li{font-size:13px;padding-left:26px}
+  .kw-feat-grid{grid-template-columns:1fr;gap:12px}
+  .kw-tested-grid{grid-template-columns:1fr;gap:16px}
+  .kw-reviews-grid{grid-template-columns:1fr;gap:16px}
+  .kw-tested-card{padding:14px 14px 18px;border-radius:16px}
+  .kw-tested-img{border-radius:12px;margin-bottom:12px}
+  .kw-tested-h{font-size:15.5px}
+  .kw-tested-t{font-size:13.5px;line-height:1.6}
+  .kw-feat{min-height:130px;grid-template-columns:1fr 3fr}
+  .kw-feat-body{padding:16px 18px}
+  .kw-feat-h{font-size:15px;margin-bottom:6px}
+  .kw-feat-t{font-size:12.5px;line-height:1.5}
+  .kw-cmp-head>div,.kw-cmp-row>div{padding:10px 8px;font-size:11.5px}
+  .kw-guar-inner{flex-direction:column;text-align:center;padding:20px 4px;gap:22px}
+  .kw-guar-copy{max-width:100%}
+  .kw-guar p{margin:0 auto 16px}
+  .kw-guar .kw-cta{width:100%}
+  .kw-seal{order:-1;width:108px;height:108px}
+  .kw-foot{padding-bottom:92px}
+  .kw-studies{padding:52px 16px}
+  .kw-studies-h{font-size:30px}
+  .kw-studies-stats{gap:8px}
+  .kw-studies-stat{padding:16px 8px}
+  .kw-studies-stat-num{font-size:28px}
+  .kw-sticky{display:flex}
+  .kw-giftmodal-backdrop{padding:14px}
+  .kw-giftmodal{border-radius:14px}
+  .kw-giftmodal-hero{padding:24px 18px 0}
+  .kw-giftmodal-img{width:110px;height:110px}
+  .kw-giftmodal-title{font-size:24px}
+  .kw-pre-note{font-size:10px;letter-spacing:0.05em;gap:5px;flex-wrap:wrap;padding:0 8px}
+  .kw-pre-note svg{width:12px;height:12px}
+  .kw-promo{padding:9px 12px;margin-bottom:14px}
+  .kw-promo-text{font-size:11.5px;min-width:120px}
+  .kw-promo-timer{font-size:10px}
+  .kw-stock{font-size:11.5px;margin-top:12px}
+  .kw-card-pre{font-size:8.5px;letter-spacing:0.08em}
+  .kw-meal-inner{grid-template-columns:1fr;min-height:0}
+  .kw-meal-copy{padding:44px 22px;order:2}
+  .kw-meal-title{font-size:38px;margin-bottom:32px}
+  .kw-meal-stats{gap:26px 18px;max-width:100%;margin-bottom:32px}
+  .kw-meal-num{font-size:32px}
+  .kw-meal-lbl{font-size:12.5px}
+  .kw-meal-img{order:1;min-height:0;aspect-ratio:1/1}
+}
+</style>
+
+<div class="kw"><div class="kw-wrap">
+
+  <section class="kw-buy"><div class="kw-buy-inner">
+
+    <!-- GALLERY -->
+    <div class="kw-gallery">
+      <div class="kw-stage">
+        <span class="kw-stage-tag" id="kwStageTag" style="color:var(--accent)">3 in 1</span>
+        <img id="kwStage" src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_55_54_PM.png?v=1784923099&width=1200" alt="[PRODUCT NAME]" fetchpriority="high">
+      </div>
+      <div class="kw-thumbs" id="kwThumbs">
+        <div class="kw-thumb is-active" data-img="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_55_54_PM.png?v=1784923099" data-tag="3 in 1" data-tag-color="var(--accent)"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_55_54_PM.png?v=1784923099&width=200" alt="" loading="lazy"></div>
+        <div class="kw-thumb" data-img="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_37_PM.png?v=1784923210" data-tag="Sofort spürbar" data-tag-color="var(--green)"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_37_PM.png?v=1784923210&width=200" alt="" loading="lazy"></div>
+        <div class="kw-thumb" data-img="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_11_PM.png?v=1784923191" data-tag="20 Min abends" data-tag-color="var(--accent-deep)"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_11_PM.png?v=1784923191&width=200" alt="" loading="lazy"></div>
+        <div class="kw-thumb" data-img="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_28_PM.png?v=1784923203" data-tag="Kabellos &amp; leicht" data-tag-color="var(--ink)"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_28_PM.png?v=1784923203&width=200" alt="" loading="lazy"></div>
+        <div class="kw-thumb" data-img="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_43_PM.png?v=1784923231" data-tag="Für beide Hände" data-tag-color="var(--green)"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_43_PM.png?v=1784923231&width=200" alt="" loading="lazy"></div>
+        <div class="kw-thumb" data-img="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_52_PM.png?v=1784923233" data-tag="Wie es wirkt" data-tag-color="var(--accent)"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_09_56_52_PM.png?v=1784923233&width=200" alt="" loading="lazy"></div>
+        <div class="kw-thumb" data-img="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/Keep_the_current_design__heat_202606050025_561397bd-fc56-492d-bb23-d95197e6b5b2.jpg?v=1784923246" data-tag="Klinisch geprüft" data-tag-color="var(--green)"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/Keep_the_current_design__heat_202606050025_561397bd-fc56-492d-bb23-d95197e6b5b2.jpg?v=1784923246&width=200" alt="" loading="lazy"></div>
+      </div>
+
+      <!-- Product details accordion -->
+      <details class="kw-acc" id="kwDetailsAcc">
+        <summary>
+          <span class="lbl"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span>Produktdaten</span>
+          <span class="plus">+</span>
+        </summary>
+        <div class="kw-acc-body">
+          <div class="kw-spec-group">
+            <div class="kw-spec-group-h">Merkmale</div>
+            <table class="kw-spec-table">
+              <tr><th>Fernbedienung</th><td>Kabellos, separat vom Wrap</td></tr>
+              <tr><th>Lichttherapie</th><td>Dual-Wellenlänge – 660nm &amp; 850nm Rotlicht</td></tr>
+              <tr><th>Wärmestufen</th><td>3 Stufen – 50°C / 60°C / 70°C</td></tr>
+              <tr><th>Vibrationsstufen</th><td>3 Stufen</td></tr>
+              <tr><th>Passform</th><td>Daumenloch-Design für sicheren Halt</td></tr>
+              <tr><th>Einsatzbereiche</th><td>Handgelenk, Ellenbogen, Knie</td></tr>
+            </table>
+          </div>
+          <div class="kw-spec-group">
+            <div class="kw-spec-group-h">Technische Daten</div>
+            <table class="kw-spec-table">
+              <tr><th>Material</th><td>Kristallfleece (Polyester)</td></tr>
+              <tr><th>Produktmaße</th><td>69 &times; 8,5 &times; 1 cm (L &times; B &times; H)</td></tr>
+              <tr><th>Produktgewicht</th><td>0,2 kg</td></tr>
+              <tr><th>Akkutyp</th><td>Eingebauter Lithium-Akku (Modell XY103065)</td></tr>
+              <tr><th>Akkukapazität</th><td>3000 mAh</td></tr>
+              <tr><th>Leistung</th><td>7,4 W</td></tr>
+              <tr><th>Spannung</th><td>3,7 V</td></tr>
+              <tr><th>Ladezeit</th><td>3 Stunden<span style="display:block;font-size:11px;color:var(--tx-dim);font-weight:400;margin-top:2px">Einmal laden, den ganzen Tag nutzen – ideal zum Aufladen über Nacht.</span></td></tr>
+              <tr><th>Nutzungsdauer</th><td>1,5 Stunden pro Ladung<span style="display:block;font-size:11px;color:var(--tx-dim);font-weight:400;margin-top:2px">Perfekt für mehrere Anwendungen am Tag.</span></td></tr>
+              <tr><th>LED-Anzahl</th><td>36 Infrarot-LEDs</td></tr>
+              <tr><th>Verpackungsmaße</th><td>18 &times; 10 &times; 5 cm</td></tr>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- Certifications / 3rd-party tests -->
+      <details class="kw-acc" id="kwCertAcc">
+        <summary>
+          <span class="lbl"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>So wirkt ThermaWrap</span>
+          <span class="plus">+</span>
+        </summary>
+        <div class="kw-acc-body">
+          <div class="kw-coa-study">
+            <div class="kw-step-head"><span class="kw-step-num">1</span><span class="kw-step-title">Anlegen</span><span class="kw-step-tag">Start</span></div>
+            <p class="kw-coa-study-sum">Das Wrap wird angelegt, die Wärme setzt sofort ein.</p>
+          </div>
+          <div class="kw-coa-study">
+            <div class="kw-step-head"><span class="kw-step-num">2</span><span class="kw-step-title">Licht dringt ein</span><span class="kw-step-tag">660nm &amp; 850nm</span></div>
+            <p class="kw-coa-study-sum">660nm &amp; 850nm Rotlicht wirken gleichzeitig auf unterschiedlichen Hauttiefen.</p>
+          </div>
+          <div class="kw-coa-study">
+            <div class="kw-step-head"><span class="kw-step-num">3</span><span class="kw-step-title">Wärme + Vibration</span><span class="kw-step-tag">Kombi-Wirkung</span></div>
+            <p class="kw-coa-study-sum">Beide verstärken gemeinsam die Lichtwirkung und lockern die Muskulatur.</p>
+          </div>
+          <div class="kw-coa-study">
+            <div class="kw-step-head"><span class="kw-step-num">4</span><span class="kw-step-title">Durchblutung steigt</span><span class="kw-step-tag">Mikrozirkulation</span></div>
+            <p class="kw-coa-study-sum">Die Blutzirkulation im behandelten Bereich wird angeregt.</p>
+          </div>
+          <div class="kw-coa-study">
+            <div class="kw-step-head"><span class="kw-step-num">5</span><span class="kw-step-title">Ergebnis</span><span class="kw-step-tag">20 Minuten</span></div>
+            <p class="kw-coa-study-sum">Nach ca. 20 Minuten: spürbare Linderung von Verspannung und Taubheitsgefühl.</p>
+          </div>
+          <div class="kw-coa-study">
+            <div class="kw-step-head"><span class="kw-step-num">6</span><span class="kw-step-title">Regelmäßige Anwendung</span><span class="kw-step-tag">Täglich</span></div>
+            <p class="kw-coa-study-sum">Tägliche Nutzung über mehrere Wochen verstärkt die Wirkung kumulativ.</p>
+          </div>
+          <div class="kw-coa-study">
+            <div class="kw-step-head"><span class="kw-step-num">7</span><span class="kw-step-title">Bessere Nachtruhe</span><span class="kw-step-tag">Schlafqualität</span></div>
+            <p class="kw-coa-study-sum">Weniger nächtliches Aufwachen durch Taubheit oder Schmerzen, tieferer Schlaf.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div class="kw-info">
+      {% endraw %}
+      {% if section.settings.promo_badge_enabled %}
+        {% unless customer and customer.orders_count > 0 %}
+          <div class="kw-promo" data-promo-ends="{{ section.settings.promo_ends_at }}">
+            <span class="kw-promo-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+              </svg>
+            </span>
+            <span class="kw-promo-text">Neukunden erhalten <strong>20%</strong> mit Code <strong>{{ section.settings.promo_code | default: 'WILLKOMMEN20' }}</strong></span>
+            {% if section.settings.promo_ends_at != blank %}
+              <span class="kw-promo-timer" data-promo-timer aria-live="polite"></span>
+            {% endif %}
+          </div>
+        {% endunless %}
+      {% endif %}
+      {% raw %}
+      <div style="display:inline-flex;align-items:center;margin-bottom:10px;">
+        <span class="kw-proof-link" id="kwRating" aria-label="Wissenschaftlich erforscht, 4,8 von 5 Sternen – zu den Nachweisen springen"><span class="ico">&#9877;&#65039;</span><span class="kw-proof-label">Wissenschaftlich erforscht</span><span class="kw-stars" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg></span><span class="kw-rating-val">4,8</span></span>
+      </div>
+
+      <h1 class="kw-name">ThermaWrap<br><em>Schluss mit tauben Händen</em> um 3 Uhr nachts.</h1>
+
+      <div class="kw-benefit-tags">
+        <span class="kw-benefit-tag">Endlich durchschlafen</span>
+        <span class="kw-benefit-tag">Ohne OP, ohne Tabletten</span>
+        <span class="kw-benefit-tag">20 Minuten täglich</span>
+      </div>
+
+      <p class="kw-sub-lead">Dual-Wellenlängen-Rotlicht (660nm &amp; 850nm) und gezielte Wärme wirken direkt auf den betroffenen Nerv, <strong>damit du nicht mehr taub und brennend aufwachst.</strong></p>
+
+      <ul class="kw-sub-list">
+        <li><strong>Kein 3-Uhr-Aufwachen mehr</strong> &mdash; 660nm &amp; 850nm Rotlicht setzen genau dort an, wo die Nacht sonst zur Qual wird</li>
+        <li><strong>Wärme, die wirklich hilft</strong> &mdash; 3 Stufen bis 70&deg;C lösen Verspannungen und fördern die Durchblutung</li>
+        <li><strong>Sanfte Vibration inklusive</strong> &mdash; 3 Massagestufen lockern Handgelenk, Ellenbogen und Knie</li>
+        <li><strong>Bequem im Schlaf tragbar</strong> &mdash; kabellose Fernbedienung, kein störendes Kabel im Bett</li>
+        <li><strong>Passt sich deiner Hand an</strong> &mdash; Daumenloch-Design für sicheren Halt die ganze Nacht</li>
+      </ul>
+
+      <!-- ========== OFFER CARDS ========== -->
+      <div class="kw-offer" id="kwOffer">
+        <div class="kw-cards" id="kwCards">
+
+          <div class="kw-card is-selected" data-plan="1">
+            <span class="kw-card-badge">[Standard]</span>
+            <div class="kw-card-name">ThermaWrap Single<span class="sub">Standard</span></div>
+            <div class="kw-card-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_10_58_43_PM.png?v=1784926786&width=700" alt="[Offer 1]" loading="lazy"></div>
+            <div class="kw-card-check" style="opacity:1">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Inkl. Versand &amp; USB-Kabel
+            </div>
+            <div class="kw-card-divider"></div>
+            <div class="kw-card-pre">Vorbestellpreis</div>
+            <div class="kw-card-price">
+              <span class="strike" data-strike-1>129,00€</span>
+              <span data-price-1>89,99€</span>
+            </div>
+          </div>
+
+          <div class="kw-card is-recommended" data-plan="2">
+            <div class="kw-card-name">ThermaWrap Duo<span class="sub">Beliebteste Wahl</span></div>
+            <div class="kw-card-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_24_2026_10_58_48_PM.png?v=1784926791&width=700" alt="[Offer 2]" loading="lazy"></div>
+            <div class="kw-card-check">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Inkl. alle 4 Boni gratis
+            </div>
+            <div class="kw-card-divider"></div>
+            <div class="kw-card-pre">Vorbestellpreis</div>
+            <div class="kw-card-price">
+              <span class="strike" data-strike-2>258,00€</span>
+              <span data-price-2>139,99€</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bonus gifts — framed as a pre-order reward -->
+        <div class="kw-gifts-head">
+          <span class="line"></span>
+          <span class="ttl">Gratis Geschenke &mdash; <em>Nur bei Vorbestellung</em></span>
+          <span class="line"></span>
+        </div>
+
+        <div class="kw-gifts" id="kwGifts">
+          <div class="kw-gift" data-gift="0">
+            <div class="kw-gift-card">
+              <div class="kw-gift-tag"><span class="strike">20€</span>Kostenlos</div>
+              <div class="kw-gift-img"><svg width="72%" viewBox="0 0 30 20" role="img" aria-label="EU-Flagge" style="border-radius:4px;flex-shrink:0"><rect width="30" height="20" fill="#003399"/><g fill="#FFCC00"><polygon points="15.00,2.15 15.37,3.29 16.57,3.29 15.60,4.00 15.97,5.13 15.00,4.43 14.03,5.13 14.40,4.00 13.43,3.29 14.63,3.29"/><polygon points="18.10,2.98 18.47,4.12 19.67,4.12 18.70,4.83 19.07,5.97 18.10,5.26 17.13,5.97 17.50,4.83 16.53,4.12 17.73,4.12"/><polygon points="20.37,5.25 20.74,6.39 21.94,6.39 20.97,7.09 21.34,8.23 20.37,7.53 19.40,8.23 19.77,7.09 18.80,6.39 20.00,6.39"/><polygon points="21.20,8.35 21.57,9.49 22.77,9.49 21.80,10.20 22.17,11.34 21.20,10.63 20.23,11.34 20.60,10.20 19.63,9.49 20.83,9.49"/><polygon points="20.37,11.45 20.74,12.59 21.94,12.59 20.97,13.29 21.34,14.44 20.37,13.73 19.40,14.44 19.77,13.29 18.80,12.59 20.00,12.59"/><polygon points="18.10,13.72 18.47,14.86 19.67,14.86 18.70,15.56 19.07,16.70 18.10,16.00 17.13,16.70 17.50,15.56 16.53,14.86 17.73,14.86"/><polygon points="15.00,14.55 15.37,15.69 16.57,15.69 15.60,16.39 15.97,17.54 15.00,16.83 14.03,17.54 14.40,16.39 13.43,15.69 14.63,15.69"/><polygon points="11.90,13.72 12.27,14.86 13.47,14.86 12.50,15.56 12.87,16.70 11.90,16.00 10.93,16.70 11.30,15.56 10.33,14.86 11.53,14.86"/><polygon points="9.63,11.45 10.00,12.59 11.20,12.59 10.23,13.29 10.60,14.44 9.63,13.73 8.66,14.44 9.03,13.29 8.06,12.59 9.26,12.59"/><polygon points="8.80,8.35 9.17,9.49 10.37,9.49 9.40,10.20 9.77,11.34 8.80,10.63 7.83,11.34 8.20,10.20 7.23,9.49 8.43,9.49"/><polygon points="9.63,5.25 10.00,6.39 11.20,6.39 10.23,7.09 10.60,8.23 9.63,7.53 8.66,8.23 9.03,7.09 8.06,6.39 9.26,6.39"/><polygon points="11.90,2.98 12.27,4.12 13.47,4.12 12.50,4.83 12.87,5.97 11.90,5.26 10.93,5.97 11.30,4.83 10.33,4.12 11.53,4.12"/></g></svg></div>
+              <div class="kw-gift-lock">
+                <div class="kw-gift-lock-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+                <div class="kw-gift-unlock-msg"></div>
+              </div>
+              <span class="kw-gift-info">i</span>
+            </div>
+            <div class="kw-gift-label">Kostenloser Versand</div>
+          </div>
+
+          <div class="kw-gift" data-gift="1">
+            <div class="kw-gift-card">
+              <div class="kw-gift-tag"><span class="strike">10,00€</span>GRATIS</div>
+              <div class="kw-gift-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/2026-06-07220732_26082e0e-5081-40b2-8776-64d8f424348c.png?v=1783724653&width=500" alt="[Gift 2]" loading="lazy"></div>
+              <div class="kw-gift-lock">
+                <div class="kw-gift-lock-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+                <div class="kw-gift-unlock-msg"></div>
+              </div>
+              <span class="kw-gift-info">i</span>
+            </div>
+            <div class="kw-gift-label">USB Ladegerät</div>
+          </div>
+
+          <div class="kw-gift" data-gift="2">
+            <div class="kw-gift-card">
+              <div class="kw-gift-tag"><span class="strike">10,00€</span>GRATIS</div>
+              <div class="kw-gift-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/2026-06-07220619_a655e656-38ad-444d-90f3-3338e6f55e3b.png?v=1783725453&width=500" alt="[Gift 3]" loading="lazy"></div>
+              <div class="kw-gift-lock">
+                <div class="kw-gift-lock-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+                <div class="kw-gift-unlock-msg"></div>
+              </div>
+              <span class="kw-gift-info">i</span>
+            </div>
+            <div class="kw-gift-label">Soft Hand Mask</div>
+          </div>
+
+          <div class="kw-gift" data-gift="3">
+            <div class="kw-gift-card">
+              <div class="kw-gift-tag"><span class="strike">12,00€</span>GRATIS</div>
+              <div class="kw-gift-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/2026-06-07220600_589acf91-d7c3-494f-8aa3-a72045a82931.png?v=1783725421&width=500" alt="[Gift 4]" loading="lazy"></div>
+              <div class="kw-gift-lock">
+                <div class="kw-gift-lock-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+                <div class="kw-gift-unlock-msg"></div>
+              </div>
+              <span class="kw-gift-info">i</span>
+            </div>
+            <div class="kw-gift-label">Milch-Honig Handpflege Wachs</div>
+          </div>
+        </div>
+
+        <div class="kw-claim" id="kwClaim"></div>
+      </div>
+
+      <!-- Pre-Order CTA (active) -->
+      <a href="#" class="kw-cta" id="kwCta">
+        <span class="kw-cta-label" id="kwCtaLabel">[Vorbestellen]</span>
+        <span class="kw-cta-total">
+          <span class="kw-cta-total-label">Vorbestellpreis</span>
+          <span class="kw-cta-total-row">
+            <span class="kw-cta-total-strike" id="kwCtaStrike">[xx,xx€]</span>
+            <span class="kw-cta-total-price" id="kwCtaPrice">[xx,xx€]</span>
+          </span>
+        </span>
+      </a>
+
+      <div class="kw-pre-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Jetzt sichern &middot; Geschätztes Lieferdatum <span id="kwFlag" aria-hidden="true" style="margin-right:6px;font-size:14px;line-height:1;"></span><strong id="kwShipDate">&mdash;</strong>
+      </div>
+
+      <div class="kw-stock"><span class="kw-stock-dot"></span>Nur noch wenige auf Lager &mdash; sichere dir deins jetzt</div>
+
+      <div class="kw-mb-trust" style="margin-top:18px;">&#10003; Sichere Zahlung &middot; &#10003; Kostenloser Versand in ganz Europa</div>
+
+      <div class="kw-mb">
+        <div class="kw-mb-ico"></div>
+        <div>
+          <div class="kw-mb-title">Zufrieden oder Geld zurück. <strong>90-Tage-Garantie.</strong></div>
+          <div class="kw-mb-text"><strong>Teste es 90 Tage lang.</strong> Überzeugt es dich nicht, schickst du es einfach zurück – volle Rückerstattung. Kein Anruf. Kein Formular.</div>
+        </div>
+      </div>
+
+      <div class="kw-mini-trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Sichere Zahlung</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>Käuferschutz</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>Geprüfte Qualität</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2C7 8 7 13 12 22 17 13 17 8 12 2z"/></svg>Versand in ganz Europa</span>
+      </div>
+
+      <!-- Compact UGC strip -->
+      <div class="kw-ugc-compact">
+        <div class="kw-ugc-compact-h">&#9733; Das sagen unsere Kunden</div>
+        <div class="kw-ugc-grid">
+          <div class="kw-vid">
+            <div class="kw-vid-frame" onclick="kwPlayVid(this)">
+              {% endraw %}{% assign ugc_video_1 = product.media | where: 'media_type', 'video' | where: 'id', 70043323335041 | first %}{% if ugc_video_1 %}{{ ugc_video_1 | video_tag: image_size: '600x', autoplay: false, loop: false, controls: false, muted: false, preload: 'none' }}{% endif %}{% raw %}
+              <div class="kw-vid-play"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.4)"/><circle cx="40" cy="40" r="36" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/><polygon points="32,26 58,40 32,54" fill="#fff"/></svg></div>
+            </div>
+          </div>
+          <div class="kw-vid">
+            <div class="kw-vid-frame" onclick="kwPlayVid(this)">
+              {% endraw %}{% assign ugc_video_2 = product.media | where: 'media_type', 'video' | where: 'id', 70272454820225 | first %}{% if ugc_video_2 %}{{ ugc_video_2 | video_tag: image_size: '600x', autoplay: false, loop: false, controls: false, muted: false, preload: 'none' }}{% endif %}{% raw %}
+              <div class="kw-vid-play"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.4)"/><circle cx="40" cy="40" r="36" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/><polygon points="32,26 58,40 32,54" fill="#fff"/></svg></div>
+            </div>
+          </div>
+          <div class="kw-vid">
+            <div class="kw-vid-frame" onclick="kwPlayVid(this)">
+              {% endraw %}{% assign ugc_video_3 = product.media | where: 'media_type', 'video' | where: 'id', 70062803091841 | first %}{% if ugc_video_3 %}{{ ugc_video_3 | video_tag: image_size: '600x', autoplay: false, loop: false, controls: false, muted: false, preload: 'none' }}{% endif %}{% raw %}
+              <div class="kw-vid-play"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.4)"/><circle cx="40" cy="40" r="36" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/><polygon points="32,26 58,40 32,54" fill="#fff"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div></section>
+
+  <section class="kw-trust">
+    <div class="kw-trust-track">
+      <span class="kw-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Persönlicher Kundenservice</span>
+      <span class="kw-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>Geprüfte Qualität</span>
+      <span class="kw-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L4 6v6c0 5 4 8 8 10 4-2 8-5 8-10V6z"/></svg>90 Tage Geld-zurück-Garantie</span>
+      <span class="kw-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>Versand in ganz Europa</span>
+      <span class="kw-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2C7 8 7 13 12 22 17 13 17 8 12 2z"/></svg>Kostenloser Versand</span>
+    </div>
+  </section>
+
+  <section class="kw-sec"><div class="kw-sec-inner">
+    <div class="kw-head"><h2 class="kw-title">Was Nutzer über <em>ThermaWrap</em> berichten.</h2></div>
+    <div class="kw-reviews-grid">
+      <div class="kw-review-card">
+        <span class="kw-stars"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg></span>
+        <p class="kw-review-quote">&bdquo;Ich hatte schon so viele Cremes und Tabletten ausprobiert, ohne wirklichen Erfolg. Das hier war das erste Produkt, das ich abends einfach anlege und dabei entspanne &ndash; ohne Nebenwirkungen, ohne Chemie.&ldquo;</p>
+        <div class="kw-review-name">Anna K. <span>&middot; 32 Jahre</span></div>
+      </div>
+      <div class="kw-review-card">
+        <span class="kw-stars"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--card-line)"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg></span>
+        <p class="kw-review-quote">&bdquo;Normale Handgelenkbandagen haben bei mir nur Druck gemacht, ohne wirklich zu helfen. ThermaWrap kombiniert Wärme und sanfte Vibration &ndash; das fühlt sich viel angenehmer an als reine Stützschienen.&ldquo;</p>
+        <div class="kw-review-name">Petra M. <span>&middot; 39 Jahre</span></div>
+      </div>
+      <div class="kw-review-card">
+        <span class="kw-stars"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg></span>
+        <p class="kw-review-quote">&bdquo;Ich nutze es jeden Abend auf dem Sofa, während ich ein Buch lese. Nach ein paar Minuten fühlen sich meine Hände deutlich lockerer an &ndash; ein schöner Abschluss für den Tag.&ldquo;</p>
+        <div class="kw-review-name">Thomas B. <span>&middot; 43 Jahre</span></div>
+      </div>
+      <div class="kw-review-card">
+        <span class="kw-stars"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--card-line)"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg></span>
+        <p class="kw-review-quote">&bdquo;Nach einer langen Schicht mit viel Handarbeit sind meine Hände oft müde und steif. ThermaWrap nutze ich direkt nach der Arbeit &ndash; die Wärme und Vibration helfen mir richtig runterzukommen.&ldquo;</p>
+        <div class="kw-review-name">Michael S. <span>&middot; 47 Jahre</span></div>
+      </div>
+      <div class="kw-review-card">
+        <span class="kw-stars"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--card-line)"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--card-line)"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg></span>
+        <p class="kw-review-quote">&bdquo;Nach stundenlangem Tippen am Laptop spüre ich oft eine Anspannung im Handgelenk. Ich gönne mir zwischendurch eine kurze Pause damit &ndash; kabellos, also störe ich nicht mal beim Arbeiten.&ldquo;</p>
+        <div class="kw-review-name">Claudia H. <span>&middot; 54 Jahre</span></div>
+      </div>
+      <div class="kw-review-card">
+        <span class="kw-stars"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 14.9,8.6 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.1,8.6"/></svg></span>
+        <p class="kw-review-quote">&bdquo;Ich benutze es kurz vor dem Schlafengehen. Die Kombination aus Wärme und Licht fühlt sich beruhigend an, und ich schlafe seitdem entspannter ein.&ldquo;</p>
+        <div class="kw-review-name">Jana R. <span>&middot; 58 Jahre</span></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="kw-sec alt" id="kwTested"><div class="kw-sec-inner">
+    <div class="kw-head">
+      <h2 class="kw-title">Geprüft &amp; <em>wissenschaftlich bestätigt</em>.</h2>
+      <p class="kw-head-sub">Die in ThermaWrap eingesetzte Licht- und Lasertherapie wurde in mehreren unabhängigen wissenschaftlichen Studien untersucht &ndash; nicht das ThermaWrap-Produkt selbst.</p>
+    </div>
+    <div class="kw-tested-grid">
+      <div class="kw-tested-card">
+        <button type="button" class="kw-tested-img" data-lightbox-src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_11_2026_08_34_57_PM.png?v=1783795087"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_11_2026_08_34_57_PM.png?v=1783795087&width=600" alt="Studie: Mikrozirkulatorische Reaktion auf Photobiomodulation" loading="lazy"></button>
+        <h3 class="kw-tested-h">Mikrozirkulatorische Reaktion auf Photobiomodulation</h3>
+        <p class="kw-tested-t">Gavish et al., Lasers in Surgery and Medicine (2020) &middot; NCT03357523. Nahinfrarotlicht steigerte die Durchblutung um bis zu 54&#37;.</p>
+      </div>
+      <div class="kw-tested-card">
+        <button type="button" class="kw-tested-img" data-lightbox-src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_11_2026_08_34_52_PM.png?v=1783795087"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_11_2026_08_34_52_PM.png?v=1783795087&width=600" alt="Studie: Low-Level-Lasertherapie bei Handgelenkschmerzen" loading="lazy"></button>
+        <h3 class="kw-tested-h">Lasertherapie bei Handgelenkschmerzen</h3>
+        <p class="kw-tested-t">Yun et al., Lasers in Medical Science (2024) &middot; KCT0006604. Signifikante Schmerzreduktion nach 15 Sitzungen &ndash; ohne Nebenwirkungen.</p>
+      </div>
+      <div class="kw-tested-card">
+        <button type="button" class="kw-tested-img" data-lightbox-src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_11_2026_08_35_02_PM.png?v=1783795087"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_Jul_11_2026_08_35_02_PM.png?v=1783795087&width=600" alt="Studie: Low-Level-Lasertherapie beim Karpaltunnelsyndrom" loading="lazy"></button>
+        <h3 class="kw-tested-h">Wirksamkeit bei Karpaltunnelsyndrom</h3>
+        <p class="kw-tested-t">Li et al., Medicine (Baltimore) (2016) &middot; Metaanalyse von 7 randomisierten Studien mit 531 Handgelenken &ndash; signifikante Verbesserung von Griffkraft und Schmerz-Score.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="kw-meal">
+    <div class="kw-meal-inner">
+      <div class="kw-meal-copy">
+        <h2 class="kw-meal-title">Das ist <em>gezielte</em> Therapie für deine Hände</h2>
+        <div class="kw-meal-stats">
+          <div class="kw-meal-stat"><div class="kw-meal-num">660 &amp; 850nm</div><div class="kw-meal-lbl">Dual-Wellenlängen-Rotlicht</div></div>
+          <div class="kw-meal-stat"><div class="kw-meal-num">36</div><div class="kw-meal-lbl">Infrarot-LEDs</div></div>
+          <div class="kw-meal-stat"><div class="kw-meal-num">3</div><div class="kw-meal-lbl">Wärmestufen bis 70°C</div></div>
+          <div class="kw-meal-stat"><div class="kw-meal-num">3</div><div class="kw-meal-lbl">Vibrationsstufen</div></div>
+          <div class="kw-meal-stat"><div class="kw-meal-num">3000mAh</div><div class="kw-meal-lbl">Akkukapazität</div></div>
+          <div class="kw-meal-stat"><div class="kw-meal-num">20 Min.</div><div class="kw-meal-lbl">Anwendung täglich</div></div>
+        </div>
+        <a href="#kwOffer" class="kw-meal-cta">Jetzt sichern</a>
+      </div>
+      <div class="kw-meal-img">
+        <img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_May_26_2026_02_37_00_AM.png?v=1779755896&width=800" alt="ThermaWrap Produktbild" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="kw-sec"><div class="kw-sec-inner">
+    <div class="kw-head">
+      <h2 class="kw-title">Mehr als Wärme <em>und Licht</em>.</h2>
+      <p class="kw-head-sub">ThermaWrap ist so gebaut, dass es sich in deinen Alltag einfügt, statt ihn zu unterbrechen &ndash; ob am Schreibtisch, auf dem Sofa oder beim Entspannen am Abend.</p>
+    </div>
+
+    <div class="kw-feat-grid">
+      <div class="kw-feat">
+        <div class="kw-feat-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/Please_move_the_headline__Wohltuende_202606060053.jpg_2K_202607111728.jpg?v=1783783770&width=500" alt="ThermaWrap Nahaufnahme mit leuchtendem Rotlicht" loading="lazy"></div>
+        <div class="kw-feat-body">
+          <h3 class="kw-feat-h">Zwei Wellenlängen, ein Ziel</h3>
+          <p class="kw-feat-t">660nm Rotlicht und 850nm Nahinfrarot wirken gleichzeitig auf unterschiedlichen Hauttiefen &ndash; sichtbar spürbar bei jeder Anwendung.</p>
+        </div>
+      </div>
+
+      <div class="kw-feat">
+        <div class="kw-feat-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/ChatGPT_Image_May_26_2026_04_36_48_AM.png?v=1779763037&width=500" alt="Frau nutzt ThermaWrap entspannt auf dem Sofa" loading="lazy"></div>
+        <div class="kw-feat-body">
+          <h3 class="kw-feat-h">Passt sich deinem Alltag an</h3>
+          <p class="kw-feat-t">Ob auf der Couch oder unterwegs: Das Wrap lässt genug Bewegungsfreiheit für Tablet, Buch oder Fernbedienung.</p>
+        </div>
+      </div>
+
+      <div class="kw-feat">
+        <div class="kw-feat-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/Ultra-realistic_cinematic_wellness-tech_hero_photography_202605261833.jpg?v=1779813223&width=500" alt="Mann tippt am Laptop mit ThermaWrap am Handgelenk" loading="lazy"></div>
+        <div class="kw-feat-body">
+          <h3 class="kw-feat-h">Weiterarbeiten, ohne zu pausieren</h3>
+          <p class="kw-feat-t">Das Daumenloch-Design hält den Wrap sicher am Handgelenk, während deine Finger frei zum Tippen bleiben.</p>
+        </div>
+      </div>
+
+      <div class="kw-feat">
+        <div class="kw-feat-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/Ultra-realistic_cinematic_wellness-tech_hero_photography_202605261833_1.jpg?v=1779813230&width=500" alt="Frau skizziert am Schreibtisch mit ThermaWrap am Handgelenk" loading="lazy"></div>
+        <div class="kw-feat-body">
+          <h3 class="kw-feat-h">Feinmotorik bleibt erhalten</h3>
+          <p class="kw-feat-t">Selbst filigrane Handarbeiten wie Skizzieren oder Schreiben sind mit ThermaWrap problemlos möglich.</p>
+        </div>
+      </div>
+
+      <div class="kw-feat">
+        <div class="kw-feat-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/Authentic_cinematic_lifestyle_image_of_202605260327.jpg?v=1779758893&width=500" alt="Mann nutzt ThermaWrap am Knie mit sichtbarem Rotlicht" loading="lazy"></div>
+        <div class="kw-feat-body">
+          <h3 class="kw-feat-h">Nicht nur fürs Handgelenk</h3>
+          <p class="kw-feat-t">Handgelenk, Ellenbogen oder Knie: ThermaWrap passt sich flexibel an mehrere Körperbereiche an.</p>
+        </div>
+      </div>
+
+      <div class="kw-feat">
+        <div class="kw-feat-img"><img src="https://cdn.shopify.com/s/files/1/0940/9799/8209/files/Ultra-realistic_cinematic_photography_of_a_202605260508.jpg?v=1779765348&width=500" alt="Mann entspannt abends auf dem Sofa mit ThermaWrap" loading="lazy"></div>
+        <div class="kw-feat-body">
+          <h3 class="kw-feat-h">Der perfekte Abschluss des Tages</h3>
+          <p class="kw-feat-t">Häufig genutzt am Abend, wenn Verspannungen und Taubheitsgefühl vor dem Schlafengehen am stärksten spürbar sind.</p>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="kw-sec"><div class="kw-sec-inner" style="max-width:760px;">
+    <div class="kw-head"><h2 class="kw-title">ThermaWrap vs. <em>günstige Rotlicht-Wraps</em>.</h2></div>
+    <div class="kw-cmp">
+      <div class="kw-cmp-head"><div>Merkmal</div><div>Typische Rotlicht-Wraps</div><div class="us">ThermaWrap</div></div>
+      <div class="kw-cmp-row"><div class="feat">Lichttherapie</div><div class="bad">Meist nur eine Wellenlänge</div><div class="good">660nm &amp; 850nm Dual-Wellenlänge</div></div>
+      <div class="kw-cmp-row"><div class="feat">Haltbarkeit</div><div class="bad">Steuerung fest eingenäht, bricht oft nach wenigen Monaten</div><div class="good">Separate, kabellose Fernbedienung &ndash; robust &amp; langlebig</div></div>
+      <div class="kw-cmp-row"><div class="feat">Wärme</div><div class="bad">Meist nur eine feste Stufe</div><div class="good">3 Stufen bis 70&deg;C</div></div>
+      <div class="kw-cmp-row"><div class="feat">Vibration</div><div class="bad">In der Regel nicht vorhanden</div><div class="good">3 Vibrationsstufen inklusive</div></div>
+      <div class="kw-cmp-row"><div class="feat">Lichtmodi</div><div class="bad">Meist nur 1 feste Stufe</div><div class="good">3 Rotlicht-Modi</div></div>
+    </div>
+  </div></section>
+
+  <section class="kw-studies" id="kwStudies">
+    <div class="kw-studies-inner">
+      <div class="kw-studies-eyebrow">Die Wissenschaft dahinter</div>
+      <h2 class="kw-studies-h">Die Forschung<br>hinter <em>ThermaWrap</em>.</h2>
+      <p class="kw-studies-sub">Wir zeigen dir genau, worauf die Wirkung von ThermaWrap basiert. <strong>Keine leeren Versprechen. Keine Geheimnisse.</strong></p>
+
+      <div class="kw-studies-stats">
+        <div class="kw-studies-stat"><div class="kw-studies-stat-num">2</div><div class="kw-studies-stat-label">Wellenlängen &ndash; 660 &amp; 850nm</div></div>
+        <div class="kw-studies-stat"><div class="kw-studies-stat-num">36+</div><div class="kw-studies-stat-label">Infrarot-LEDs</div></div>
+        <div class="kw-studies-stat"><div class="kw-studies-stat-num">0</div><div class="kw-studies-stat-label">Nebenwirkungen in unabhängigen Studien</div></div>
+      </div>
+
+      <div class="kw-studies-list">
+        <!-- Diesen <details>-Block für jeden weiteren Eintrag duplizieren. -->
+        <details class="kw-ing-acc">
+          <summary>
+            <span class="kw-ing-dose">Studie 1</span>
+            <span class="kw-ing-name">Lasertherapie bei Handgelenkschmerzen <span class="kw-ing-sci">&middot; Yun et al., 2024</span></span>
+            <span class="kw-ing-plus">+</span>
+          </summary>
+          <div class="kw-ing-body">
+            <p class="kw-ing-desc">Eine randomisierte, placebokontrollierte Studie untersuchte eine tragbare Low-Level-Lasertherapie bei Handgelenkschmerzen. Wichtig: Untersucht wurde die zugrunde liegende Lichttechnologie (Photobiomodulation) &mdash; nicht das ThermaWrap-Produkt selbst. Nach 15 Sitzungen zeigte die Lasergruppe eine signifikante Schmerzreduktion sowie eine signifikante Verbesserung der Handfunktion &ndash; ohne Nebenwirkungen.</p>
+            <div class="kw-ing-stats">
+              <div class="kw-ing-stat"><div class="kw-ing-stat-num">30</div><div class="kw-ing-stat-lbl">Teilnehmende</div></div>
+              <div class="kw-ing-stat"><div class="kw-ing-stat-num">15</div><div class="kw-ing-stat-lbl">Sitzungen über 3 Wochen</div></div>
+            </div>
+            <div class="kw-ing-research">
+              <div class="kw-ing-research-h">Quelle</div>
+              <div class="kw-ing-study"><strong>Yun et al., 2024</strong>&bdquo;Therapeutic efficacy and safety of home-based portable laser irradiation on patients with wrist pain: a single-blinded randomized controlled trial&ldquo;, Lasers in Medical Science. <a href="https://pubmed.ncbi.nlm.nih.gov/38280042/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline">PubMed: 38280042</a></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="kw-ing-acc">
+          <summary>
+            <span class="kw-ing-dose">Studie 2</span>
+            <span class="kw-ing-name">Photobiomodulation bei myofaszialen Schmerzen <span class="kw-ing-sci">&middot; Attiyah et al., 2025</span></span>
+            <span class="kw-ing-plus">+</span>
+          </summary>
+          <div class="kw-ing-body">
+            <p class="kw-ing-desc">Eine randomisierte kontrollierte Studie untersuchte die Wirksamkeit von Photobiomodulationstherapie mit Rot- und Nahinfrarotlicht bei myofaszialen Schmerzen und zeigte eine Schmerzreduktion von 62–73&#37;. Wichtig: Untersucht wurde die zugrunde liegende Lichttechnologie (Photobiomodulation) &mdash; nicht das ThermaWrap-Produkt selbst. Die in unserem Produkt verwendete Rotlicht- und Nahinfrarot-Therapie basiert auf demselben wissenschaftlichen Wirkprinzip.</p>
+            <div class="kw-ing-stats">
+              <div class="kw-ing-stat"><div class="kw-ing-stat-num">62&ndash;73%</div><div class="kw-ing-stat-lbl">Schmerzreduktion (Studienergebnis)</div></div>
+              <div class="kw-ing-stat"><div class="kw-ing-stat-num">2025</div><div class="kw-ing-stat-lbl">Veröffentlichungsjahr</div></div>
+            </div>
+            <div class="kw-ing-research">
+              <div class="kw-ing-research-h">Quelle</div>
+              <div class="kw-ing-study"><strong>Attiyah et al., 2025</strong>&bdquo;Efficacy of photobiomodulation therapy using 980 nm versus 635 nm diode lasers for treatment of myofascial pain: a randomized controlled trial&ldquo;, BMC Oral Health. <a href="https://doi.org/10.1186/s12903-025-06971-7" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline">DOI: 10.1186/s12903-025-06971-7</a></div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Beliebig viele weitere <details>-Einträge ergänzen. -->
+      </div>
+
+      <p class="kw-studies-disc">Transparenz ist uns wichtig: ThermaWrap basiert auf wissenschaftlich untersuchter Licht- und Wärmetechnologie. Die hier gezeigten Studien beziehen sich auf diese Technologie im Allgemeinen &ndash; individuelle Ergebnisse können variieren.</p>
+    </div>
+  </section>
+
+  <section class="kw-guar"><div class="kw-guar-inner">
+    <div class="kw-guar-copy">
+      <h2 class="kw-title">Spüre den Unterschied <em>in 90 Tagen.</em></h2>
+      <p>Nutze ThermaWrap 90 Tage lang. <strong>Überzeugt es dich nicht, schickst du es einfach zurück &ndash; volle Rückerstattung.</strong> Kein Anruf. Kein &bdquo;Warum&ldquo;-Formular.</p>
+      <a href="#kwOffer" class="kw-cta" style="width:auto;"><span class="kw-cta-label">Jetzt sichern</span></a>
+    </div>
+    <div class="kw-seal">
+      <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><defs><path id="kwSealArc" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/></defs>
+        <g class="ring">
+          <circle cx="70" cy="70" r="62" fill="none" stroke="rgba(17,24,39,0.20)" stroke-width="1"/>
+          <circle cx="70" cy="70" r="44" fill="none" stroke="rgba(17,24,39,0.10)" stroke-width="1"/>
+          <text fill="#111827" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="2.5"><textPath href="#kwSealArc" startOffset="0">90 TAGE &#183; GELD-ZURÜCK-GARANTIE &#183; </textPath></text>
+        </g>
+        <g transform="translate(70,70)">
+          <path d="M0,-22 C12,-22 18,-16 18,-4 C18,12 6,20 0,24 C-6,20 -18,12 -18,-4 C-18,-16 -12,-22 0,-22 Z" fill="none" stroke="#16a34a" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M-8,-2 L-2,6 L9,-9" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </div>
+  </div></section>
+
+  <section class="kw-sec"><div class="kw-sec-inner">
+    <div class="kw-head"><h2 class="kw-title">Alles, was du <em>wissen musst.</em></h2></div>
+    <div class="kw-faq-list">
+      <details class="kw-faq-item"><summary>Wie schnell spüre ich eine Wirkung?<span class="kw-faq-plus">+</span></summary><div class="kw-faq-a">Viele spüren schon bei den ersten Anwendungen ein angenehmes Wärme- und Entspannungsgefühl. In unabhängigen Studien zur zugrunde liegenden Lichttechnologie zeigte sich nach <strong>regelmäßiger Anwendung über mehrere Wochen</strong> eine signifikante Verbesserung.</div></details>
+      <details class="kw-faq-item"><summary>Ist ThermaWrap sicher?<span class="kw-faq-plus">+</span></summary><div class="kw-faq-a">Ja. ThermaWrap basiert auf Photobiomodulation und Wärmetherapie &ndash; in unabhängigen wissenschaftlichen Studien zur zugrunde liegenden Technologie wurden <strong>0 Nebenwirkungen</strong> festgestellt. Bei bestehenden Erkrankungen oder in der Schwangerschaft sprich vorher mit deinem Arzt bzw. deiner Ärztin.</div></details>
+      <details class="kw-faq-item"><summary>Wie oft und wie lange sollte ich ThermaWrap benutzen?<span class="kw-faq-plus">+</span></summary><div class="kw-faq-a">Wir empfehlen <strong>ca. 20 Minuten täglich</strong>. Die Wirkung baut sich kumulativ auf, daher lohnt sich die regelmäßige Anwendung über mehrere Wochen.</div></details>
+      <details class="kw-faq-item"><summary>An welchen Körperstellen kann ich ThermaWrap tragen?<span class="kw-faq-plus">+</span></summary><div class="kw-faq-a">ThermaWrap ist flexibel einsetzbar &ndash; für <strong>Handgelenk, Ellenbogen und Knie</strong>. Das Daumenloch-Design sorgt am Handgelenk zusätzlich für sicheren Halt.</div></details>
+      <details class="kw-faq-item"><summary>Wie lange dauert der Versand?<span class="kw-faq-plus">+</span></summary><div class="kw-faq-a">Wir versenden <strong>kostenlos in ganz Europa</strong>. Die geschätzte Lieferzeit siehst du direkt im Bestellbereich weiter oben auf dieser Seite.</div></details>
+      <details class="kw-faq-item"><summary>Was, wenn mir ThermaWrap nicht hilft?<span class="kw-faq-plus">+</span></summary><div class="kw-faq-a">Kein Risiko: Du hast <strong>90 Tage Zeit</strong>, ThermaWrap in Ruhe zu testen. Überzeugt es dich nicht, schickst du es einfach zurück &ndash; volle Rückerstattung, ohne Anruf oder Formular.</div></details>
+      <details class="kw-faq-item"><summary>Wie lange hält der Akku und wie lange dauert das Laden?<span class="kw-faq-plus">+</span></summary><div class="kw-faq-a">Der eingebaute 3000mAh-Akku ist nach <strong>ca. 3 Stunden</strong> vollständig geladen und reicht für <strong>rund 1,5 Stunden</strong> Anwendung &ndash; genug für mehrere Sitzungen zwischen den Ladevorgängen.</div></details>
+    </div>
+  </div></section>
+
+  <section class="kw-foot"><div class="kw-foot-inner">
+    <p class="kw-foot-tag">Ruhige Nächte. <span>Ohne</span> taube Hände.</p>
+    <p class="kw-foot-sub">Melde dich an für Tipps gegen nächtliche Handtaubheit und Neuigkeiten von heyNuvio.</p>
+    {% endraw %}
+    {% form 'customer', class: 'kw-foot-form' %}
+      {% if form.posted_successfully? %}
+        <p class="kw-foot-sub" style="color:var(--green);margin:0 0 12px;">Danke! Du bist jetzt angemeldet.</p>
+      {% elsif form.errors %}
+        <p class="kw-foot-sub" style="color:var(--red);margin:0 0 12px;">Bitte gib eine gültige E-Mail-Adresse ein.</p>
+      {% endif %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="email" name="contact[email]" value="{{ form.email }}" placeholder="Deine E-Mail-Adresse" aria-label="Deine E-Mail-Adresse" required>
+      <button type="submit">Anmelden</button>
+    {% endform %}
+    {% raw %}
+    <div class="kw-foot-cols">
+      <div class="kw-foot-col"><p class="kw-foot-col-h">Shop</p><a href="#kwOffer">ThermaWrap</a></div>
+      {% endraw %}<div class="kw-foot-col"><p class="kw-foot-col-h">Rechtliches</p>{% for policy in shop.policies %}{% unless policy.type == 'cookie_policy' or policy.title contains 'Cookie' %}<a href="{{ policy.url }}">{% case policy.type %}{% when 'refund_policy' %}Rückgaberecht{% when 'shipping_policy' %}Versand{% when 'terms_of_service' %}AGB{% when 'privacy_policy' %}Datenschutz{% when 'legal_notice' %}Impressum{% else %}{{ policy.title }}{% endcase %}</a>{% endunless %}{% endfor %}</div>{% raw %}
+      <div class="kw-foot-col"><p class="kw-foot-col-h">Folge uns</p><a href="https://www.instagram.com/heynuvio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div>
+    </div>
+    <div class="kw-foot-bottom"><span class="kw-foot-copy">&copy; 2026 heyNuvio &middot; ThermaWrap ersetzt keine ärztliche Beratung oder Behandlung.</span></div>
+  </div></section>
+
+</div></div>
+
+<div class="kw-giftmodal-backdrop" id="kwGiftModal" role="dialog" aria-modal="true" aria-labelledby="kwGiftModalTitle" aria-hidden="true">
+  <div class="kw-giftmodal" role="document">
+    <button type="button" class="kw-giftmodal-close" id="kwGiftModalClose" aria-label="Close">&times;</button>
+    <div class="kw-giftmodal-hero">
+      <span class="kw-giftmodal-tag" id="kwGiftModalTag">FREE BONUS</span>
+      <div class="kw-giftmodal-img"><img id="kwGiftModalImg" src="" alt=""></div>
+      <h3 class="kw-giftmodal-title" id="kwGiftModalTitle"></h3>
+    </div>
+    <p class="kw-giftmodal-sub" id="kwGiftModalSub"></p>
+    <div class="kw-giftmodal-body" id="kwGiftModalBody"></div>
+  </div>
+</div>
+
+<div class="kw-lightbox-backdrop" id="kwLightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button type="button" class="kw-lightbox-close" id="kwLightboxClose" aria-label="Schließen">&times;</button>
+  <img class="kw-lightbox-img" id="kwLightboxImg" src="" alt="">
+</div>
+
+<canvas id="kwConfetti"></canvas>
+<div class="kw-toast" id="kwToast" role="alert" aria-live="polite">
+  <div class="kw-toast-icon">&#127881;</div>
+  <div class="kw-toast-title">Best Value Unlocked!</div>
+</div>
+
+<div class="kw-sticky" id="kwSticky">
+  <div class="kw-sticky-info"><b id="kwStickyPrice">[xx,xx€]</b><span id="kwStickyName">[Plan name]</span></div>
+  <a href="#" class="kw-cta" id="kwStickyCta"><span class="kw-cta-label">In den Warenkorb</span></a>
+</div>
+
+<script>(function(){
+'use strict';
+
+/* ====== EDIT YOUR PRODUCT DATA HERE ====== */
+var PLANS = {
+  '1': { url:'/cart/55912939716993:1', productId:'15454753849729', variantId:'55912939716993', name:'ThermaWrap Single', price:'89,99€', strike:'129,00€', perUnit:'100,00 € / Stück', bill:'Ab zweitem Stück 25%', total:'89,99€', totalStrike:'129,00€', stickyPrice:'89,99€', label:'Vorbestellung Angebot 1' },
+  '2': { url:'/cart/55912947908993:1', productId:'15454755651969', variantId:'55912947908993', name:'ThermaWrap Duo', price:'139,99€', strike:'258,00€', perUnit:'100,00 € / Stück', bill:'Kaufe 2, erhalte die 3. gratis',     total:'139,99€', totalStrike:'258,00€', stickyPrice:'139,99€', label:'Vorbestellung Angebot 2' }
+};
+
+/* Gift content shown in the explainer modal */
+var GIFT_DATA = {
+  '0': { tag:'<span class="strike">20€</span>Kostenlos', img:'https://img.freepik.com/premium-vector/free-shipping-truck-icon-smooth-ecommerce-delivery-experience_1310542-1594.jpg', title:'Kostenloser Versand', sub:'Wir übernehmen die Versandkosten – für dich völlig kostenlos.',
+    sections:[{ type:'feats', items:['Schnelle Lieferung','Keine versteckten Kosten','Versand in die gesamte EU'] }] },
+  '1': { tag:'<span class="strike">10,00€</span>GRATIS', img:'https://cdn.shopify.com/s/files/1/0940/9799/8209/files/2026-06-07220732_26082e0e-5081-40b2-8776-64d8f424348c.png?v=1783724653', productId:'15453518430593', variantId:'55902524473729', title:'USB Ladegerät', sub:'Damit dein ThermaWrap immer einsatzbereit ist – im Wert von 10€, für dich gratis.',
+    sections:[{ h:"Das ist enthalten", type:'rows', items:[
+      { name:'Ladekabel', desc:'Passendes USB-Kabel für dein ThermaWrap – einfach anschließen, fertig.' },
+      { name:'Ladezeit', desc:'Vollständig aufgeladen in nur 3 Stunden.' },
+      { name:'Kompatibilität', desc:'Passt exakt auf den ThermaWrap-Anschluss – kein Adapter nötig.' }
+    ]}], foot:'Automatisch im Warenkorb enthalten – bei jeder Bestellung.' },
+  '2': { tag:'<span class="strike">10,00€</span>GRATIS', img:'https://cdn.shopify.com/s/files/1/0940/9799/8209/files/2026-06-07220619_a655e656-38ad-444d-90f3-3338e6f55e3b.png?v=1783725453', productId:'15453518659969', variantId:'55902525620609', title:'Soft Hand Mask', sub:'Für weiche, gepflegte Hände nach jeder Anwendung – im Wert von 10€, für dich gratis.',
+    sections:[{ type:'feats', items:['Intensive Feuchtigkeitspflege','Für alle Hauttypen','Schnell einziehend','Mit pflegenden Inhaltsstoffen'] }], foot:'Wird automatisch mit deiner Bestellung mitgeliefert.' },
+  '3': { tag:'<span class="strike">12,00€</span>GRATIS', img:'https://cdn.shopify.com/s/files/1/0940/9799/8209/files/2026-06-07220600_589acf91-d7c3-494f-8aa3-a72045a82931.png?v=1783725421', productId:'15453518758273', variantId:'55902525882753', title:'Milch-Honig Handpflege Wachs', sub:'Entfernt sanft abgestorbene Hautzellen für weiche Hände – im Wert von 12€, für dich gratis.',
+    sections:[{ h:'Anwendung', type:'feats', items:['Auf die Hände auftragen, ca. 10 Minuten einwirken lassen, dann sanft einmassieren und mit Wasser abspülen.'] },
+    { h:'Inhaltsstoffe', type:'rows', items:[
+      { name:'Honig-Extrakt', desc:'Spendet Feuchtigkeit und beruhigt die Haut.' },
+      { name:'Milch-Extrakt', desc:'Enthält milde Milchsäure – sanfte Peeling-Wirkung für weiche Haut.' }
+    ]}], foot:'Wird automatisch mit deiner Bestellung mitgeliefert.' }
+};
+
+/* Plan-dependent info-pill text */
+function infoQtyText(plan){ return plan === '2' ? '[Qty for Offer 2 — bundle]' : '[Qty for Offer 1 — single]'; }
+
+/* Bonus gift unlock rules. Offer 1 unlocks first 2 gifts; Offer 2 unlocks all four. */
+var GIFT_VALUES = [20, 10, 10, 12];
+var MAX_VALUE = 52;
+function isUnlocked(i, plan){
+  if(i === 0) return true;
+  if(i === 1) return true;
+  return plan === '2';
+}
+function unlockMessage(i, plan){
+  if(plan !== '2' && (i === 2 || i === 3)) return 'Zu Angebot 2 upgraden';
+  return '';
+}
+
+/* ====================== ENGINE (no need to edit below) ====================== */
+var selectedPlan = '1', wasMaxed = false;
+
+var cards = document.querySelectorAll('.kw-card[data-plan]');
+var gifts = document.querySelectorAll('.kw-gift');
+var cta = document.getElementById('kwCta');
+var ctaLabel = document.getElementById('kwCtaLabel');
+var ctaPrice = document.getElementById('kwCtaPrice');
+var ctaStrike = document.getElementById('kwCtaStrike');
+var claim = document.getElementById('kwClaim');
+var stickyCta = document.getElementById('kwStickyCta');
+var stickyPrice = document.getElementById('kwStickyPrice');
+var stickyName = document.getElementById('kwStickyName');
+var toast = document.getElementById('kwToast');
+
+/* Confetti */
+var canvas = document.getElementById('kwConfetti');
+var ctx = canvas.getContext('2d');
+var pieces = [], running = false;
+function sizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+sizeCanvas(); window.addEventListener('resize', sizeCanvas);
+function fireConfetti(){
+  var colors = ['#ea580c','#fb923c','#16a34a','#f59e0b','#dc2626','#111827'];
+  var cx = canvas.width/2, cy = canvas.height/3;
+  for(var i=0;i<140;i++){
+    var a = Math.random()*Math.PI*2, sp = 6+Math.random()*8;
+    pieces.push({ x:cx+(Math.random()-0.5)*200, y:cy, vx:Math.cos(a)*sp*(0.5+Math.random()), vy:Math.sin(a)*sp-4, g:0.18+Math.random()*0.08, sz:6+Math.random()*6, c:colors[Math.floor(Math.random()*colors.length)], rot:Math.random()*Math.PI, vr:(Math.random()-0.5)*0.3, life:1 });
+  }
+  if(!running){ running=true; animate(); }
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pieces = pieces.filter(function(p){ return p.life>0 && p.y<canvas.height+40; });
+  pieces.forEach(function(p){ p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.life-=0.005; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.c; ctx.globalAlpha=Math.max(0,p.life); ctx.fillRect(-p.sz/2,-p.sz/4,p.sz,p.sz/2); ctx.restore(); });
+  if(pieces.length>0) requestAnimationFrame(animate); else running=false;
+}
+var SESSION_KEY='kwCelebrated', celebrated=false, toastTimer;
+try { celebrated = sessionStorage.getItem(SESSION_KEY)==='1'; } catch(e){}
+function celebrate(){
+  if(celebrated) return;
+  celebrated=true;
+  try { sessionStorage.setItem(SESSION_KEY,'1'); } catch(e){}
+  fireConfetti();
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2800);
+}
+toast.addEventListener('click', function(){ toast.classList.remove('show'); });
+
+function render(){
+  var p = PLANS[selectedPlan];
+
+  cards.forEach(function(c){ c.classList.toggle('is-selected', c.dataset.plan === selectedPlan); });
+
+  ['1','2'].forEach(function(d){
+    var pp = PLANS[d];
+    document.querySelector('[data-price-'+d+']').textContent = pp.price;
+    document.querySelector('[data-strike-'+d+']').textContent = pp.strike;
+    var perUnitEl = document.querySelector('[data-perunit-'+d+']');
+    if(perUnitEl) perUnitEl.textContent = pp.perUnit;
+    var billEl = document.querySelector('[data-bill-'+d+']');
+    if(billEl) billEl.textContent = pp.bill;
+  });
+
+  // Info pill (qty)
+  var qtyTxt = document.querySelector('#kwInfoQty .kw-info-qty-text');
+  if(qtyTxt) qtyTxt.textContent = infoQtyText(selectedPlan);
+
+  // Gifts
+  var claimedValue = 0;
+  gifts.forEach(function(g, i){
+    var open = isUnlocked(i, selectedPlan);
+    g.classList.toggle('is-locked', !open);
+    if(open) claimedValue += GIFT_VALUES[i] || 0;
+    var msgEl = g.querySelector('.kw-gift-unlock-msg');
+    if(msgEl) msgEl.textContent = open ? '' : unlockMessage(i, selectedPlan);
+  });
+
+  var upgradeValue = MAX_VALUE - claimedValue;
+  var isMaxed = upgradeValue <= 0;
+  if(!isMaxed){
+    claim.innerHTML = 'Eingelöst: <span class="val">'+claimedValue.toFixed(2).replace('.',',')+'€</span> &middot; noch <strong>'+upgradeValue.toFixed(2).replace('.',',')+'€</strong> mehr mit <span class="kw-upgrade-link" id="kwUpgradeLink">ANGEBOT 2 &rarr;</span>';
+    var link = document.getElementById('kwUpgradeLink');
+    if(link) link.addEventListener('click', function(){ selectedPlan='2'; render(); });
+  } else {
+    claim.innerHTML = '&#127881; Alle Boni freigeschaltet &mdash; <span class="val">'+claimedValue.toFixed(2).replace('.',',')+'€</span> eingelöst.';
+  }
+
+  ctaLabel.textContent = p.label;
+  ctaPrice.textContent = p.total;
+  ctaStrike.textContent = p.totalStrike;
+  cta.href = p.url;
+
+
+  stickyCta.href = p.url;
+  stickyPrice.textContent = p.stickyPrice;
+  stickyName.textContent  = p.name;
+
+  // Confetti opens when Offer 2 is selected (best AOV)
+  if(selectedPlan === '2' && isMaxed && !wasMaxed) celebrate();
+  wasMaxed = isMaxed;
+}
+
+cards.forEach(function(c){
+  c.addEventListener('click', function(){ selectedPlan = c.dataset.plan; render(); });
+});
+
+render();
+
+/* Gallery thumbs */
+var stage = document.getElementById('kwStage');
+var stageTag = document.getElementById('kwStageTag');
+document.querySelectorAll('.kw-thumb').forEach(function(t){
+  t.addEventListener('click', function(){
+    document.querySelectorAll('.kw-thumb').forEach(function(x){ x.classList.remove('is-active'); });
+    t.classList.add('is-active');
+    if(stage) stage.src = t.dataset.img;
+    if(stageTag){ stageTag.textContent = t.dataset.tag; stageTag.style.color = t.dataset.tagColor || ''; }
+  });
+});
+
+/* Dynamic arrival date — today + 15 days */
+(function(){
+  var el = document.getElementById('kwShipDate'); if(!el) return;
+  var d = new Date(); d.setDate(d.getDate() + 15);
+  var months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  el.textContent = d.getDate() + '. ' + months[d.getMonth()];
+})();
+
+/* Neukunden-Rabatt Countdown — zählt nur echte, im Section-Setting hinterlegte Daten herunter */
+(function(){
+  var el = document.querySelector('[data-promo-timer]'); if(!el) return;
+  var wrap = el.closest('[data-promo-ends]');
+  var endsAt = wrap && wrap.getAttribute('data-promo-ends');
+  if(!endsAt) return;
+  var end = new Date(endsAt).getTime();
+  if(isNaN(end)){ el.remove(); return; }
+  function pad(n){ return String(n).padStart(2,'0'); }
+  var timer = setInterval(tick, 1000);
+  function tick(){
+    var diff = end - Date.now();
+    if(diff <= 0){ if(wrap) wrap.remove(); clearInterval(timer); return; }
+    var h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+    el.textContent = 'Noch ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  tick();
+})();
+
+/* Country flag from visitor IP */
+(function(){
+  var el = document.getElementById('kwFlag'); if(!el) return;
+  function flagEmoji(cc){
+    if(!cc || cc.length !== 2) return '';
+    var A = 0x1F1E6, base = 'A'.charCodeAt(0);
+    cc = cc.toUpperCase();
+    return String.fromCodePoint(A + cc.charCodeAt(0) - base) +
+           String.fromCodePoint(A + cc.charCodeAt(1) - base);
+  }
+  fetch('https://ipwho.is/?fields=country_code')
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if(d && d.country_code) el.textContent = flagEmoji(d.country_code); })
+    .catch(function(){});
+})();
+
+/* Trust marquee duplication */
+var track = document.querySelector('.kw-trust-track');
+if(track){ track.innerHTML += track.innerHTML; }
+
+/* FAQ (one open at a time) */
+var faqs = document.querySelectorAll('.kw-faq-item');
+faqs.forEach(function(it){ it.addEventListener('toggle', function(){ if(it.open) faqs.forEach(function(o){ if(o!==it) o.open=false; }); }); });
+
+/* Detail slider — auto-scroll */
+var sliders = [].slice.call(document.querySelectorAll('.kw-islider'));
+sliders.forEach(function(s){
+  s.innerHTML += s.innerHTML; s._p = false; s._h = 0;
+  ['pointerdown','touchstart','wheel','mousedown'].forEach(function(ev){
+    s.addEventListener(ev, function(){ s._p = true; clearTimeout(s._t); s._t = setTimeout(function(){ s._p = false; }, 1800); }, { passive:true });
+  });
+});
+window.addEventListener('resize', function(){ sliders.forEach(function(s){ s._h = 0; }); });
+(function loop(){
+  sliders.forEach(function(s){
+    if(s.offsetParent === null) return;
+    if(!s._h) s._h = s.scrollWidth/2;
+    if(!s._p){ s.scrollLeft += 0.5; if(s._h && s.scrollLeft >= s._h) s.scrollLeft -= s._h; }
+  });
+  requestAnimationFrame(loop);
+})();
+
+/* Rating row → scroll to studies */
+var ratingEl = document.getElementById('kwRating');
+var studies = document.getElementById('kwTested');
+if(ratingEl && studies){
+  ratingEl.setAttribute('role','button');
+  ratingEl.setAttribute('tabindex','0');
+  var goStudies = function(){ studies.scrollIntoView({ behavior:'smooth', block:'start' }); };
+  ratingEl.addEventListener('click', goStudies);
+  ratingEl.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); goStudies(); } });
+}
+
+/* Gift explainer modal */
+(function(){
+  var modal = document.getElementById('kwGiftModal'); if(!modal) return;
+  var img = document.getElementById('kwGiftModalImg');
+  var imgWrap = modal.querySelector('.kw-giftmodal-img');
+  var title = document.getElementById('kwGiftModalTitle');
+  var tag = document.getElementById('kwGiftModalTag');
+  var sub = document.getElementById('kwGiftModalSub');
+  var body = document.getElementById('kwGiftModalBody');
+  var closeBtn = document.getElementById('kwGiftModalClose');
+  var lastFocus = null;
+
+  function renderBody(data){
+    var html = '';
+    (data.sections || []).forEach(function(s){
+      html += '<div class="kw-giftmodal-section">';
+      if(s.h) html += '<div class="kw-giftmodal-h">' + s.h + '</div>';
+      if(s.type === 'feats'){
+        html += '<ul class="kw-giftmodal-feats">';
+        s.items.forEach(function(it){ html += '<li>' + it + '</li>'; });
+        html += '</ul>';
+      } else if(s.type === 'rows'){
+        s.items.forEach(function(r){
+          var noDose = r.dose ? '' : ' no-dose';
+          html += '<div class="kw-giftmodal-row' + noDose + '"><div class="name">' + r.name + (r.desc ? '<small>' + r.desc + '</small>' : '') + '</div>';
+          if(r.dose) html += '<div class="dose">' + r.dose + '</div>';
+          html += '</div>';
+        });
+      }
+      html += '</div>';
+    });
+    if(data.foot){
+      html += '<div class="kw-giftmodal-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' + data.foot + '</div>';
+    }
+    body.innerHTML = html;
+  }
+
+  function open(k){
+    var d = GIFT_DATA[k]; if(!d) return;
+    tag.innerHTML = d.tag || 'FREE BONUS';
+    title.innerHTML = d.title;
+    sub.innerHTML = d.sub;
+    if(d.img){ img.src = d.img; img.alt = title.textContent; imgWrap.style.display = ''; } else { imgWrap.style.display = 'none'; }
+    renderBody(d);
+    lastFocus = document.activeElement;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ closeBtn.focus(); }, 60);
+  }
+  function close(){
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('.kw-gift[data-gift]').forEach(function(g){
+    g.addEventListener('click', function(){ open(g.dataset.gift); });
+    g.setAttribute('role','button');
+    g.setAttribute('tabindex','0');
+    g.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(g.dataset.gift); } });
+  });
+
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', function(e){ if(e.target === modal) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+})();
+
+/* Study image lightbox */
+(function(){
+  var lb = document.getElementById('kwLightbox'); if(!lb) return;
+  var lbImg = document.getElementById('kwLightboxImg');
+  var closeBtn = document.getElementById('kwLightboxClose');
+  function open(src, alt){
+    lbImg.style.width = '';
+    lbImg.src = src; lbImg.alt = alt || '';
+    lb.classList.add('is-open');
+    lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    lbImg.onload = function(){
+      /* Cap the display size at the image's own natural pixel dimensions,
+         so it is only ever scaled down to fit the screen, never scaled up. */
+      lbImg.style.width = lbImg.naturalWidth + 'px';
+    };
+  }
+  function close(){
+    lb.classList.remove('is-open');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.kw-tested-img').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var img = btn.querySelector('img');
+      open(btn.dataset.lightboxSrc || (img && img.src), img && img.alt);
+    });
+  });
+  closeBtn.addEventListener('click', close);
+  lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && lb.classList.contains('is-open')) close(); });
+})();
+
+/* Explicit fallback for the study source links (belt-and-suspenders
+   in case anything else on the page intercepts default anchor clicks) */
+(function(){
+  document.querySelectorAll('.kw-ing-study a[href]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      window.open(a.href, '_blank', 'noopener,noreferrer');
+    });
+  });
+})();
+
+})();
+
+function kwPlayVid(wrap){
+  var v = wrap.querySelector('video'); if(!v) return;
+  if(wrap.classList.contains('playing')){ v.pause(); wrap.classList.remove('playing'); return; }
+  document.querySelectorAll('.kw-vid-frame.playing').forEach(function(w){ var ov = w.querySelector('video'); if(ov){ ov.pause(); } w.classList.remove('playing'); });
+  wrap.classList.add('playing');
+  v.play().catch(function(){ wrap.classList.remove('playing'); });
+  v.onended = function(){ wrap.classList.remove('playing'); };
+}
+</script>
+{% endraw %}
+
+{% schema %}
+{
+  "name": "Kwefi Template",
+  "tag": "section",
+  "class": "kwefi-template-section",
+  "settings": [
+    { "type": "header", "content": "Neukunden-Rabatt" },
+    { "type": "checkbox", "id": "promo_badge_enabled", "label": "Rabatt-Badge anzeigen", "default": false },
+    { "type": "text", "id": "promo_code", "label": "Rabattcode", "default": "WILLKOMMEN20" },
+    { "type": "text", "id": "promo_ends_at", "label": "Ablaufdatum (ISO 8601)", "info": "Muss exakt dem Enddatum des Rabattcodes in Shopify entsprechen. Leer lassen = kein Countdown, nur Badge." }
+  ],
+  "presets": [{ "name": "Kwefi Template" }]
+}
+{% endschema %}
