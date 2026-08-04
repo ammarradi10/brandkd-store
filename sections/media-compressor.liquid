@@ -1,0 +1,730 @@
+<meta name="robots" content="noindex, nofollow">
+
+<section class="mc-tool">
+  <div class="mc-wrap">
+    <header class="mc-head">
+      <h1>Bilder &amp; Videos komprimieren</h1>
+      <p>
+        Interner Helfer, läuft komplett in deinem Browser &mdash; es wird nichts hochgeladen oder irgendwohin
+        gesendet. Datei w&auml;hlen, Qualit&auml;t/Gr&ouml;&szlig;e einstellen, Ergebnis herunterladen und danach
+        ganz normal bei <strong>Inhalte &rarr; Dateien</strong> in Shopify hochladen.
+      </p>
+    </header>
+
+    <div class="mc-tabs" role="tablist">
+      <button type="button" class="mc-tab is-active" data-tab="image">Bilder</button>
+      <button type="button" class="mc-tab" data-tab="video">Videos (Beta)</button>
+    </div>
+
+    <!-- IMAGE PANEL -->
+    <div class="mc-panel is-active" data-panel="image">
+      <div class="mc-dropzone" id="mcImgDrop" tabindex="0">
+        <p><strong>Bilder hierher ziehen</strong> oder klicken zum Ausw&auml;hlen</p>
+        <p class="mc-hint">JPG, PNG, WebP &mdash; mehrere Dateien gleichzeitig m&ouml;glich</p>
+        <input type="file" id="mcImgInput" accept="image/*" multiple hidden>
+      </div>
+
+      <div class="mc-controls">
+        <label class="mc-field">
+          Max. Breite (px)
+          <input type="number" id="mcMaxWidth" value="1600" min="200" max="4000" step="50">
+        </label>
+        <label class="mc-field">
+          Qualit&auml;t
+          <span class="mc-range-row">
+            <input type="range" id="mcQuality" min="10" max="100" value="75">
+            <span id="mcQualityVal">75%</span>
+          </span>
+        </label>
+        <label class="mc-field">
+          Zielformat
+          <select id="mcFormat">
+            <option value="image/webp">WebP (empfohlen, kleinste Dateien)</option>
+            <option value="image/jpeg">JPEG</option>
+            <option value="image/png">PNG (verlustfrei, gr&ouml;&szlig;er)</option>
+          </select>
+        </label>
+        <button type="button" id="mcReprocess" class="mc-btn" disabled>Alle mit aktuellen Einstellungen neu komprimieren</button>
+      </div>
+
+      <p class="mc-goal">Ziel: unter <strong>200&nbsp;KB</strong> pro Bild &mdash; Ergebnisse darunter werden gr&uuml;n markiert.</p>
+
+      <div class="mc-results" id="mcImgResults"></div>
+    </div>
+
+    <!-- VIDEO PANEL -->
+    <div class="mc-panel" data-panel="video" hidden>
+      <div class="mc-note">
+        <strong>Beta-Hinweis:</strong> Video-Komprimierung im Browser ist technisch begrenzt (abh&auml;ngig vom
+        Browser, kein Vergleich zu dedizierten Tools). Am zuverl&auml;ssigsten in Chrome oder Edge. Ergebnis wird
+        als <strong>.webm</strong> gespeichert &mdash; f&uuml;r eigene Video-Bl&ouml;cke im Theme direkt nutzbar.
+        Falls du das Video &uuml;ber Shopifys native Produktvideo-Funktion hochladen willst (die MP4 erwartet) oder
+        das Ergebnis nicht klein/gut genug ist, empfehlen wir zus&auml;tzlich das kostenlose Tool
+        <a href="https://handbrake.fr" target="_blank" rel="noopener">HandBrake</a>.
+      </div>
+
+      <div class="mc-dropzone" id="mcVidDrop" tabindex="0">
+        <p><strong>Video hierher ziehen</strong> oder klicken zum Ausw&auml;hlen</p>
+        <p class="mc-hint">Ein Video pro Durchlauf</p>
+        <input type="file" id="mcVidInput" accept="video/*" hidden>
+      </div>
+
+      <div class="mc-controls">
+        <label class="mc-field">
+          Max. Breite (px)
+          <input type="number" id="mcVidMaxWidth" value="1280" min="320" max="3840" step="80">
+        </label>
+        <label class="mc-field">
+          Ziel-Bitrate (Mbit/s)
+          <span class="mc-range-row">
+            <input type="range" id="mcVidBitrate" min="1" max="12" value="3">
+            <span id="mcVidBitrateVal">3 Mbit/s</span>
+          </span>
+        </label>
+      </div>
+
+      <button type="button" id="mcVidStart" class="mc-btn" disabled>Video komprimieren</button>
+
+      <div class="mc-vid-progress" id="mcVidProgress" hidden>
+        <div class="mc-vid-progress-bar" id="mcVidProgressBar"></div>
+        <p id="mcVidProgressText">Verarbeite Video&hellip;</p>
+      </div>
+
+      <div class="mc-results" id="mcVidResults"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mc-tool {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #17181c;
+  }
+
+  .mc-head h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+  }
+
+  .mc-head p {
+    color: #52565c;
+    line-height: 1.5;
+    margin: 0 0 24px;
+  }
+
+  .mc-tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid #e2e3e5;
+    margin-bottom: 24px;
+  }
+
+  .mc-tab {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #6b6f76;
+    cursor: pointer;
+  }
+
+  .mc-tab.is-active {
+    color: #17181c;
+    border-bottom-color: #17181c;
+  }
+
+  .mc-panel {
+    display: none;
+  }
+
+  .mc-panel.is-active {
+    display: block;
+  }
+
+  .mc-dropzone {
+    border: 2px dashed #c7c9cd;
+    border-radius: 12px;
+    padding: 32px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 150ms ease, background-color 150ms ease;
+  }
+
+  .mc-dropzone:hover,
+  .mc-dropzone:focus-visible,
+  .mc-dropzone.is-dragover {
+    border-color: #17181c;
+    background-color: #f6f6f7;
+    outline: none;
+  }
+
+  .mc-dropzone p {
+    margin: 0 0 4px;
+  }
+
+  .mc-hint {
+    font-size: 13px;
+    color: #8a8d93;
+  }
+
+  .mc-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+    align-items: end;
+  }
+
+  .mc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #40434a;
+  }
+
+  .mc-field input[type="number"],
+  .mc-field select {
+    font: inherit;
+    font-weight: 400;
+    padding: 8px 10px;
+    border: 1px solid #c7c9cd;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .mc-range-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 400;
+  }
+
+  .mc-range-row input[type="range"] {
+    flex: 1;
+  }
+
+  .mc-btn {
+    appearance: none;
+    border: none;
+    border-radius: 8px;
+    background: #17181c;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    padding: 10px 16px;
+    cursor: pointer;
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .mc-btn:disabled {
+    background: #c7c9cd;
+    cursor: not-allowed;
+  }
+
+  .mc-goal {
+    margin: 16px 0 0;
+    font-size: 13px;
+    color: #52565c;
+  }
+
+  .mc-note {
+    background: #fff6e0;
+    border: 1px solid #f0d98a;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #4a3d0a;
+    margin-bottom: 20px;
+  }
+
+  .mc-note a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .mc-results {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .mc-card {
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid #e2e3e5;
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .mc-card img,
+  .mc-card video {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #f0f0f1;
+  }
+
+  .mc-card-name {
+    font-weight: 600;
+    font-size: 14px;
+    word-break: break-all;
+  }
+
+  .mc-card-sizes {
+    font-size: 13px;
+    color: #52565c;
+    margin-top: 4px;
+  }
+
+  .mc-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+
+  .mc-badge.is-good {
+    background: #dff5e1;
+    color: #16743a;
+  }
+
+  .mc-badge.is-warn {
+    background: #fdeaea;
+    color: #b3261e;
+  }
+
+  .mc-download {
+    appearance: none;
+    text-decoration: none;
+    background: #17181c;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
+
+  .mc-status {
+    font-size: 13px;
+    color: #8a8d93;
+  }
+
+  .mc-vid-progress {
+    margin-top: 16px;
+  }
+
+  .mc-vid-progress-bar {
+    height: 6px;
+    border-radius: 100px;
+    background: #17181c;
+    width: 0%;
+    transition: width 150ms ease;
+  }
+
+  .mc-vid-progress {
+    background: #e2e3e5;
+    border-radius: 100px;
+  }
+
+  .mc-vid-progress p {
+    font-size: 13px;
+    color: #52565c;
+    margin: 8px 0 0;
+  }
+</style>
+
+<script>
+  (function () {
+    var section = document.currentScript.closest('.mc-tool') || document.querySelector('.mc-tool');
+    if (!section) return;
+
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / 1024 / 1024).toFixed(2) + ' MB';
+    }
+
+    function extForMime(mime) {
+      if (mime === 'image/webp') return 'webp';
+      if (mime === 'image/jpeg') return 'jpg';
+      if (mime === 'image/png') return 'png';
+      return 'bin';
+    }
+
+    function baseName(name) {
+      var idx = name.lastIndexOf('.');
+      return idx > -1 ? name.slice(0, idx) : name;
+    }
+
+    /* ---------- Tabs ---------- */
+    var tabs = section.querySelectorAll('.mc-tab');
+    var panels = section.querySelectorAll('.mc-panel');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.classList.remove('is-active'); });
+        panels.forEach(function (p) { p.classList.remove('is-active'); p.hidden = true; });
+        tab.classList.add('is-active');
+        var panel = section.querySelector('.mc-panel[data-panel="' + tab.dataset.tab + '"]');
+        panel.classList.add('is-active');
+        panel.hidden = false;
+      });
+    });
+
+    /* ---------- Image compression ---------- */
+    var imgDrop = section.querySelector('#mcImgDrop');
+    var imgInput = section.querySelector('#mcImgInput');
+    var imgResults = section.querySelector('#mcImgResults');
+    var maxWidthInput = section.querySelector('#mcMaxWidth');
+    var qualityInput = section.querySelector('#mcQuality');
+    var qualityVal = section.querySelector('#mcQualityVal');
+    var formatSelect = section.querySelector('#mcFormat');
+    var reprocessBtn = section.querySelector('#mcReprocess');
+
+    var loadedImageFiles = [];
+
+    qualityInput.addEventListener('input', function () {
+      qualityVal.textContent = qualityInput.value + '%';
+    });
+
+    imgDrop.addEventListener('click', function () { imgInput.click(); });
+    imgDrop.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); imgInput.click(); }
+    });
+    ['dragenter', 'dragover'].forEach(function (evt) {
+      imgDrop.addEventListener(evt, function (e) {
+        e.preventDefault();
+        imgDrop.classList.add('is-dragover');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (evt) {
+      imgDrop.addEventListener(evt, function (e) {
+        e.preventDefault();
+        imgDrop.classList.remove('is-dragover');
+      });
+    });
+    imgDrop.addEventListener('drop', function (e) {
+      var files = Array.prototype.slice.call(e.dataTransfer.files).filter(function (f) {
+        return f.type.indexOf('image/') === 0;
+      });
+      handleImageFiles(files);
+    });
+    imgInput.addEventListener('change', function () {
+      handleImageFiles(Array.prototype.slice.call(imgInput.files));
+      imgInput.value = '';
+    });
+
+    function handleImageFiles(files) {
+      if (!files.length) return;
+      loadedImageFiles = loadedImageFiles.concat(files);
+      reprocessBtn.disabled = false;
+      files.forEach(processImageFile);
+    }
+
+    reprocessBtn.addEventListener('click', function () {
+      imgResults.innerHTML = '';
+      loadedImageFiles.forEach(processImageFile);
+    });
+
+    function compressImage(file, maxWidth, quality, mimeType) {
+      return new Promise(function (resolve, reject) {
+        var img = new Image();
+        var url = URL.createObjectURL(file);
+        img.onload = function () {
+          var w = img.naturalWidth;
+          var h = img.naturalHeight;
+          if (w > maxWidth) {
+            h = Math.round(h * (maxWidth / w));
+            w = maxWidth;
+          }
+          var canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          canvas.toBlob(
+            function (blob) {
+              URL.revokeObjectURL(url);
+              if (blob) resolve(blob);
+              else reject(new Error('Komprimierung fehlgeschlagen'));
+            },
+            mimeType,
+            mimeType === 'image/png' ? undefined : quality / 100
+          );
+        };
+        img.onerror = function () {
+          URL.revokeObjectURL(url);
+          reject(new Error('Bild konnte nicht geladen werden'));
+        };
+        img.src = url;
+      });
+    }
+
+    function processImageFile(file) {
+      var card = document.createElement('div');
+      card.className = 'mc-card';
+      card.innerHTML =
+        '<img alt="">' +
+        '<div>' +
+        '  <div class="mc-card-name">' + file.name + '</div>' +
+        '  <div class="mc-card-sizes"><span class="mc-status">Komprimiere&hellip;</span></div>' +
+        '</div>' +
+        '<div></div>';
+      imgResults.appendChild(card);
+
+      var maxWidth = parseInt(maxWidthInput.value, 10) || 1600;
+      var quality = parseInt(qualityInput.value, 10) || 75;
+      var mimeType = formatSelect.value;
+
+      compressImage(file, maxWidth, quality, mimeType)
+        .then(function (blob) {
+          var img = card.querySelector('img');
+          var previewUrl = URL.createObjectURL(blob);
+          img.src = previewUrl;
+
+          var savedPct = Math.max(0, Math.round((1 - blob.size / file.size) * 100));
+          var isGood = blob.size < 200 * 1024;
+          var badgeClass = isGood ? 'is-good' : 'is-warn';
+          var badgeText = isGood ? 'unter 200 KB' : 'noch über 200 KB';
+
+          card.querySelector('.mc-card-sizes').innerHTML =
+            formatBytes(file.size) + ' &rarr; ' + formatBytes(blob.size) +
+            ' (&minus;' + savedPct + '%)' +
+            '<span class="mc-badge ' + badgeClass + '">' + badgeText + '</span>';
+
+          var downloadName = baseName(file.name) + '.' + extForMime(mimeType);
+          var link = document.createElement('a');
+          link.className = 'mc-download';
+          link.href = previewUrl;
+          link.download = downloadName;
+          link.textContent = 'Herunterladen';
+          card.querySelector('div:last-child').appendChild(link);
+        })
+        .catch(function (err) {
+          card.querySelector('.mc-card-sizes').textContent = 'Fehler: ' + err.message;
+        });
+    }
+
+    /* ---------- Video compression (beta) ---------- */
+    var vidDrop = section.querySelector('#mcVidDrop');
+    var vidInput = section.querySelector('#mcVidInput');
+    var vidResults = section.querySelector('#mcVidResults');
+    var vidMaxWidthInput = section.querySelector('#mcVidMaxWidth');
+    var vidBitrateInput = section.querySelector('#mcVidBitrate');
+    var vidBitrateVal = section.querySelector('#mcVidBitrateVal');
+    var vidStartBtn = section.querySelector('#mcVidStart');
+    var vidProgress = section.querySelector('#mcVidProgress');
+    var vidProgressBar = section.querySelector('#mcVidProgressBar');
+    var vidProgressText = section.querySelector('#mcVidProgressText');
+
+    var pendingVideoFile = null;
+
+    vidBitrateInput.addEventListener('input', function () {
+      vidBitrateVal.textContent = vidBitrateInput.value + ' Mbit/s';
+    });
+
+    vidDrop.addEventListener('click', function () { vidInput.click(); });
+    vidDrop.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); vidInput.click(); }
+    });
+    ['dragenter', 'dragover'].forEach(function (evt) {
+      vidDrop.addEventListener(evt, function (e) {
+        e.preventDefault();
+        vidDrop.classList.add('is-dragover');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (evt) {
+      vidDrop.addEventListener(evt, function (e) {
+        e.preventDefault();
+        vidDrop.classList.remove('is-dragover');
+      });
+    });
+    vidDrop.addEventListener('drop', function (e) {
+      var file = e.dataTransfer.files[0];
+      if (file && file.type.indexOf('video/') === 0) setPendingVideo(file);
+    });
+    vidInput.addEventListener('change', function () {
+      if (vidInput.files[0]) setPendingVideo(vidInput.files[0]);
+      vidInput.value = '';
+    });
+
+    function setPendingVideo(file) {
+      pendingVideoFile = file;
+      vidStartBtn.disabled = false;
+      vidDrop.querySelector('p').innerHTML = '<strong>Ausgewählt:</strong> ' + file.name + ' (' + formatBytes(file.size) + ')';
+    }
+
+    vidStartBtn.addEventListener('click', function () {
+      if (!pendingVideoFile || vidStartBtn.disabled) return;
+      vidStartBtn.disabled = true;
+      vidProgress.hidden = false;
+      vidProgressBar.style.width = '0%';
+      vidProgressText.textContent = 'Verarbeite Video…';
+
+      var maxWidth = parseInt(vidMaxWidthInput.value, 10) || 1280;
+      var bitrate = (parseInt(vidBitrateInput.value, 10) || 3) * 1000000;
+      var file = pendingVideoFile;
+
+      compressVideo(file, maxWidth, bitrate, function (progress) {
+        vidProgressBar.style.width = Math.round(progress * 100) + '%';
+      })
+        .then(function (blob) {
+          vidProgress.hidden = true;
+          vidStartBtn.disabled = false;
+          renderVideoResult(file, blob);
+        })
+        .catch(function (err) {
+          vidProgress.hidden = true;
+          vidStartBtn.disabled = false;
+          vidProgressText.textContent = '';
+          var card = document.createElement('div');
+          card.className = 'mc-card';
+          card.innerHTML = '<div></div><div class="mc-card-sizes">Fehler: ' + err.message +
+            ' — dieser Browser unterstützt die Video-Komprimierung eventuell nicht. Bitte HandBrake nutzen.</div><div></div>';
+          vidResults.appendChild(card);
+        });
+    });
+
+    function compressVideo(file, maxWidth, videoBitsPerSecond, onProgress) {
+      return new Promise(function (resolve, reject) {
+        if (typeof MediaRecorder === 'undefined') {
+          reject(new Error('MediaRecorder wird von diesem Browser nicht unterstützt'));
+          return;
+        }
+
+        var video = document.createElement('video');
+        video.muted = true;
+        video.playsInline = true;
+        video.src = URL.createObjectURL(file);
+
+        video.addEventListener('loadedmetadata', function () {
+          var w = video.videoWidth;
+          var h = video.videoHeight;
+          if (w > maxWidth) {
+            h = Math.round(h * (maxWidth / w));
+            w = maxWidth;
+          }
+
+          var canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext('2d');
+
+          var canvasStream = canvas.captureStream(30);
+          var combinedStream = canvasStream;
+          try {
+            if (typeof video.captureStream === 'function') {
+              var audioTracks = video.captureStream().getAudioTracks();
+              if (audioTracks.length) {
+                combinedStream = new MediaStream(canvasStream.getVideoTracks().concat(audioTracks));
+              }
+            }
+          } catch (e) {
+            /* audio capture not supported in this browser — continue video-only */
+          }
+
+          var mimeCandidates = ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
+          var chosenMime = mimeCandidates.find(function (m) {
+            return window.MediaRecorder.isTypeSupported && window.MediaRecorder.isTypeSupported(m);
+          }) || 'video/webm';
+
+          var recorder;
+          try {
+            recorder = new MediaRecorder(combinedStream, { mimeType: chosenMime, videoBitsPerSecond: videoBitsPerSecond });
+          } catch (e) {
+            recorder = new MediaRecorder(combinedStream);
+          }
+
+          var chunks = [];
+          recorder.ondataavailable = function (e) {
+            if (e.data && e.data.size) chunks.push(e.data);
+          };
+          recorder.onstop = function () {
+            URL.revokeObjectURL(video.src);
+            resolve(new Blob(chunks, { type: 'video/webm' }));
+          };
+          recorder.onerror = function (e) {
+            reject(new Error(e.error ? e.error.message : 'Aufnahmefehler'));
+          };
+
+          var rafId;
+          function draw() {
+            if (video.paused || video.ended) return;
+            ctx.drawImage(video, 0, 0, w, h);
+            if (video.duration) onProgress(Math.min(1, video.currentTime / video.duration));
+            rafId = requestAnimationFrame(draw);
+          }
+
+          video.addEventListener('ended', function () {
+            cancelAnimationFrame(rafId);
+            onProgress(1);
+            recorder.stop();
+          });
+
+          video.play().then(function () {
+            recorder.start();
+            draw();
+          }).catch(reject);
+        });
+
+        video.addEventListener('error', function () {
+          reject(new Error('Video konnte nicht geladen werden'));
+        });
+      });
+    }
+
+    function renderVideoResult(file, blob) {
+      var card = document.createElement('div');
+      card.className = 'mc-card';
+      var previewUrl = URL.createObjectURL(blob);
+      var savedPct = Math.max(0, Math.round((1 - blob.size / file.size) * 100));
+
+      card.innerHTML =
+        '<video muted></video>' +
+        '<div>' +
+        '  <div class="mc-card-name">' + file.name + '</div>' +
+        '  <div class="mc-card-sizes">' + formatBytes(file.size) + ' &rarr; ' + formatBytes(blob.size) +
+        '   (&minus;' + savedPct + '%)</div>' +
+        '</div>' +
+        '<div></div>';
+
+      card.querySelector('video').src = previewUrl;
+
+      var downloadName = baseName(file.name) + '-komprimiert.webm';
+      var link = document.createElement('a');
+      link.className = 'mc-download';
+      link.href = previewUrl;
+      link.download = downloadName;
+      link.textContent = 'Herunterladen';
+      card.querySelector('div:last-child').appendChild(link);
+
+      vidResults.appendChild(card);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Medien-Komprimierung (intern)",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Medien-Komprimierung"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "media_compressor": {
+      "type": "media-compressor"
+    }
+  },
+  "order": [
+    "media_compressor"
+  ]
+}
