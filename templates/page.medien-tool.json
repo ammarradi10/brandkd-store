@@ -1,7 +1,8 @@
 {
   "sections": {
     "media_compressor": {
-      "type": "media-compressor"
+      "type": "media-compressor",
+      "settings": {}
     }
   },
   "order": [
