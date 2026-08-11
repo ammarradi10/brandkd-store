@@ -1,15 +1,31 @@
 {% comment %}
 ================================================================================
-  WHY THERMAWRAP — "8 Gründe" Landingpage
-  Eigenständige Section, Marketing-Winkel: Nighttime Pain Relief
+  WHY THERMAWRAP — "10 Gründe" Landingpage
+  Eigenständige Section, EIN durchgehender Grund-Abschnitt (keine Angle-Blöcke).
+  Jeder einzelne Grund ist konkret und deckt in Summe alle drei Marketing-
+  Angles ab (Nighttime Pain Relief, Wasted Money on Junk, Nurse Shift Relief),
+  ohne sie als separate Kapitel zu labeln.
   Bildquelle je Grund: Theme-Editor Bild-Upload (Block-Einstellung) mit
   automatischem Icon-Fallback, falls kein Bild gesetzt ist.
   Visuelle Identität 1:1 an sections/kwefi-template.liquid angeglichen.
 ================================================================================
 {% endcomment %}
 
+{% comment %} Non-render-blocking font load: CSS @import always blocks paint until fetched. {% endcomment %}
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+  onload="this.onload=null;this.rel='stylesheet'"
+>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+  >
+</noscript>
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@500;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
 
 .wt{
   --accent:#DC2626;
@@ -17,12 +33,12 @@
   --accent-soft:rgba(220,38,38,0.10);
   --green:#16a34a;
   --green-soft:rgba(22,163,74,0.10);
-  --bg:#FFFFFF;
-  --bg-soft:#F5F5F5;
+  --bg:#F8FAF8;
+  --bg-soft:#EFF4F0;
   --ink:#111111;
   --tx:#1A1A1A;
   --tx-dim:#6B7280;
-  --card:#FAFAFA;
+  --card:#F2F6F3;
   --card-line:#E5E5E5;
   --display:'Anton',Impact,sans-serif;
   --head:'Manrope',sans-serif;
@@ -40,91 +56,141 @@
 .wt *,.wt *::before,.wt *::after{box-sizing:border-box}
 .wt img{max-width:100%;height:auto;display:block}
 
-/* ====== HERO ====== */
-.wt-hero{padding:80px 24px 48px;text-align:center}
-.wt-eyebrow{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:6px 13px;border-radius:100px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(220,38,38,0.25);margin-bottom:18px}
-.wt-h1{font-family:var(--display);font-weight:400;line-height:1.05;letter-spacing:0.005em;text-transform:uppercase;color:var(--ink);font-size:44px;max-width:780px;margin:0 auto 18px}
-.wt-h1 em{color:var(--accent);font-style:normal}
-.wt-sub{font-size:15px;color:var(--tx);line-height:1.6;max-width:540px;margin:0 auto}
+/* Hide currency/search/account/cart/logo in the header, but only on pages
+   that contain this section — leaves the header untouched everywhere else.
+   The announcement bar is intentionally NOT in this list — kept visible. */
+body:has(.wt) header-actions,
+body:has(.wt) .search-action,
+body:has(.wt) dropdown-localization-component,
+body:has(.wt) .dropdown-localization,
+body:has(.wt) .header-logo{
+  display:none !important;
+}
 
-/* ====== TRUST MARQUEE (identisch zur PDP) ====== */
-.wt-trust{padding:22px 0;overflow:hidden;border-top:1px solid var(--accent);border-bottom:1px solid var(--accent);background:var(--bg-soft)}
-.wt-trust-track{display:flex;width:max-content;align-items:center;animation:wtMarquee 22s linear infinite;will-change:transform}
-.wt-trust:hover .wt-trust-track{animation-play-state:paused}
-@keyframes wtMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.wt-trust-item{font-family:var(--head);font-weight:800;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:10px;flex-shrink:0;white-space:nowrap;margin-right:56px}
-.wt-trust-item svg{width:20px;height:20px;color:var(--accent)}
+/* ====== HERO (editorial style: left-aligned, full-width, serif headline, optional byline) ====== */
+.wt-hero{padding:48px 24px 24px}
+.wt-hero-inner{max-width:1080px;margin:0 auto;text-align:left}
+.wt-h1{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;line-height:1.2;letter-spacing:normal;text-transform:none;color:var(--ink);font-size:40px;margin:0;text-wrap:balance}
+.wt-h1 em{color:var(--accent);font-style:normal}
+.wt-byline{display:flex;align-items:center;justify-content:flex-start;gap:10px;margin-top:22px}
+.wt-byline-avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--card);border:1px solid var(--card-line)}
+.wt-byline-avatar img{width:100%;height:100%;object-fit:cover}
+.wt-byline-text{text-align:left;line-height:1.3}
+.wt-byline-label{font-size:11.5px;color:var(--tx-dim);font-weight:600}
+.wt-byline-name{font-size:13.5px;color:var(--ink);font-weight:800}
+.wt-hero-divider{border-top:1px solid var(--card-line);margin:22px 0}
+.wt-sub{font-size:15.5px;color:var(--tx);line-height:1.65;max-width:760px;margin:0}
+.wt-sub p{margin:0}
+.wt-sub strong{font-weight:800;color:var(--ink)}
 
 /* ====== REASONS LIST ====== */
 .wt-list-sec{background:var(--bg-soft);padding:64px 24px 80px}
 .wt-list{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
 
-.wt-card{background:var(--card);border:1px solid var(--card-line);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;transition:transform .2s ease,box-shadow .2s ease;box-shadow:0 4px 16px rgba(17,17,17,0.05)}
+.wt-card{background:var(--card);border:1px solid var(--card-line);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;align-items:start;transition:transform .2s ease,box-shadow .2s ease;box-shadow:0 4px 16px rgba(17,17,17,0.05)}
 .wt-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(17,17,17,0.10)}
 .wt-card .wt-frame{order:1}
 .wt-card .wt-copy{order:2}
 .wt-card.is-reverse .wt-frame{order:2}
 .wt-card.is-reverse .wt-copy{order:1}
 
-.wt-frame{position:relative;min-height:280px;background:var(--accent-soft)}
-.wt-frame img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.wt-frame{position:relative;aspect-ratio:1/1;background:var(--accent-soft)}
+.wt-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .wt-frame-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .wt-frame-icon svg{width:56px;height:56px;color:var(--accent);stroke-width:1.6}
 
-.wt-copy{padding:40px 44px;display:flex;align-items:center}
+.wt-copy{padding:40px 44px;display:flex;align-items:center;align-self:center}
+.wt-card:has(.wt-acc[open]) .wt-copy{align-self:start}
 .wt-acc{width:100%}
-.wt-acc summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;gap:14px}
+.wt-acc summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;justify-content:center;gap:12px}
 .wt-acc summary::-webkit-details-marker{display:none}
-.wt-step-num{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--head);font-weight:800;font-size:14px}
-.wt-summary-body{flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.wt-heading{font-family:var(--head);font-weight:800;font-size:19px;line-height:1.3;color:var(--ink);margin:0}
+.wt-step-num{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-family:var(--head);font-weight:800;font-size:13px;margin-top:2px}
+.wt-summary-body{display:flex;align-items:center;gap:10px;min-width:0}
+.wt-heading{font-family:var(--head);font-weight:800;font-size:19px;line-height:1.3;color:var(--ink);margin:0;text-align:left}
 .wt-plus{flex-shrink:0;color:var(--tx-dim);font-size:24px;line-height:1;transition:transform .2s,color .15s}
-.wt-acc[open] .wt-plus{transform:rotate(45deg);color:var(--accent)}
-.wt-acc-body{padding:16px 0 0 48px}
-.wt-text{font-size:14.5px;color:var(--tx);line-height:1.65;margin:0}
+.wt-acc[open] .wt-plus{transform:rotate(45deg);color:var(--green)}
+.wt-acc-body{padding:16px 0 0 0;text-align:left}
+.wt-text{font-size:14.5px;color:var(--tx);line-height:1.65}
+.wt-text p{margin:0 0 10px}
+.wt-text p:last-child{margin-bottom:0}
+.wt-text strong{font-weight:800;color:var(--ink)}
 
-/* ====== CLOSING CTA ====== */
-.wt-cta-sec{background:var(--bg);border-top:1px solid var(--card-line);padding:72px 24px;text-align:center}
-.wt-cta-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:34px;line-height:1.1;color:var(--ink);max-width:600px;margin:0 auto 28px}
-.wt-cta-h em{color:var(--accent);font-style:normal}
+/* ====== CLOSING SUMMARY BOX ====== */
+.wt-closing{max-width:1080px;margin:8px auto 0;background:var(--green-soft);border-left:4px solid var(--green);border-radius:0 14px 14px 0;padding:28px 32px;box-shadow:0 4px 16px rgba(17,17,17,0.05)}
+.wt-closing p{margin:0;font-size:15px;color:var(--tx);line-height:1.7}
+.wt-closing strong{font-weight:800;color:var(--ink)}
+
+/* ====== SHARED CTA BUTTON / TRUST LINE ====== */
 .wt-cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;text-decoration:none;padding:16px 32px;border-radius:100px;font-family:var(--head);font-weight:800;font-size:15px;letter-spacing:0.06em;text-transform:uppercase;box-shadow:0 12px 32px -12px rgba(220,38,38,0.45);transition:transform .15s ease,background .15s ease}
 .wt-cta:hover{transform:translateY(-2px);background:var(--accent-deep)}
 .wt-cta::after{content:"\2192";font-size:18px}
 .wt-cta-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:20px;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:var(--green)}
 
+/* ====== CLOSING OFFER CARD ====== */
+.wt-offer-sec{background:var(--bg-soft);border-top:1px solid var(--card-line);padding:72px 24px 80px}
+.wt-offer-wrap{max-width:1000px;margin:0 auto;text-align:center}
+.wt-offer-badge{display:inline-block;background:var(--green);color:#fff;font-family:var(--head);font-weight:800;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;padding:9px 20px;border-radius:100px;position:relative;z-index:2;margin-bottom:-20px;box-shadow:0 8px 20px -8px rgba(22,163,74,0.55)}
+.wt-offer-card{background:var(--bg);border:1px solid var(--card-line);border-radius:24px;box-shadow:0 16px 44px rgba(17,17,17,0.08);padding:44px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:40px;align-items:center;text-align:left}
+.wt-offer-img{aspect-ratio:1;border-radius:16px;background:var(--card);border:1px solid var(--card-line);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.wt-offer-img img{width:100%;height:100%;object-fit:cover}
+.wt-offer-img-icon svg{width:64px;height:64px;color:var(--accent);stroke-width:1.4}
+.wt-offer-h{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:28px;line-height:1.1;color:var(--ink);margin:0 0 14px}
+.wt-offer-text{font-size:15px;color:var(--tx);line-height:1.65;margin-bottom:26px}
+.wt-offer-text p{margin:0 0 10px}
+.wt-offer-text p:last-child{margin-bottom:0}
+.wt-offer-text strong{font-weight:800;color:var(--ink)}
+.wt-promo{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--green-soft);border:1px solid rgba(22,163,74,0.35);border-radius:10px;padding:10px 14px;margin-bottom:22px}
+.wt-promo-icon svg{width:17px;height:17px;color:var(--green);flex-shrink:0}
+.wt-promo-text{font-size:12.5px;font-weight:700;line-height:1.35;color:var(--ink)}
+.wt-promo-text strong{color:var(--green);font-weight:900}
+.wt-offer-body .wt-cta{width:auto}
+.wt-offer-body .wt-cta-trust{justify-content:flex-start}
+
 @media(max-width:860px){
-  .wt-hero{padding:56px 20px 36px}
-  .wt-h1{font-size:32px}
+  .wt-hero{padding:32px 20px 18px}
+  .wt-byline{margin-top:16px}
+  .wt-h1{font-size:28px}
+  .wt-hero-divider{margin:18px 0}
   .wt-card{grid-template-columns:1fr}
   .wt-card .wt-frame{order:1 !important}
   .wt-card .wt-copy{order:2 !important}
-  .wt-frame{min-height:220px}
+  /* aspect-ratio:1/1 from the base rule already keeps images square on mobile */
   .wt-copy{padding:28px 24px}
   .wt-heading{font-size:17px}
   .wt-acc-body{padding-left:0;margin-top:2px}
-  .wt-cta-h{font-size:26px}
+  .wt-closing{padding:20px 20px 20px 22px;border-radius:0 12px 12px 0}
+  .wt-closing p{font-size:13.5px}
+  .wt-offer-card{grid-template-columns:1fr;padding:28px;text-align:center;gap:24px}
+  .wt-offer-img{max-width:220px;margin:0 auto}
+  .wt-offer-h{font-size:23px}
+  .wt-offer-body .wt-cta-trust{justify-content:center}
+  .wt-promo{justify-content:center}
+  .wt-offer-badge{font-size:11px;padding:8px 16px}
 }
 </style>
 
 <div class="wt">
 
   <section class="wt-hero">
-    {% if section.settings.eyebrow != blank %}
-      <span class="wt-eyebrow">{{ section.settings.eyebrow }}</span>
-    {% endif %}
-    <h1 class="wt-h1">{{ section.settings.heading }}</h1>
-    {% if section.settings.subheading != blank %}
-      <p class="wt-sub">{{ section.settings.subheading }}</p>
-    {% endif %}
-  </section>
-
-  <section class="wt-trust">
-    <div class="wt-trust-track" id="wtTrustTrack">
-      <span class="wt-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Persönlicher Kundenservice</span>
-      <span class="wt-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>Geprüfte Qualität</span>
-      <span class="wt-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L4 6v6c0 5 4 8 8 10 4-2 8-5 8-10V6z"/></svg>90 Tage Geld-zurück-Garantie</span>
-      <span class="wt-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>Versand in ganz Europa</span>
-      <span class="wt-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2C7 8 7 13 12 22 17 13 17 8 12 2z"/></svg>Kostenloser Versand</span>
+    <div class="wt-hero-inner">
+      <h1 class="wt-h1">{{ section.settings.heading }}</h1>
+      {% if section.settings.show_byline and section.settings.byline_name != blank %}
+        <div class="wt-byline">
+          {% if section.settings.byline_avatar != blank %}
+            <div class="wt-byline-avatar">
+              <img src="{{ section.settings.byline_avatar | image_url: width: 80 }}" alt="{{ section.settings.byline_name | escape }}" loading="lazy" width="40" height="40">
+            </div>
+          {% endif %}
+          <div class="wt-byline-text">
+            <div class="wt-byline-label">Geschrieben von</div>
+            <div class="wt-byline-name">{{ section.settings.byline_name }}</div>
+          </div>
+        </div>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <div class="wt-hero-divider"></div>
+        <div class="wt-sub">{{ section.settings.subheading }}</div>
+      {% endif %}
     </div>
   </section>
 
@@ -144,17 +210,21 @@
                   {% when 'reason_2' %}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h6a4 4 0 0 1 4 4v1"/><path d="M7 17h6a4 4 0 0 0 4-4"/><line x1="3" y1="3" x2="21" y2="21"/></svg>
                   {% when 'reason_3' %}
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="1.3"/><circle cx="12" cy="7" r="1.3"/><circle cx="17" cy="7" r="1.3"/><circle cx="7" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="17" cy="12" r="1.3"/><circle cx="7" cy="17" r="1.3"/><circle cx="12" cy="17" r="1.3"/><circle cx="17" cy="17" r="1.3"/></svg>
                   {% when 'reason_4' %}
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
                   {% when 'reason_5' %}
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12V6a2 2 0 1 1 4 0v5M12 11V5a2 2 0 1 1 4 0v6M16 12V7a2 2 0 1 1 4 0v7c0 4-3 7-7 7h-1c-3 0-4.5-1-6-3l-3-4.5c-.6-1 .2-2.2 1.3-1.9 1 .3 1.9 1 2.7 1.9"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="10" x2="22" y2="14"/><path d="M8 9.5 6 12.5h2.5L7 16"/></svg>
                   {% when 'reason_6' %}
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12V6a2 2 0 1 1 4 0v5M12 11V5a2 2 0 1 1 4 0v6M16 12V7a2 2 0 1 1 4 0v7c0 4-3 7-7 7h-1c-3 0-4.5-1-6-3l-3-4.5c-.6-1 .2-2.2 1.3-1.9 1 .3 1.9 1 2.7 1.9"/><path d="M3 3l1.5 1.5M3 7h2M4.5 10.5 3 12"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2"/><path d="M5 3 3 5M19 3l2 2"/></svg>
                   {% when 'reason_7' %}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="9" r="3.2"/><circle cx="15.5" cy="9" r="3.2"/><path d="M2.5 19c.6-3 2.8-5 6-5s5.4 2 6 5M9.5 19c.6-3 2.8-5 6-5s5.4 2 6 5"/></svg>
                   {% when 'reason_8' %}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="4.5"/><path d="M12 3v2.5M4.5 8 6.3 9.6M19.5 8l-1.8 1.6M2 19h20"/></svg>
+                  {% when 'reason_9' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  {% when 'reason_10' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v7c0 5-3.5 8-8 10-4.5-2-8-5-8-10V5z"/><path d="M9 12l2 2 4-4"/></svg>
                 {% endcase %}
               </div>
             {% endif %}
@@ -169,29 +239,56 @@
                 </span>
               </summary>
               <div class="wt-acc-body">
-                <p class="wt-text">{{ block.settings.text }}</p>
+                <div class="wt-text">{{ block.settings.text }}</div>
               </div>
             </details>
           </div>
         </div>
       {% endfor %}
     </div>
+
+    {% if section.settings.closing_text != blank %}
+      <div class="wt-closing">{{ section.settings.closing_text }}</div>
+    {% endif %}
   </section>
 
-  <section class="wt-cta-sec">
-    <h2 class="wt-cta-h">{{ section.settings.cta_heading }}</h2>
-    <a href="{{ section.settings.cta_url }}" class="wt-cta">{{ section.settings.cta_label }}</a>
-    <div class="wt-cta-trust">&#10003; Sichere Zahlung &middot; &#10003; 90-Tage-Garantie &middot; &#10003; Kostenloser Versand</div>
+  <section class="wt-offer-sec">
+    <div class="wt-offer-wrap">
+      {% if section.settings.offer_badge != blank %}
+        <span class="wt-offer-badge">{{ section.settings.offer_badge }}</span>
+      {% endif %}
+      <div class="wt-offer-card">
+        <div class="wt-offer-img">
+          {% if section.settings.offer_image != blank %}
+            <img src="{{ section.settings.offer_image | image_url: width: 700 }}" alt="{{ section.settings.offer_heading | escape }}" loading="lazy" width="{{ section.settings.offer_image.width }}" height="{{ section.settings.offer_image.height }}">
+          {% else %}
+            <div class="wt-offer-img-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+            </div>
+          {% endif %}
+        </div>
+        <div class="wt-offer-body">
+          <h2 class="wt-offer-h">{{ section.settings.offer_heading }}</h2>
+          <div class="wt-offer-text">{{ section.settings.offer_text }}</div>
+          {% unless customer and customer.orders_count > 0 %}
+            <div class="wt-promo">
+              <span class="wt-promo-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/>
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                </svg>
+              </span>
+              <span class="wt-promo-text">Neukunden erhalten <strong>20%</strong> mit Code <strong>WILLKOMMEN20</strong></span>
+            </div>
+          {% endunless %}
+          <a href="{{ section.settings.offer_cta_url }}" class="wt-cta">{{ section.settings.offer_cta_label }}</a>
+          <div class="wt-cta-trust">&#10003; Kostenloser Versand in ganz Europa &middot; &#10003; 90-Tage-Geld-zurück-Garantie</div>
+        </div>
+      </div>
+    </div>
   </section>
 
 </div>
-
-<script>
-(function(){
-  var track = document.getElementById('wtTrustTrack');
-  if(track){ track.innerHTML += track.innerHTML; }
-})();
-</script>
 
 {% schema %}
 {
@@ -201,42 +298,98 @@
   "settings": [
     {
       "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow-Text",
-      "default": "Warum ThermaWrap"
-    },
-    {
-      "type": "text",
       "id": "heading",
       "label": "Headline",
-      "default": "8 Gründe, warum 3 Uhr nachts bald der Vergangenheit angehört."
+      "default": "10 Gründe, warum ThermaWrap das nächtliche Kribbeln stoppt, bevor es zum Dauerzustand wird"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "subheading",
       "label": "Unterüberschrift",
-      "default": "Taube Finger, brennende Handgelenke, hellwach im Dunkeln — das kennst du. Hier sind acht Gründe, warum ThermaWrap genau dafür gebaut wurde."
+      "default": "<p>Auf den ersten Blick sieht ThermaWrap aus wie eine gewöhnliche Wärmebandage. <strong>Ist es nicht.</strong> Die Kombination aus 660nm &amp; 850nm Rotlicht, Wärme und Vibration ist auf 20 Minuten am Tag ausgelegt – <strong>gebaut, um zu halten</strong>, statt in der Schublade mit den Produkten zu landen, die nie eingehalten haben, was sie versprachen. Diese 10 Gründe zeigen, worauf es dabei ankommt.</p>"
     },
     {
       "type": "header",
-      "content": "Abschluss-CTA"
+      "content": "Autor-Byline (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_byline",
+      "label": "Byline unter dem Titel anzeigen",
+      "info": "Bleibt auch bei aktiviertem Haken unsichtbar, solange kein Name eingetragen ist.",
+      "default": false
     },
     {
       "type": "text",
-      "id": "cta_heading",
-      "label": "CTA-Überschrift",
-      "default": "Bereit für ruhigere Nächte?"
+      "id": "byline_name",
+      "label": "Name",
+      "info": "Trage hier eine echte Person ein, die inhaltlich für den Text steht — kein Platzhalter."
+    },
+    {
+      "type": "image_picker",
+      "id": "byline_avatar",
+      "label": "Foto (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Abschluss-Zusammenfassung"
+    },
+    {
+      "type": "richtext",
+      "id": "closing_text",
+      "label": "Zusammenfassungs-Box (unter Grund 10)",
+      "default": "<p>Wenn du bis hierhin gelesen hast, ist eines klar geworden: Schienen, Spritzen und Billig-Wraps kümmern sich um Symptome, aber keines bringt gezielt die Durchblutung zurück, die deinem Nerv fehlt. Genau deshalb kommt das Kribbeln immer wieder – ob nachts, nach der Schicht oder beim nächsten Griff nach der Kaffeetasse. <strong>ThermaWrap setzt genau da an, wo diese Lösungen aufhören – und mit 90 Tagen Geld-zurück-Garantie trägst du dabei kein Risiko.</strong></p>"
+    },
+    {
+      "type": "header",
+      "content": "Abschluss-Angebot"
+    },
+    {
+      "type": "text",
+      "id": "offer_badge",
+      "label": "Badge über der Karte",
+      "default": "🎁 Aktuelles Angebot"
+    },
+    {
+      "type": "image_picker",
+      "id": "offer_image",
+      "label": "Produktbild (links)"
+    },
+    {
+      "type": "text",
+      "id": "offer_heading",
+      "label": "Überschrift",
+      "default": "Sichere dir ThermaWrap zu deinem Vorteilspreis"
+    },
+    {
+      "type": "product",
+      "id": "product_single",
+      "label": "Produkt: Single-Variante",
+      "info": "Preis wird live von diesem Produkt gezogen — muss nach Einfügen der Datei einmalig im Theme-Editor ausgewählt werden."
+    },
+    {
+      "type": "product",
+      "id": "product_duo",
+      "label": "Produkt: Duo-Variante",
+      "info": "Preis wird live von diesem Produkt gezogen — muss nach Einfügen der Datei einmalig im Theme-Editor ausgewählt werden."
+    },
+    {
+      "type": "richtext",
+      "id": "offer_text",
+      "label": "Angebotstext (Rahmentext, ohne Preise)",
+      "info": "Preise werden oben automatisch live von den zwei Produkten eingefügt.",
+      "default": "<p>Beide Optionen mit <strong>kostenlosem Versand in ganz Europa</strong> und <strong>90 Tage Geld-zurück-Garantie</strong> – merkst du keinen Unterschied, bekommst du dein Geld zurück.</p>"
     },
     {
       "type": "url",
-      "id": "cta_url",
-      "label": "CTA-Link"
+      "id": "offer_cta_url",
+      "label": "Button-Link (zum Kaufbereich)"
     },
     {
       "type": "text",
-      "id": "cta_label",
+      "id": "offer_cta_label",
       "label": "Button-Text",
-      "default": "ThermaWrap entdecken"
+      "default": "Jetzt ThermaWrap sichern"
     }
   ],
   "blocks": [
@@ -246,8 +399,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Taube Finger und Brennen wecken dich um 3 Uhr nachts" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Es passiert nicht jede Nacht zur gleichen Zeit, aber es passiert. Du bist tief im Schlaf, und dann reißt dich ein Ziehen oder Brennen in der Hand raus – bevor du überhaupt richtig wach bist, ist die Taubheit schon da. Die meisten greifen dann zu nichts, weil nichts griffbereit ist: die Schmerztablette liegt im Bad, die Wärmflasche ist längst kalt. Wenn du das einfach so weiterlaufen lässt, wird aus der einen Unterbrechung schnell ein Muster – du wachst nicht nur auf, du bleibst wach, drehst dich, schaust auf die Uhr, und irgendwann schläft auch dein Partner schlechter, weil du unruhig wirst. ThermaWrap liegt neben deinem Kopfkissen, nicht im Bad, nicht im Schrank. Du legst es an, und zwei Rotlicht-Wellenlängen (660nm & 850nm) setzen zusammen mit Wärme bis 70°C sofort ein – heute Nacht, nicht erst, wenn du wieder daran denkst, es zu bestellen." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Die wahre Ursache: Warum es dich ausgerechnet nachts erwischt" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Sobald du einschläfst, verlierst du die Kontrolle über deine Handhaltung. Das Handgelenk knickt ab und drückt auf die Blutgefäße, die den Nerv versorgen. <strong>Ohne ausreichend Durchblutung bekommt der Nerv zu wenig Sauerstoff</strong> – und genau dann beginnt das Kribbeln, das dich aus dem Schlaf reißt. Tagsüber bewegst du dich automatisch und entlastest die Stelle wieder, nachts fehlt dir dieser Reflex. <strong>Deshalb ist die Nacht der Moment, in dem sich das Problem am deutlichsten zeigt.</strong> ThermaWrap setzt mit 660nm &amp; 850nm Rotlicht und Wärme bis 70°C genau dort an, bevor du überhaupt wach wirst.</p>" }
       ]
     },
     {
@@ -256,8 +409,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Keine Schlafposition mehr ohne Schmerzen im Handgelenk" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Du legst dich hin, und eigentlich müsstest du jetzt einfach einschlafen können. Stattdessen suchst du eine Position, in der sich deine Hand nicht taub anfühlt – erst auf der einen Seite, dann auf der anderen, das Kissen unter dem Arm, dann wieder weg. Aus zehn Minuten werden zwanzig, aus zwanzig manchmal eine Stunde. Wenn das zur Gewohnheit wird, verbindest du dein Bett irgendwann nicht mehr mit Ruhe, sondern mit genau diesem Kampf. ThermaWrap hat eine Fernbedienung, die komplett vom Wrap getrennt ist – du kannst dich drehen und wenden, ohne dass ein Kabel im Weg ist. Die Kombination aus 660nm & 850nm Rotlicht und 3 Vibrationsstufen lenkt direkt von der Unruhe ab, die dich sonst wachhält – noch bevor sich das zur festen Angewohnheit entwickelt." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Jede Schiene, jede Spritze, jedes Billig-Wrap hat an der falschen Stelle angesetzt" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Zuerst die Handgelenkschiene, um die Position zu fixieren. Dann vielleicht eine Kortisonspritze gegen die Schwellung. Dazwischen ein Rotlicht-Wrap für 30 oder 40 Euro, das nach ein paar Wochen kaputtgeht. <strong>Jede dieser Lösungen behandelt nur ein Symptom – keine bringt gezielt Durchblutung zum eingeengten Nerv zurück.</strong> Also kommt das Kribbeln wieder, während das Geld für die letzten Versuche schon ausgegeben ist. <strong>ThermaWrap kombiniert Licht, Wärme und Vibration in einem Gerät</strong>, das genau dort wirkt, wo die einzelnen Produkte vorher aufgehört haben.</p>" }
       ]
     },
     {
@@ -266,8 +419,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Schlafmangel durch nächtliche Handgelenkschmerzen" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Es ist nicht die eine schlechte Nacht, die dich fertigmacht. Es sind die vielen dazwischen – die Nächte, in denen du zwei- oder dreimal wach wirst, nie richtig tief schläfst, und morgens das Gefühl hast, gar nicht geschlafen zu haben. Nach ein paar Wochen ist das nicht mehr die Ausnahme, sondern dein Normalzustand: Du bist gereizter, kannst dich schlechter konzentrieren, und selbst dein freier Tag reicht nicht mehr, um das aufzuholen. ThermaWrap ist nicht für den einen Notfall gedacht, sondern für 20 Minuten mit 660nm & 850nm Rotlicht, die du dir jeden Abend nimmst, bevor die Nacht überhaupt beginnt. Je früher du damit anfängst, desto weniger Nächte sammeln sich an, gegen die du erst wieder ankämpfen musst." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "36 LEDs auf zwei Wellenlängen, nicht nur ein paar rote Lämpchen" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Viele günstige Wraps setzen nur eine Handvoll LEDs auf einer einzigen Wellenlänge ein, verteilt über eine kleine Fläche – sieht auf dem Produktfoto gut aus, deckt in der Anwendung aber kaum etwas ab. <strong>ThermaWrap deckt dein Handgelenk mit 36 Infrarot-LEDs auf zwei Wellenlängen gleichzeitig ab</strong> – 660nm und 850nm. Du bekommst flächige Abdeckung statt einzelner Lichtpunkte, <strong>und zwar genau dort, wo der Nerv liegt.</strong></p>" }
       ]
     },
     {
@@ -276,8 +429,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Schon wieder Geld für ein wirkungsloses Produkt ausgegeben" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Du hast wahrscheinlich schon mehr ausprobiert, als du zugeben willst. Die Bandage, die nur Druck gemacht hat. Die Salbe, die zwei Tage geholfen hat und dann nicht mehr. Das Gerät für 15 Euro, das du nach einer Woche in die Schublade gelegt hast. Jedes Mal die gleiche Hoffnung, jedes Mal die gleiche Enttäuschung – und wenn du so weitermachst, gibst du irgendwann nicht das Produkt auf, sondern die Suche selbst. Du gewöhnst dich an den Schmerz, weil du glaubst, es wirkt sowieso nichts. Bei ThermaWrap bekommst du nicht noch ein Versprechen – du bekommst 90 Tage Geld-zurück-Garantie, um es wirklich zu testen. Hilft es dir nicht, schickst du es zurück und bekommst dein Geld, ohne Diskussion. Diesmal riskierst du nicht wieder nur Hoffnung, sondern hast eine echte Frist, in der du es weißt." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Die Technologie, die den Nerv tatsächlich erreicht" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Zwei Lichtwellen arbeiten zusammen. 660nm rotes Licht wirkt oberflächlich und beruhigt das Gewebe, das auf den Nerv drückt. 850nm Nahinfrarotlicht geht tiefer und erreicht die feinen Blutgefäße rund um den Nerv. <strong>Die Durchblutung in diesem Bereich wird angeregt</strong>, dazu kommen 3 Wärmestufen bis 70°C und 3 Vibrationsstufen, die diese Wirkung unterstützen. <strong>So kommt in genau dem Bereich wieder mehr Sauerstoff an, der vorher unterversorgt war</strong> – nicht nur oberflächlich auf der Haut, sondern dort, wo das Kribbeln entsteht.</p>" }
       ]
     },
     {
@@ -286,8 +439,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Wackelkontakt: Warum billige Wärme-Wraps nach Wochen ausfallen" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Bei den meisten günstigen Wärme- oder Rotlicht-Wraps ist es selten das Produkt selbst, das versagt – es ist der Stecker. Nach ein paar Wochen sitzt die Verbindung zwischen Kabel und Gerät nicht mehr richtig, du musst sie reindrücken und festhalten, damit überhaupt etwas passiert, bis der Kontakt irgendwann ganz weg ist. Und dann? Dann fängst du wieder bei null an – suchst erneut, bestellst erneut, wartest erneut auf die Lieferung, während dein Handgelenk in der Zwischenzeit einfach weiter wehtut. Bei ThermaWrap ist die Fernbedienung komplett kabellos und vom Wrap getrennt. Es gibt keinen Steckpunkt, der bei jeder Bewegung belastet wird, weil es keinen Punkt gibt, den du ständig bewegst. Du fängst nicht wieder bei null an, nur weil sich ein Kabel gelockert hat." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Frei beweglich, sobald du es anlegst" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Der Akku sitzt direkt in der Steuereinheit am Wrap. Zum Laden schließt du kurz das Kabel an, danach kommt es wieder ab – <strong>getragen wird ThermaWrap komplett kabellos.</strong> Du kannst dich im Schlaf drehen und wenden oder zwischen zwei Aufgaben schnell die Pause nutzen, <strong>ohne dass ein Kabel im Weg hängt oder dich an die Steckdose bindet.</strong> Einmal laden, dann einfach anlegen und loslegen.</p>" }
       ]
     },
     {
@@ -296,8 +449,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Das Produktbild zeigt mehr, als tatsächlich ankommt" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Auf dem Produktbild sieht es oft aus wie ein Set aus mehreren Teilen, oder größer, als es in Wirklichkeit ist – und wenn das Paket ankommt, hast du das Gefühl, für etwas anderes bezahlt zu haben, als du gesehen hast. Nach ein paar solcher Erfahrungen traust du auch ehrlichen Angeboten nicht mehr richtig, liest jede Beschreibung dreimal, zögerst länger, als nötig wäre – und verpasst dabei manchmal genau die Lösung, die tatsächlich funktioniert hätte. ThermaWrap zeigt dir auf dieser Seite genau das eine Produkt, das du bekommst: 660nm & 850nm Rotlicht, 3 Wärmestufen bis 70°C und 3 Vibrationsstufen in einem Wrap. Keine Fotos, die größer wirken sollen, als das Produkt ist, kein Set, das eigentlich nur ein Teil ist. Was du hier siehst, ist das, was bei dir ankommt – nicht mehr, aber auch nicht weniger." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Das Kribbeln ist ein Signal – wird die Durchblutung besser, wird es leiser" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Kribbeln und Brennen sind das Signal deines Nervs, dass ihm Sauerstoff fehlt. <strong>Verbessert sich die Durchblutung, wird dieses Signal schwächer</strong> – erst ein bisschen, dann mehr. Viele Anwender berichten, dass sich Hände, die morgens wie eingeschlafen aufwachen, nach einigen Wochen regelmäßiger Anwendung wieder normaler anfühlen. <strong>Individuelle Ergebnisse können variieren</strong> – ThermaWrap ersetzt keine ärztliche Behandlung.</p>" }
       ]
     },
     {
@@ -306,8 +459,8 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "12-Stunden-Schichten belasten dein Handgelenk jeden Tag" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Um 7 Uhr morgens sind deine Hände noch okay. Um 17 Uhr, nach zehn Stunden Betten machen, Infusionen legen, Patienten umlagern und Dokumentation tippen, fühlt sich dein Handgelenk an, als würdest du es die ganze Zeit zusammendrücken. Das baut sich nicht an einem Tag auf – es summiert sich über Wochen und Monate, Schicht für Schicht, bis der Schmerz auch an deinen freien Tagen bleibt und du anfängst, Handgriffe zu meiden, die du früher ohne nachzudenken erledigt hast. Manche Kolleginnen wechseln deshalb irgendwann in leichtere Bereiche oder reduzieren ihre Stunden – nicht, weil sie den Job nicht mehr können, sondern weil die Hand nicht mehr mitmacht. ThermaWrap ist für genau diesen Rhythmus gemacht: 20 Minuten mit Wärme bis 70°C nach der Schicht, bevor du duschst oder isst, damit sich dein Handgelenk von dem erholt, was du ihm gerade zugemutet hast – bevor daraus der Grund wird, etwas an deinem Job zu ändern, das du eigentlich gar nicht ändern willst." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Die Belastung hört nicht auf, nur weil die Hand müde ist" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Umlagern, Infusionen richten, stundenlang dokumentieren – dein Handgelenk macht jede Bewegung mit, egal ob es die erste oder die zehnte Stunde der Schicht ist. <strong>Eine Pause für die Hand ist im Schichtalltag selten eingeplant</strong>, weil der nächste Handgriff schon wartet. Genau deshalb ist ThermaWrap für die Lücken gedacht, die tatsächlich übrig bleiben – die Umkleide, der Pausenraum, das Sofa nach Feierabend. <strong>20 Minuten, bevor am nächsten Tag wieder alles von vorne beginnt.</strong></p>" }
       ]
     },
     {
@@ -316,8 +469,28 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Bild" },
-        { "type": "text", "id": "heading", "label": "Titel", "default": "Keine Pause fürs Handgelenk während der Schicht" },
-        { "type": "textarea", "id": "text", "label": "Text", "default": "Bei einem Bürojob könntest du die Hand kurz hochlegen, eine Pause machen, das Handgelenk schonen. Im Schichtdienst geht das nicht – der nächste Patient klingelt, der nächste Handgriff wartet, egal wie sehr die Hand schon wehtut. Wenn du so dauerhaft durchziehst, ohne der Hand irgendwo Erholung zu geben, kompensierst du irgendwann automatisch mit der anderen Hand oder mit dem Arm – und dann tut es nicht mehr nur an einer Stelle weh, sondern an zwei. Was du dir aussuchen kannst, ist, was du in den 20 Minuten machst, die wirklich dir gehören – vor oder nach der Schicht, in der Umkleide oder zu Hause. ThermaWrap ist kabellos, in Sekunden angelegt, mit 3 Vibrationsstufen für genau die kurzen Fenster, die dir im Schichtalltag tatsächlich bleiben – bevor aus einer überlasteten Hand zwei werden." }
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Irgendwann hörst du auf, jeden Griff zu prüfen" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Wenn die Hand wehtut, wird jede kleine Bewegung zur Kontrollfrage: Reicht die Kraft fürs Glas? Halte ich die Tasse richtig? Schaffe ich diesen Handgriff noch einmal? <strong>Das machst du irgendwann so oft, dass es sich normal anfühlt</strong> – bis du merkst, dass du es nicht mehr tust. Viele Anwender berichten, dass genau dieses ständige Checken bei regelmäßiger Anwendung nachlässt, nicht auf einen Schlag, sondern schleichend. <strong>Und dann, eines Tages, fühlt sich die Hand einfach wieder wie deine Hand an.</strong></p>" }
+      ]
+    },
+    {
+      "type": "reason_9",
+      "name": "Grund 9",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild" },
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Menschen, die vorher schon alles versucht hatten" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Das sind keine Leute, die es einmal probiert und sofort aufgegeben haben. <strong>Das sind Menschen, die Schienen, Spritzen und andere Wraps schon hinter sich hatten</strong>, bevor sie ThermaWrap gefunden haben.</p><p>„<strong>Nach ein paar Wochen mit ThermaWrap nach Feierabend merke ich einen echten Unterschied.</strong>“ – Sabine, 47, Krankenschwester.</p><p>„Zwei andere Wraps sind vorher kaputtgegangen. Diesmal hat es gehalten.“ – Frank, 54.</p><p>„Das Aufwachen um drei Uhr ist deutlich seltener geworden.“ – Christine, 61.</p>" }
+      ]
+    },
+    {
+      "type": "reason_10",
+      "name": "Grund 10",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild" },
+        { "type": "text", "id": "heading", "label": "Titel", "default": "Wenn du in 90 Tagen keinen Unterschied merkst, bekommst du jeden Cent zurück" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Teste ThermaWrap 90 Tage lang – jede Nacht, jede Pause, jede Schicht. Merkst du keinen Unterschied, bekommst du dein Geld vollständig zurück, ohne Kleingedrucktes und ohne zermürbendes Formular. <strong>Das nimmt dir die ganze Frage ab, ob es sich für dich lohnt.</strong> Das Risiko liegt bei uns, nicht bei dir. <strong>Und wenn du bedenkst, was du dafür zurückbekommst – ruhige Nächte, ein Handgelenk, das nicht mehr im Weg steht –, ist das kein großes Risiko mehr, sondern eine kleine Wette mit überschaubarem Einsatz.</strong></p>" }
       ]
     }
   ],
@@ -325,7 +498,7 @@
     {
       "name": "Warum ThermaWrap",
       "settings": {
-        "cta_url": "/products/thermawrap-starter"
+        "offer_cta_url": "/products/thermawrap-starter#kwOffer"
       },
       "blocks": [
         { "type": "reason_1" },
@@ -335,7 +508,9 @@
         { "type": "reason_5" },
         { "type": "reason_6" },
         { "type": "reason_7" },
-        { "type": "reason_8" }
+        { "type": "reason_8" },
+        { "type": "reason_9" },
+        { "type": "reason_10" }
       ]
     }
   ]
