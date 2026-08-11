@@ -197,9 +197,6 @@ html,body{overflow-x:hidden;max-width:100%}
 .kw-card-divider{border-top:1px solid var(--card-line);margin:0 -14px 10px}
 .kw-card-price{font-family:var(--head);font-weight:800;font-size:24px;color:var(--ink);display:flex;align-items:baseline;justify-content:center;gap:7px}
 .kw-card-price .strike{font-size:14px;color:var(--red);text-decoration:line-through;font-weight:600}
-/* Pre-order price label on cards */
-.kw-card-pre{font-family:var(--head);font-weight:700;font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:5px}
-.kw-card-pre::before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%}
 
 /* ====== PRE-ORDER FRAMING ====== */
 
@@ -544,7 +541,6 @@ html,body{overflow-x:hidden;max-width:100%}
   .kw-promo-text{font-size:11.5px;min-width:120px}
   .kw-promo-timer{font-size:10px}
   .kw-stock{font-size:11.5px;margin-top:12px}
-  .kw-card-pre{font-size:8.5px;letter-spacing:0.08em}
   .kw-meal-inner{grid-template-columns:1fr;min-height:0}
   .kw-meal-copy{padding:44px 22px;order:2}
   .kw-meal-title{font-size:38px;margin-bottom:32px}
@@ -706,10 +702,9 @@ html,body{overflow-x:hidden;max-width:100%}
               Inkl. Versand &amp; USB-Kabel
             </div>
             <div class="kw-card-divider"></div>
-            <div class="kw-card-pre">Vorbestellpreis</div>
             <div class="kw-card-price">
               <span class="strike" data-strike-1>129,00€</span>
-              <span data-price-1>71,99€</span>
+              <span data-price-1>69,99€</span>
             </div>
           </div>
 
@@ -721,7 +716,6 @@ html,body{overflow-x:hidden;max-width:100%}
               Inkl. alle 4 Boni gratis
             </div>
             <div class="kw-card-divider"></div>
-            <div class="kw-card-pre">Vorbestellpreis</div>
             <div class="kw-card-price">
               <span class="strike" data-strike-2>258,00€</span>
               <span data-price-2>109,99€</span>
@@ -1169,7 +1163,7 @@ html,body{overflow-x:hidden;max-width:100%}
 
 /* ====== EDIT YOUR PRODUCT DATA HERE ====== */
 var PLANS = {
-  '1': { url:'/cart/55912939716993:1', productId:'15454753849729', variantId:'55912939716993', name:'ThermaWrap Single', price:'71,99€', strike:'129,00€', total:'71,99€', totalStrike:'129,00€', stickyPrice:'71,99€', label:'Vorbestellung Angebot 1' },
+  '1': { url:'/cart/55912939716993:1', productId:'15454753849729', variantId:'55912939716993', name:'ThermaWrap Single', price:'69,99€', strike:'129,00€', total:'69,99€', totalStrike:'129,00€', stickyPrice:'69,99€', label:'Vorbestellung Angebot 1' },
   '2': { url:'/cart/55912947908993:1', productId:'15454755651969', variantId:'55912947908993', name:'ThermaWrap Duo', price:'109,99€', strike:'258,00€', total:'109,99€', totalStrike:'258,00€', stickyPrice:'109,99€', label:'Vorbestellung Angebot 2' }
 };
 
